@@ -1,0 +1,56 @@
+[
+  {
+    "device": "radeon_8060s",
+    "dataset_tokens": 1280,
+    "batch_size": 1,
+    "sequence_length": 128,
+    "rank": 16,
+    "alpha": 32,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj"
+    ],
+    "dtype": "bf16",
+    "checkpointing": false,
+    "measured_step_ms": 215.01981399487704,
+    "measured_peak_gb": 1.4465765953063965,
+    "model": {
+      "name": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "hidden_size": 2048,
+      "intermediate_size": 5632,
+      "num_hidden_layers": 22,
+      "num_attention_heads": 32,
+      "vocab_size": 32000,
+      "parameter_count": 1100000000
+    }
+  },
+  {
+    "device": "dgx_spark_gb10",
+    "dataset_tokens": 2560,
+    "batch_size": 1,
+    "sequence_length": 128,
+    "rank": 16,
+    "alpha": 32,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj"
+    ],
+    "dtype": "bf16",
+    "checkpointing": false,
+    "measured_step_ms": 130.1027958514169,
+    "measured_peak_gb": 1.3606390953063965,
+    "model": {
+      "name": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "hidden_size": 2048,
+      "intermediate_size": 5632,
+      "num_hidden_layers": 22,
+      "num_attention_heads": 32,
+      "vocab_size": 32000,
+      "parameter_count": 1100000000
+    }
+  }
+]

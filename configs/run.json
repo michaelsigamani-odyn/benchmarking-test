@@ -1,11 +1,11 @@
 {
   "common": {
-    "local_root_dir": "/Users/michaelsigamani/Documents/DevelopmentCode/2026-spring/cross-oem-mooncake-finetuning",
+    "local_root_dir": "/Users/michaelsigamani/Documents/DevelopmentCode/2026-summer/bet-one-initative",
     "remote_root_dir": "~/cross-vendor-mooncake-test"
   },
   "finetuning_sequential": {
     "source_host": "michael@odyn-dgx3",
-    "target_host": "runpod-mi300x",
+    "target_host": "michael@odyn-radeon2",
     "model_id": "Qwen/Qwen2.5-0.5B",
     "checkpoint_step": 10,
     "final_step": 30,
@@ -13,11 +13,12 @@
     "dataset_path": "data/quant_mentor_500_alpaca.jsonl",
     "source_data_parallel_size": 1,
     "source_python_cmd": "/usr/bin/python3.12",
-    "target_python_cmd": "/workspace/venvs/py312-rocm/bin/python",
+    "target_python_cmd": "/home/michael/torch-env/bin/python",
     "host_python_cmd_overrides": {
       "michael@odyn-radeon2": "/home/michael/torch-env/bin/python",
       "michael@odyn-dgx3": "/usr/bin/python3.12",
-      "runpod-mi300x": "/workspace/venvs/py312-rocm/bin/python"
+      "runpod-mi300x": "/workspace/venvs/py312-rocm/bin/python",
+      "michael@odyn-radeon2": "/home/michael/torch-env/bin/python"
     },
     "transfer_backend": "scp",
     "asset_paths": [
@@ -58,9 +59,9 @@
   "standalone_benchmark": {
     "enabled": true,
     "machine_keys": [
-      "amd_existing",
-      "nvidia_control",
-      "mi300x"
+      "radeon2",
+      "mi300x",
+      "dgx3_dgx1_qsfp"
     ],
     "run_id_suffix": "baseline",
     "steps": 10,

@@ -5,6 +5,7 @@ description = "Cross-OEM (NVIDIA/AMD) checkpoint migration + fine-tuning pipelin
 requires-python = ">=3.12"
 dependencies = [
     "dagster>=1.8",
+    "dagster-cloud-cli",
     "dagster-webserver>=1.8",
     "transformers",
     "datasets",

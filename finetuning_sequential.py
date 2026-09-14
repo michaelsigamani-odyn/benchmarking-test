@@ -3500,7 +3500,95 @@ def save_assets(context: OpExecutionContext, settings: PortabilitySettings) -> N
             "saved_assets": MetadataValue.json(saved_assets),
             "lineage_path": MetadataValue.json(["target", "nvidia", "resume_validation", "published", "assets_manifest"]),
         },
-    )
+        )
+
+
+def vidur_device_slug(settings: PortabilitySettings, host: str) -> str:
+    machine = machine_for_host(settings, host)
+    name = (machine.device_name if machine else "").lower()
+    return "radeon_8060s" if "8060s" in name else ("dgx_spark_gb10" if "gb10" in name else ("radeon_8060s" if (machine and machine.vendor == "amd") else "dgx_spark_gb10"))
+
+
+def vidur_python_env(settings: PortabilitySettings) -> dict:
+    return {**os.environ, "PYTHONPATH": str(Path(settings.local_root) / "src")}
+
+
+def vidur_profiles_root(settings: PortabilitySettings) -> Path:
+    return Path(settings.local_root) / "artifacts" / "lora_profiles" / settings.run_id
+
+
+@op(ins={"settings": In(PortabilitySettings), "_ready": In(Nothing)}, out=Out(dict))
+def profile_vidur_training_on_hosts(context: OpExecutionContext, settings: PortabilitySettings) -> Dict[str, str]:
+    local_profiles = vidur_profiles_root(settings)
+    local_profiles.mkdir(parents=True, exist_ok=True)
+    for host in [settings.source_host, settings.target_host]:
+        run_shell(ssh_cmd(settings, host, f"mkdir -p {shlex.quote(settings.remote_root)}/src"), settings.command_retries, env=sshpass_env(settings), operation="vidur_profile_prepare", host=host)
+        run_shell(scp_cmd(settings, str(Path(settings.local_root) / "src" / "vidur"), f"{host}:{settings.remote_root}/src", recursive=True), settings.command_retries, env=sshpass_env(settings), operation="vidur_profile_sync", host=host)
+        remote_out = f"{settings.remote_root}/vidur_profiles/{settings.run_id}/{vidur_device_slug(settings, host)}"
+        command = f"PYTHONPATH={shlex.quote(settings.remote_root + '/src')} {shlex.quote(execution_python_cmd(settings, host))} -m vidur.profiling.training.cli --output-dir {shlex.quote(remote_out)} --dtype bf16 --device cuda"
+        run_shell(ssh_cmd(settings, host, command), settings.command_retries, env=sshpass_env(settings), timeout_seconds=settings.torchrun_timeout_seconds, operation="vidur_profile_run", host=host)
+        local_out = local_profiles / vidur_device_slug(settings, host)
+        local_out.mkdir(parents=True, exist_ok=True)
+        run_shell(scp_cmd(settings, f"{host}:{remote_out}/profiles.csv", str(local_out / "profiles.csv")), settings.command_retries, env=sshpass_env(settings), operation="vidur_profile_fetch", host=host)
+        run_shell(scp_cmd(settings, f"{host}:{remote_out}/unsupported.json", str(local_out / "unsupported.json")), settings.command_retries, env=sshpass_env(settings), operation="vidur_unsupported_fetch", host=host)
+    result = {
+        "source_profiles": str(local_profiles / f"{vidur_device_slug(settings, settings.source_host)}/profiles.csv"),
+        "target_profiles": str(local_profiles / f"{vidur_device_slug(settings, settings.target_host)}/profiles.csv"),
+    }
+    emit_materialization(context, ["finetuning", "predictor", "profiles"], "Vidur training profile sweeps collected from source and target GPU hosts.", {**common_metadata(settings, "profiled", str(local_profiles)), "profiles": MetadataValue.json(result)})
+    return result
+
+
+@op(ins={"settings": In(PortabilitySettings), "_ready": In(Nothing)}, out=Out(dict))
+def import_vidur_validation_cases(context: OpExecutionContext, settings: PortabilitySettings) -> Dict[str, str]:
+    run_root = Path(settings.local_root) / "artifacts" / settings.run_id
+    report_path = run_root / "cross_oem_metrics_report.json"
+    if not report_path.exists():
+        raise Failure(description=f"missing report for import: {report_path}")
+    output_root = Path(settings.local_root) / "artifacts" / "lora_validation" / settings.run_id
+    output_root.mkdir(parents=True, exist_ok=True)
+    cmd = [
+        "python3", "-m", "vidur.training.import_artifacts",
+        "--report", str(report_path),
+        "--model-config", str(Path(settings.local_root) / "configs" / "lora_models" / "tinyllama_1b.json"),
+        "--batch-size", "1", "--seq-len", "128", "--rank", "16", "--alpha", "32",
+        "--validation-output", str(output_root / "cases_from_cross_oem.json"),
+        "--transfer-output", str(output_root / "transfer_metrics.json"),
+    ]
+    run_shell(cmd, settings.command_retries, env=vidur_python_env(settings), operation="vidur_import_cases")
+    payload = {"cases": str(output_root / "cases_from_cross_oem.json"), "transfer": str(output_root / "transfer_metrics.json")}
+    emit_materialization(context, ["finetuning", "predictor", "validation_cases"], "Cross-OEM report imported into predictor validation case format.", {**common_metadata(settings, "imported", str(output_root)), "paths": MetadataValue.json(payload)})
+    return payload
+
+
+@op(ins={"settings": In(PortabilitySettings), "profiles": In(dict), "cases": In(dict)}, out=Out(dict))
+def train_vidur_predictor_bundle(context: OpExecutionContext, settings: PortabilitySettings, profiles: Dict[str, str], cases: Dict[str, str]) -> Dict[str, str]:
+    output_root = Path(settings.local_root) / "artifacts" / "lora_predictor" / settings.run_id
+    output_root.mkdir(parents=True, exist_ok=True)
+    bundle_path = output_root / "bundle_calibrated.json"
+    cmd = [
+        "python3", "-m", "vidur.training.train_predictors",
+        "--profiles", f"{profiles['source_profiles']},{profiles['target_profiles']}",
+        "--output", str(bundle_path),
+        "--dgx-overhead-ms", "0", "--radeon-overhead-ms", "0",
+        "--fit-cases", cases["cases"],
+        "--fit-report", str(output_root / "calibration.json"),
+    ]
+    run_shell(cmd, settings.command_retries, env=vidur_python_env(settings), operation="vidur_train_predictor")
+    result = {"bundle": str(bundle_path), "calibration": str(output_root / "calibration.json")}
+    emit_materialization(context, ["finetuning", "predictor", "bundle"], "Predictor bundle trained and calibrated from remote kernel profiles and measured runs.", {**common_metadata(settings, "trained", str(output_root)), "paths": MetadataValue.json(result)})
+    return result
+
+
+@op(ins={"settings": In(PortabilitySettings), "bundle": In(dict), "cases": In(dict)}, out=Out(dict))
+def validate_vidur_predictor_bundle(context: OpExecutionContext, settings: PortabilitySettings, bundle: Dict[str, str], cases: Dict[str, str]) -> Dict[str, str]:
+    output_root = Path(settings.local_root) / "artifacts" / "lora_validation" / settings.run_id
+    output_root.mkdir(parents=True, exist_ok=True)
+    validation_json = output_root / "validation.json"
+    run_shell(["python3", "-m", "vidur.training.validate", "--predictor-bundle", bundle["bundle"], "--cases", cases["cases"], "--output", str(validation_json)], settings.command_retries, env=vidur_python_env(settings), operation="vidur_validate_predictor")
+    run_shell(["python3", "-m", "vidur.training.report_validation", "--validation", str(validation_json), "--transfer", cases["transfer"], "--output", str(output_root / "validation.md")], settings.command_retries, env=vidur_python_env(settings), operation="vidur_render_validation")
+    emit_materialization(context, ["finetuning", "predictor", "validation"], "Predictor validation artifacts generated.", {**common_metadata(settings, "validated", str(output_root)), "validation_json": MetadataValue.path(str(validation_json)), "validation_markdown": MetadataValue.path(str(output_root / 'validation.md'))})
+    return {"validation_json": str(validation_json), "validation_markdown": str(output_root / "validation.md")}
 
 
 def saved_assets_for_checks(settings: PortabilitySettings) -> List[Path]:
@@ -3540,6 +3628,26 @@ def finetuning_sequential_job() -> None:
     recorded = record_transfer_tests(settings=settings, transfer_result=verified, gpu_preflight=gpu_ready, _ready=validated)
     report = build_cross_oem_report(settings=settings, _ready=recorded, verified_transfer=verified, gpu_preflight=gpu_ready)
     save_assets(settings, report)
+
+
+@job
+def lora_predictor_remote_job() -> None:
+    settings = settings_op()
+    prepared = prepare_hosts(settings)
+    synced = sync_and_install(settings, prepared)
+    preflight = preflight_torch_transformers(settings, synced)
+    gpu_ready = preflight_gpu_kernel_execution(settings, preflight)
+    trained = train_on_source(settings=settings, gpu_preflight=gpu_ready)
+    copied = copy_checkpoint(settings, trained)
+    verified = verify_transfer(settings, copied)
+    resumed = resume_on_target(settings, verified)
+    validated = validate_resume(settings=settings, _ready=resumed, verified_transfer=verified)
+    recorded = record_transfer_tests(settings=settings, transfer_result=verified, gpu_preflight=gpu_ready, _ready=validated)
+    report = build_cross_oem_report(settings=settings, _ready=recorded, verified_transfer=verified, gpu_preflight=gpu_ready)
+    profiles = profile_vidur_training_on_hosts(settings=settings, _ready=synced)
+    cases = import_vidur_validation_cases(settings=settings, _ready=report)
+    bundle = train_vidur_predictor_bundle(settings=settings, profiles=profiles, cases=cases)
+    validate_vidur_predictor_bundle(settings=settings, bundle=bundle, cases=cases)
 
 
 if __name__ == "__main__":

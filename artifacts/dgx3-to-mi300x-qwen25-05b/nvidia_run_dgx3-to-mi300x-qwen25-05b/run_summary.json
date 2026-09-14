@@ -1,7 +1,7 @@
 {
   "saved_step": 30,
   "resume_loaded_from_step": 10,
-  "loss_before_migration": 2.671475648880005,
+  "loss_before_migration": 2.668419122695923,
   "loss_trace": [
     {
       "step": 1,
@@ -45,134 +45,134 @@
     },
     {
       "step": 11,
-      "loss": 3.2579028606414795
+      "loss": 3.2589120864868164
     },
     {
       "step": 12,
-      "loss": 3.175119161605835
+      "loss": 3.1705541610717773
     },
     {
       "step": 13,
-      "loss": 3.2229700088500977
+      "loss": 3.2253642082214355
     },
     {
       "step": 14,
-      "loss": 3.140613317489624
+      "loss": 3.1383981704711914
     },
     {
       "step": 15,
-      "loss": 3.052905321121216
+      "loss": 3.0509259700775146
     },
     {
       "step": 16,
-      "loss": 3.016450881958008
+      "loss": 3.015637159347534
     },
     {
       "step": 17,
-      "loss": 3.000398635864258
+      "loss": 2.9990382194519043
     },
     {
       "step": 18,
-      "loss": 2.9248015880584717
+      "loss": 2.9253945350646973
     },
     {
       "step": 19,
-      "loss": 2.87941312789917
+      "loss": 2.87892484664917
     },
     {
       "step": 20,
-      "loss": 2.9160449504852295
+      "loss": 2.9142613410949707
     },
     {
       "step": 21,
-      "loss": 2.878483772277832
+      "loss": 2.879318952560425
     },
     {
       "step": 22,
-      "loss": 2.8167927265167236
+      "loss": 2.8172879219055176
     },
     {
       "step": 23,
-      "loss": 2.7631189823150635
+      "loss": 2.7620997428894043
     },
     {
       "step": 24,
-      "loss": 2.72688627243042
+      "loss": 2.7282967567443848
     },
     {
       "step": 25,
-      "loss": 2.7635209560394287
+      "loss": 2.7598931789398193
     },
     {
       "step": 26,
-      "loss": 2.664515256881714
+      "loss": 2.654496669769287
     },
     {
       "step": 27,
-      "loss": 2.6716949939727783
+      "loss": 2.67160701751709
     },
     {
       "step": 28,
-      "loss": 2.5919713973999023
+      "loss": 2.5852062702178955
     },
     {
       "step": 29,
-      "loss": 2.717752695083618
+      "loss": 2.720806360244751
     },
     {
       "step": 30,
-      "loss": 2.671475648880005
+      "loss": 2.668419122695923
     }
   ],
   "first_logged_step": 1,
   "last_logged_step": 30,
-  "optimizer_exp_avg_sq_norm": 0.00026551734893027123,
-  "optimizer_exp_avg_sq_norm_before_save": 0.00026551734893027123,
-  "optimizer_exp_avg_sq_norm_after_resume_load": 0.00011210588631294145,
+  "optimizer_exp_avg_sq_norm": 0.0002656227045107703,
+  "optimizer_exp_avg_sq_norm_before_save": 0.0002656227045107703,
+  "optimizer_exp_avg_sq_norm_after_resume_load": 0.00011210588765998887,
   "learning_rate": 0.0,
   "optimizer_learning_rate_before_save": 0.0,
   "optimizer_learning_rate_after_resume_load": 0.0,
   "seed": 17,
   "model_id": "Qwen/Qwen2.5-0.5B",
-  "dataset_path": "/root/cross-vendor-mooncake-test/data/quant_mentor_500_alpaca.jsonl",
-  "hostname": "f3bab8d75c53",
-  "python": "3.12.14",
-  "device": "AMD Radeon Graphics",
+  "dataset_path": "/home/michael/cross-vendor-mooncake-test/data/quant_mentor_500_alpaca.jsonl",
+  "hostname": "odyn-radeon2",
+  "python": "3.12.10",
+  "device": "AMD Radeon 8060S Graphics",
   "vendor": "amd",
-  "gpu_architecture": "gfx942",
-  "torch": "2.9.1+rocm6.3",
-  "torch_version": "2.9.1+rocm6.3",
-  "resume_from": "/root/cross-vendor-mooncake-test/checkpoint-10",
-  "runtime_seconds": 15.142132042907178,
+  "gpu_architecture": "gfx1151",
+  "torch": "2.14.0+rocm10.1.0a20260906",
+  "torch_version": "2.14.0+rocm10.1.0a20260906",
+  "resume_from": "/home/michael/cross-vendor-mooncake-test/checkpoint-10",
+  "runtime_seconds": 9.721650239021983,
   "useful_training_tokens": 40960,
-  "tokens_per_second": 2705.035188171294,
-  "final_loss": 2.671475648880005,
-  "mean_gpu_utilization_percent": 5.5675675675675675,
-  "peak_gpu_utilization_percent": 42.0,
-  "peak_accelerator_memory_bytes": 7475796480,
-  "mean_power_watts": null,
-  "peak_power_watts": null,
-  "min_power_watts": null,
-  "gpu_energy_joules": null,
-  "gpu_energy_kwh": null,
-  "tokens_per_joule": null,
-  "energy_kwh_per_million_tokens": null,
-  "power_sample_count": 0,
-  "power_telemetry_available": false,
-  "power_telemetry_source": null,
-  "power_telemetry_reason": "no telemetry samples",
+  "tokens_per_second": 4213.276449258542,
+  "final_loss": 2.668419122695923,
+  "mean_gpu_utilization_percent": 57.666666666666664,
+  "peak_gpu_utilization_percent": 93.0,
+  "peak_accelerator_memory_bytes": 7475821056,
+  "mean_power_watts": 83.24833333333333,
+  "peak_power_watts": 109.011,
+  "min_power_watts": 54.005,
+  "gpu_energy_joules": 762.6384898533997,
+  "gpu_energy_kwh": 0.00021184402495927771,
+  "tokens_per_joule": 53.708277965191144,
+  "energy_kwh_per_million_tokens": 0.005171973265607366,
+  "power_sample_count": 9,
+  "power_telemetry_available": true,
+  "power_telemetry_source": "amd_smi",
+  "power_telemetry_reason": null,
   "telemetry_source": "amd_smi",
   "sampling_interval_seconds": 0.25,
-  "telemetry_duration_seconds": 15.142132042907178,
-  "telemetry_sample_count": 37,
-  "raw_telemetry_sample_count": 37,
-  "telemetry_start_timestamp": "2026-09-07T19:23:57.317015+00:00",
-  "telemetry_end_timestamp": "2026-09-07T19:24:12.459143+00:00",
+  "telemetry_duration_seconds": 9.721650239021983,
+  "telemetry_sample_count": 9,
+  "raw_telemetry_sample_count": 9,
+  "telemetry_start_timestamp": "2026-09-14T06:31:22.173233+00:00",
+  "telemetry_end_timestamp": "2026-09-14T06:31:31.894896+00:00",
   "gpu_runtime_verified": true,
   "checkpoint_size_bytes": null,
   "checkpoint_save_seconds": null,
-  "checkpoint_load_seconds": 0.6354834763333201,
-  "resume_to_first_step_seconds": 12.136371699161828,
+  "checkpoint_load_seconds": 0.31113211100455374,
+  "resume_to_first_step_seconds": 2.351387145987246,
   "first_step_after_resume": 11,
   "max_sequence_length": 512
 }

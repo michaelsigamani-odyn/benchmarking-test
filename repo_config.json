@@ -1,6 +1,6 @@
 {
   "common": {
-    "local_root_dir": "/Users/michaelsigamani/Documents/DevelopmentCode/2026-spring/cross-oem-mooncake-finetuning",
+    "local_root_dir": "/Users/michaelsigamani/Documents/DevelopmentCode/2026-summer/bet-one-initative",
     "remote_root_dir": "~/cross-vendor-mooncake-test"
   },
   "finetuning_sequential": {

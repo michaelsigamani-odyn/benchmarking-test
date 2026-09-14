@@ -2,6 +2,5 @@ locations:
   - location_name: cross_oem_migration
     code_source:
       module_name: cross_oem_migration.orchestration.dagster.definitions
-      attribute: defs
-    build:
-      directory: .
+    attribute: defs
+    working_directory: src
