@@ -1,0 +1,16 @@
+{
+  "rows": [
+    {
+      "device": "radeon_8060s",
+      "measured_step_ms": 215.01981399487704,
+      "analytical_step_ms": 193.51783259538934,
+      "neusight_step_ms": 247.27278609410857
+    },
+    {
+      "device": "dgx_spark_gb10",
+      "measured_step_ms": 130.1027958514169,
+      "analytical_step_ms": 117.0925162662752,
+      "neusight_step_ms": 149.61821522912942
+    }
+  ]
+}

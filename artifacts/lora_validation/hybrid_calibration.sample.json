@@ -1,0 +1,9 @@
+{
+  "num_cases": 2,
+  "grid_step": 0.01,
+  "best_hybrid_analytical_weight": 0.6,
+  "best_hybrid_mape_percent": 0.0,
+  "analytical_mape_percent": 10.0,
+  "neusight_mape_percent": 14.999999999999993,
+  "recommended_flag": "--hybrid-analytical-weight 0.60"
+}

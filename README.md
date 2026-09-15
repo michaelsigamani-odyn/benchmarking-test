@@ -78,7 +78,50 @@ The part of this cross-OEM work most likely to be useful to the wider community 
 
 Measuring checkpoint transfer speed with `psutil` is equally important. It is what lets us answer whether disaggregating the KV cache between prefill and decode actually pays off, once the time lost waiting for data to cross the public internet is taken into account.
 
+## Unified LoRA fine-tuning predictor
+
+The repository now includes a unified predictor that combines the in-repo analytical LoRA model with a NeuSight backend.
+
+- `analytical`: use only `vidur.training.step_model` predictors trained from local profile CSVs.
+- `neusight`: call NeuSight's operator-graph predictor for step-time.
+- `hybrid`: weighted blend of analytical and NeuSight step-time (`--hybrid-analytical-weight`).
+
+Example:
+
+```bash
+python -m vidur.training.predict_unified \
+  --predictor-bundle artifacts/lora_predictor/<run_id>/predictor.bundle.json \
+  --model-config configs/lora_models/tinyllama_1b.json \
+  --device dgx_spark_gb10 \
+  --batch-size 2 \
+  --seq-len 2048 \
+  --lora-rank 16 \
+  --lora-alpha 32 \
+  --lora-target-modules q_proj,k_proj,v_proj,o_proj \
+  --dtype bf16 \
+  --dataset-tokens 10000000 \
+  --backend hybrid \
+  --hybrid-analytical-weight 0.6 \
+  --neusight-repo-root /Users/michaelsigamani/Documents/DevelopmentCode/2026-fall/NeuSight \
+  --neusight-predictor-path /Users/michaelsigamani/Documents/DevelopmentCode/2026-fall/NeuSight/scripts/asplos/data/predictor/MLP_WAVE \
+  --neusight-device-config /Users/michaelsigamani/Documents/DevelopmentCode/2026-fall/NeuSight/scripts/asplos/data/device_configs/NVIDIA_H100_80GB_HBM3.json \
+  --neusight-model-config /Users/michaelsigamani/Documents/DevelopmentCode/2026-fall/NeuSight/scripts/asplos/data/DLmodel_configs/opt.json \
+  --json-output artifacts/lora_predictor/<run_id>/unified_prediction.json
+```
+
+Auto-calibrate the hybrid blend weight from validation rows:
+
+```bash
+python -m vidur.training.calibrate_hybrid \
+  --input artifacts/lora_validation/<run_id>/hybrid_rows.json \
+  --output artifacts/lora_validation/<run_id>/hybrid_calibration.json
+```
+
+`hybrid_rows.json` must be either a list of rows or `{ "rows": [...] }`, where each row includes:
+
+- `measured_step_ms`
+- `neusight_step_ms`
+- `analytical_step_ms` (or `predicted_step_ms`)
+
 
 ---
-
-
