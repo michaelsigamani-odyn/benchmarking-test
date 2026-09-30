@@ -13,12 +13,12 @@
     "dataset_path": "data/quant_mentor_500_alpaca.jsonl",
     "source_data_parallel_size": 1,
     "source_python_cmd": "/usr/bin/python3.12",
-    "target_python_cmd": "/home/michael/torch-env/bin/python",
+    "target_python_cmd": "/usr/bin/python3",
     "host_python_cmd_overrides": {
-      "michael@odyn-radeon2": "/home/michael/torch-env/bin/python",
+      "michael@odyn-radeon2": "/usr/bin/python3",
       "michael@odyn-dgx3": "/usr/bin/python3.12",
       "runpod-mi300x": "/workspace/venvs/py312-rocm/bin/python",
-      "michael@odyn-radeon2": "/home/michael/torch-env/bin/python"
+      "michael@odyn-radeon2": "/usr/bin/python3"
     },
     "transfer_backend": "scp",
     "asset_paths": [

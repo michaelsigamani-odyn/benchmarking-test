@@ -29,6 +29,6 @@
   "resumed_state_file_sizes": {
     "optimizer.pt": 8732043,
     "scheduler.pt": 1465,
-    "trainer_state.json": 5603
+    "trainer_state.json": 5597
   }
 }

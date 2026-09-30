@@ -102,8 +102,8 @@
     "container_image": null,
     "electricity_price_per_kwh": 0.27,
     "currency": "GBP",
-    "python_cmd": "/home/michael/torch-env/bin/python",
-    "torch_install_command": "/home/michael/torch-env/bin/python -c \"import torch\" || /home/michael/torch-env/bin/python -m pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/rocm6.3",
+    "python_cmd": "/usr/bin/python3",
+    "torch_install_command": "/usr/bin/python3 -c \"import torch\" || /usr/bin/python3 -m pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/rocm6.3",
     "transfer": {
       "control_host": "10.6.45.118",
       "control_port": 56000
@@ -117,8 +117,8 @@
     "container_image": null,
     "electricity_price_per_kwh": 0.27,
     "currency": "GBP",
-    "python_cmd": "/home/michael/torch-env/bin/python",
-    "torch_install_command": "/home/michael/torch-env/bin/python -c \"import torch\" || /home/michael/torch-env/bin/python -m pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/rocm6.3",
+    "python_cmd": "/usr/bin/python3",
+    "torch_install_command": "/usr/bin/python3 -c \"import torch\" || /usr/bin/python3 -m pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/rocm6.3",
     "transfer": {
       "control_host": "10.6.45.118",
       "control_port": 56000
