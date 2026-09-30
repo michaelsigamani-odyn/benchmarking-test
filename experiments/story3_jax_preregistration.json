@@ -1,0 +1,25 @@
+{
+  "experiment_name": "story3_jax_cross_vendor_relay",
+  "registered_at": "REGISTER-BEFORE-RUNNING (commit this file, then run)",
+  "train_config": "experiments/config_qwen25_1p5b.json",
+  "legs": {"leg1": 30, "leg2": 45, "leg3": 60},
+  "min_extra_steps": 10,
+  "hosts": {
+    "nvidia": {"ssh": "michael@odyn-dgx3",    "root": "~/jax-portability", "vendor": "nvidia", "activate": "source ~/jax-venv/bin/activate"},
+    "amd":    {"ssh": "michael@odyn-radeon2", "root": "~/jax-portability", "vendor": "amd",    "activate": "source ~/jax-venv/bin/activate"}
+  },
+  "reference": {"host": "nvidia"},
+  "noise_floor": {"host": "nvidia", "runs": 3, "init_perturb": 1e-7},
+  "relays": [
+    {"name": "control_nv_nv_nv",  "hosts": ["nvidia", "nvidia", "nvidia"]},
+    {"name": "cross_nv_amd_nv",   "hosts": ["nvidia", "amd", "nvidia"]},
+    {"name": "cross_amd_nv_amd",  "hosts": ["amd", "nvidia", "amd"]}
+  ],
+  "tolerances": {"abs_tol_uncalibrated": 0.05, "floor_mult": 3.0},
+  "hypotheses": {
+    "H1_state_transfer": "every hand-off restores a state bitwise identical to what the source saved (file hashes and array digests)",
+    "H2_same_platform_resume": "on one platform, relay legs are bitwise identical to the uninterrupted reference",
+    "H3_cross_vendor_drift": "cross-vendor paired loss differences stay within floor_mult x the measured ulp-perturbation noise floor"
+  },
+  "scope": "single-GPU, single-node, short-horizon Qwen2.5-1.5B LoRA relay. No claim beyond this."
+}

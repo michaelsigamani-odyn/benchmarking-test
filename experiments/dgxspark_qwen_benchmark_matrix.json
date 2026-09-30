@@ -1,0 +1,256 @@
+{
+  "protocol_version": "2026-09-30",
+  "protocol_doc": "experiments/dgxspark_qwen_benchmark_points.md",
+  "preregistration": {
+    "required": true,
+    "commit_hash": "",
+    "commit_hash_source": "Record frozen protocol commit hash in results metadata. Do not edit this matrix post-freeze.",
+    "amendment_policy": "Any post-preregistration protocol change must be a new dated commit and linked in report metadata."
+  },
+  "scope": {
+    "hardware_inventory_ids": [
+      "dgx_spark_node_a",
+      "dgx_spark_node_b"
+    ],
+    "vendor": "cuda_only",
+    "cross_vendor_note": "Mixed CUDA+ROCm synchronous step is out of scope for this matrix."
+  },
+  "preflight": {
+    "jax_runtime_smoke": true,
+    "attention_kernel_parity_required": true,
+    "nccl_fabric_validation": {
+      "required": true,
+      "nccl_tests_command": "all_reduce_perf",
+      "collect": [
+        "bandwidth_gbps",
+        "latency_us",
+        "nccl_debug_info"
+      ],
+      "reject_on_socket_fallback": true
+    },
+    "fit_definition": {
+      "steady_state_steps_required": "warmup_steps + measure_steps at target shape",
+      "minimum_headroom_percent": 10,
+      "reject_on_swap_thrash": true,
+      "reject_on_host_instability": true
+    }
+  },
+  "parity_controls": {
+    "shared_lora_init_weights": true,
+    "fixed_materialized_batch_order": true,
+    "seed_policy": {
+      "cross_framework_same_seed_required": false,
+      "fixed_initialization_seed": true,
+      "envelope_runs_vary_only_dropout_and_nondeterminism_seeds": true
+    },
+    "optimizer_equivalence": {
+      "adamw_epsilon": "match",
+      "weight_decay": "match",
+      "gradient_clipping": "match",
+      "lr_schedule": "match",
+      "master_weight_precision": "match"
+    },
+    "precision_policy": {
+      "compute_dtype": "bf16",
+      "master_weight_dtype": "fp32",
+      "gradient_accumulation_steps": 1
+    }
+  },
+  "repeat_policy": {
+    "base_repeats": 3,
+    "escalate_to_repeats": 5,
+    "escalation_trigger": "Framework medians are within observed 3-run spread.",
+    "run_order": "ABBA_or_randomized_blocks",
+    "report_metrics": [
+      "median",
+      "p95",
+      "min",
+      "max",
+      "spread"
+    ]
+  },
+  "decision_rule": {
+    "winner_against": "best_pytorch_mode_per_point",
+    "pytorch_baselines": [
+      "eager",
+      "torch_compile"
+    ],
+    "selection_policy": "Always report both PyTorch modes; choose stronger PyTorch mode per point as comparator.",
+    "strict_win_criterion": "JAX worst-repeat tokens_per_second > PyTorch(best mode) best-repeat tokens_per_second",
+    "spread_formula": "spread = (max(tokens_per_second) - min(tokens_per_second)) / median(tokens_per_second)",
+    "minimum_effect_size_percent": 0,
+    "allow_secondary_win_path": false,
+    "weak_scaling_efficiency_formula": "efficiency = tokens_per_second(two_node) / (2 * tokens_per_second(single_node))"
+  },
+  "numerical_acceptance": {
+    "reference_envelope": "pytorch_run_to_run",
+    "runs_for_envelope": 5,
+    "loss_statistic": {
+      "name": "max_abs_deviation_of_smoothed_loss",
+      "first_n_steps": 40,
+      "smoothing_window": 5
+    },
+    "envelope_rule": "heuristic_envelope = max(PyTorch run-to-run deviation across 5 runs)",
+    "envelope_note": "Heuristic threshold, not a confidence bound.",
+    "reference_trace_definition": "PyTorch reference trace is the point+node_mode mean smoothed loss over the 5 PyTorch runs.",
+    "comparison_trace_definition": "JAX-vs-PyTorch deviation uses the same smoothed-loss transform and first_n_steps against the same node_mode reference trace.",
+    "node_mode_scope": "Numerical acceptance is evaluated within the same node_mode only; do not compare loss traces across node modes under weak scaling.",
+    "step_window_policy": "Use measured window only and require measure_steps >= first_n_steps.",
+    "tolerance_margin_fraction": 0.1,
+    "acceptance_threshold_rule": "accept if JAX-vs-PyTorch deviation <= envelope * (1 + tolerance_margin_fraction)",
+    "reject_speed_claim_if_outside_envelope": true
+  },
+  "thermal_policy": {
+    "sampling_interval_seconds": 5,
+    "clock_drop_reject_fraction": 0.15,
+    "clock_drop_reject_reference": "median active-clock in first 25% of measured window",
+    "on_rejection": "rerun_and_log",
+    "max_reruns_per_failed_run": 2,
+    "require_rejection_log": true
+  },
+  "points": [
+    {
+      "point_id": 1,
+      "model_id": "Qwen/Qwen2.5-1.5B",
+      "train_mode": "lora",
+      "parallelism": "data_parallel",
+      "test_intent": "framework_overhead_and_runtime_sanity; not interconnect stress",
+      "scaling_semantics": "weak",
+      "batch_size_per_device": {
+        "single_node": 2,
+        "two_node": 2
+      },
+      "global_batch_size": {
+        "single_node": 2,
+        "two_node": 4
+      },
+      "seq_len": 1024,
+      "warmup_steps": 20,
+      "measure_steps": 80,
+      "node_modes": [
+        "single_node",
+        "two_node"
+      ]
+    },
+    {
+      "point_id": 2,
+      "model_id": "Qwen/Qwen2.5-7B",
+      "train_mode": "lora",
+      "parallelism": "data_parallel",
+      "test_intent": "framework_overhead_with_larger_model; not interconnect stress",
+      "scaling_semantics": "weak",
+      "batch_size_per_device": {
+        "single_node": 1,
+        "two_node": 1
+      },
+      "global_batch_size": {
+        "single_node": 1,
+        "two_node": 2
+      },
+      "seq_len": 2048,
+      "warmup_steps": 20,
+      "measure_steps": 80,
+      "node_modes": [
+        "single_node",
+        "two_node"
+      ]
+    },
+    {
+      "point_id": 3,
+      "model_id": "Qwen/Qwen2.5-14B",
+      "train_mode": "lora",
+      "parallelism": "full_parameter_sharding_zero3_class",
+      "test_intent": "interconnect_and_sharding_behavior_under_matched_sharding_class",
+      "scaling_semantics": "weak",
+      "batch_size_per_device": {
+        "single_node_if_fit": 1,
+        "two_node_if_fit": 1
+      },
+      "global_batch_size": {
+        "single_node_if_fit": 1,
+        "two_node_if_fit": 2
+      },
+      "seq_len": 2048,
+      "warmup_steps": 20,
+      "measure_steps": 60,
+      "node_modes": [
+        "single_node_if_fit",
+        "two_node_if_fit"
+      ],
+      "collective_accounting": {
+        "required": true,
+        "metrics": [
+          "collective_bytes_per_step",
+          "collective_count_per_step"
+        ]
+      }
+    },
+    {
+      "point_id": 4,
+      "model_id": "Qwen/Qwen2.5-32B",
+      "train_mode": "lora",
+      "parallelism": "full_parameter_sharding_zero3_class",
+      "test_intent": "largest_stage_stress_under_sharding",
+      "scaling_semantics": "weak",
+      "batch_size_per_device": {
+        "single_node_if_fit": 1,
+        "two_node_if_fit": 1
+      },
+      "global_batch_size": {
+        "single_node_if_fit": 1,
+        "two_node_if_fit": 2
+      },
+      "seq_len": 2048,
+      "warmup_steps": 20,
+      "measure_steps": 40,
+      "node_modes": [
+        "single_node_if_fit",
+        "two_node_if_fit"
+      ],
+      "fallback": {
+        "enabled": true,
+        "trigger": "32B unavailable OR 32B does_not_fit on both node modes in preflight",
+        "report_point_id": "point_4_fallback",
+        "report_label": "fallback_14b_4096_sharded",
+        "model_id": "Qwen/Qwen2.5-14B",
+        "seq_len": 4096,
+        "parallelism": "full_parameter_sharding_zero3_class"
+      },
+      "two_node_only_limitation_note": "If only two_node fits in preflight, report point as implementation comparison without single-node scaling baseline.",
+      "collective_accounting": {
+        "required": true,
+        "metrics": [
+          "collective_bytes_per_step",
+          "collective_count_per_step"
+        ]
+      }
+    }
+  ],
+  "artifacts": {
+    "root": "artifacts/benchmarks/dgxspark_qwen",
+    "store_raw": true,
+    "store_environment": true,
+    "environment_fields": [
+      "gpu_clocks",
+      "board_power",
+      "ambient_temperature"
+    ],
+    "version_fields": [
+      "jax_version",
+      "jaxlib_version",
+      "torch_version",
+      "cuda_runtime_version",
+      "nvidia_driver_version",
+      "nccl_version",
+      "container_image_digest"
+    ]
+  },
+  "pilot": {
+    "allowed": true,
+    "excluded_from_confirmatory_analysis": true,
+    "point": {
+      "model_id": "Qwen/Qwen2.5-1.5B",
+      "repeats": 3
+    }
+  }
+}

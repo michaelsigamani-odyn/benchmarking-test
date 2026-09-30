@@ -1,0 +1,2 @@
+-r requirements-common.txt
+jax[cuda13]   # docs.jax.dev: CUDA 13 wheels; use jax[cuda12] if the driver is older

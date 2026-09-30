@@ -1,0 +1,19 @@
+{
+  "experiment_name": "moe_local_dryrun_cpu_only",
+  "registered_at": "2026-09-29",
+  "train_config": "experiments/moe_smoke_config.json",
+  "legs": {"leg1": 6, "leg2": 9, "leg3": 12},
+  "min_extra_steps": 3,
+  "probe_n": 8,
+  "hosts": {
+    "nvidia": {"root": "/tmp/jx_hosts/A", "vendor": "cpu"},
+    "amd":    {"root": "/tmp/jx_hosts/B", "vendor": "cpu"}
+  },
+  "reference": {"host": "nvidia"},
+  "noise_floor": {"host": "nvidia", "runs": 2, "init_perturb": 1e-7},
+  "relays": [
+    {"name": "control", "hosts": ["nvidia", "nvidia", "nvidia"]},
+    {"name": "cross_a_b_a", "hosts": ["nvidia", "amd", "nvidia"]}
+  ],
+  "tolerances": {"abs_tol_uncalibrated": 0.05, "floor_mult": 3.0, "routing_disagreement_uncalibrated": 0.02}
+}

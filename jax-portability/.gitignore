@@ -1,0 +1,6 @@
+runs/
+__pycache__/
+.noise_*.json
+*.pyc
+.pytest_cache/
+data/*.npz

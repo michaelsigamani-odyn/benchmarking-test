@@ -1,0 +1,14 @@
+{
+  "command": "python3 harness.py --plan experiments/story3_jax_preregistration.json --run-dir runs/story3 --transport ssh",
+  "cwd": ".",
+  "env": {},
+  "workers": 1,
+  "cpus_per_worker": 4,
+  "gpus_per_worker": 0,
+  "worker_resource_key": "worker_units",
+  "worker_resource_value": 1,
+  "heartbeat_timeout_s": 600,
+  "monitor_interval_s": 15,
+  "max_restarts": 2,
+  "jax_distributed": false
+}

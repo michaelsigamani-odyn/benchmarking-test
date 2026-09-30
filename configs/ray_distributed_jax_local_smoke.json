@@ -1,0 +1,8 @@
+{
+  "workers": 1,
+  "cpus_per_worker": 2,
+  "gpus_per_worker": 0,
+  "worker_resource_key": "",
+  "worker_resource_value": 1,
+  "timeout_s": 600
+}

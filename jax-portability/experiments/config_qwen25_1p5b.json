@@ -1,0 +1,14 @@
+{
+  "base": {"kind": "hf", "path": "~/models/Qwen2.5-1.5B", "dtype": "bfloat16"},
+  "data_path": "data/story3_qwen_tokens.npz",
+  "seed": 17,
+  "total_steps": 60,
+  "batch_size": 1,
+  "lr": 0.0002,
+  "warmup_ratio": 0.03,
+  "weight_decay": 0.0,
+  "max_grad_norm": 1.0,
+  "lora": {"r": 8, "alpha": 16, "dropout": 0.05, "targets": ["q", "v"], "rslora": false},
+  "attn_impl": "xla",
+  "remat": false
+}

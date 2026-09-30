@@ -1,0 +1,11 @@
+.venv/
+.venv-test/
+__pycache__/
+.DS_Store
+runs/
+*.zip
+.env
+.tmp_dagster_home_*/
+artifacts/
+data/hf_alpaca_cleaned/
+data/dau_16k_50/

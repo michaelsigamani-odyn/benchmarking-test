@@ -1,0 +1,5 @@
+-r requirements-common.txt
+# ROCm must already be installed on the host (JAX does not install it). Then:
+jax[rocm7-local]
+# Versions of jax and the ROCm plugin must match each other; see AMD's JAX-on-ROCm compatibility matrix.
+# Pin jax/jaxlib to the version the ROCm plugin supports, and install that SAME version on the NVIDIA host.

@@ -1,0 +1,35 @@
+{
+  "base": {
+    "kind": "hf",
+    "path": "~/models/Qwen3-30B-A3B",
+    "dtype": "bfloat16"
+  },
+  "data_path": "data/story3_qwen3moe_tokens.npz",
+  "seed": 17,
+  "total_steps": 60,
+  "batch_size": 1,
+  "lr": 0.0002,
+  "warmup_ratio": 0.03,
+  "weight_decay": 0.0,
+  "max_grad_norm": 1.0,
+  "aux_coef": 0.001,
+  "z_coef": 0.0,
+  "moe_impl": "ragged",
+  "lora": {
+    "r": 8,
+    "alpha": 16,
+    "dropout": 0.05,
+    "targets": [
+      "q",
+      "k",
+      "v",
+      "o",
+      "e_gate",
+      "e_up",
+      "e_down"
+    ],
+    "rslora": false
+  },
+  "attn_impl": "xla",
+  "remat": false
+}

@@ -1,0 +1,9 @@
+{
+  "base": {"kind": "random", "seed": 0,
+           "model": {"vocab_size": 272, "hidden": 64, "intermediate": 128, "layers": 2, "heads": 4,
+                     "kv_heads": 2, "head_dim": 16, "rms_eps": 1e-6, "rope_theta": 10000.0,
+                     "tie_embeddings": true, "qkv_bias": true, "dtype": "bfloat16"}},
+  "data_path": "data/story3_bytes256.npz",
+  "seed": 17, "total_steps": 12, "batch_size": 2, "lr": 0.002,
+  "lora": {"r": 8, "alpha": 16, "dropout": 0.05, "targets": ["q", "v"], "rslora": false}
+}

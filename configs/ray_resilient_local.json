@@ -1,0 +1,14 @@
+{
+  "command": "python3 harness.py --plan experiments/local_dryrun_plan.json --run-dir /tmp/jax-ray-run --transport local",
+  "cwd": ".",
+  "env": {},
+  "workers": 1,
+  "cpus_per_worker": 4,
+  "gpus_per_worker": 0,
+  "worker_resource_key": "worker_units",
+  "worker_resource_value": 1,
+  "heartbeat_timeout_s": 300,
+  "monitor_interval_s": 15,
+  "max_restarts": 2,
+  "jax_distributed": false
+}
