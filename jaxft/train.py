@@ -26,6 +26,7 @@ import optax
 
 from . import ckpt as ck
 from .data import batch_for_step, load_arrays
+from .device_transfer import arrays_to_device, scalar_to_host, tree_to_device
 from .env import describe_env, require_vendor
 from .export import export_lora_adapter
 from .model import LoraConfig, ModelConfig, init_base_random, init_lora, masked_ce_loss
@@ -92,7 +93,7 @@ def load_base(cfg: TrainConfig):
     if b["kind"] == "hf":
         from .hf_io import load_hf_model
         mcfg, params = load_hf_model(os.path.expanduser(b["path"]), dtype=b.get("dtype", "bfloat16"))
-        return mcfg, jax.tree.map(jnp.asarray, params)
+        return mcfg, tree_to_device(params)
     raise ValueError(f"unknown base kind {b['kind']!r}")
 
 
@@ -181,9 +182,10 @@ def run_leg(cfg: TrainConfig, out_dir: str, end_step: int, resume_from: Optional
     new_trace = []
     for s in range(start_step + 1, end_step + 1):
         tokens, mask = batch_for_step(arrays, cfg.batch_size, cfg.seed, s)
-        state, m = step_fn(base, state, jnp.asarray(tokens), jnp.asarray(mask))
-        new_trace.append({"step": s, "loss": float(m["loss"]), "grad_norm": float(m["grad_norm"]),
-                          "lr": float(m["lr"]), "source": "computed"})
+        device_tokens, device_mask = arrays_to_device(tokens, mask)
+        state, m = step_fn(base, state, device_tokens, device_mask)
+        new_trace.append({"step": s, "loss": scalar_to_host(m["loss"]), "grad_norm": scalar_to_host(m["grad_norm"]),
+                          "lr": scalar_to_host(m["lr"]), "source": "computed"})
         log(f"[leg] step {s} loss {new_trace[-1]['loss']:.6f}")
     assert int(state["step"]) == end_step
 

@@ -22,18 +22,20 @@ import jax.numpy as jnp
 import numpy as np
 import orbax.checkpoint as ocp
 
+from .device_transfer import tree_to_host
+
 
 def _leaf_bytes(x) -> bytes:
-    a = np.ascontiguousarray(np.asarray(jax.device_get(x)))
+    a = np.ascontiguousarray(np.asarray(x))
     return a.tobytes()
 
 
 def state_digest(tree: Any) -> Dict[str, Any]:
     """Canonical digest of a pytree of arrays: per-leaf sha256 plus one overall hash."""
-    flat, _ = jax.tree_util.tree_flatten_with_path(tree)
+    flat, _ = jax.tree_util.tree_flatten_with_path(tree_to_host(tree))
     leaves, overall = {}, hashlib.sha256()
     for path, x in flat:
-        a = np.asarray(jax.device_get(x))
+        a = np.asarray(x)
         key = jax.tree_util.keystr(path)
         h = hashlib.sha256(f"{key}|{a.dtype}|{a.shape}|".encode() + _leaf_bytes(a)).hexdigest()
         leaves[key] = h

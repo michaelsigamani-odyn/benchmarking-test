@@ -38,6 +38,8 @@ Not a new algorithm: the practices that make a resume *verifiable*.
 | Loss | prompt + response tokens (pad id = EOS, so real EOS is also masked) | response-only by default (`--loss-on all` scores prompt too); padding is never a target, real EOS is; examples with no target token after truncation are dropped and counted (kept in, they yield a fake 0.0 loss) |
 
 Three claims are kept separate in the report: **state transfer** (bitwise), **resume semantics** (steps/config/history), **numerical drift** (tolerance).
+Data transfer in JAX runtime paths is explicit: `jax.device_put()` moves host batches/trees to accelerator memory, and `jax.device_get()` moves computed values back to host for checkpoint hashing and reporting.
+Transfer validation also records throughput metrics for `device_put`, `device_get`, and a Mooncake floor benchmark (with TCP fallback when Mooncake is unavailable) so runtime transfer checks include both correctness and transport speed evidence.
 Expect *not* to get bitwise equality across vendors: different GEMM/attention kernels round differently, and training amplifies that.
 That is why the tolerance is measured rather than guessed.
 
