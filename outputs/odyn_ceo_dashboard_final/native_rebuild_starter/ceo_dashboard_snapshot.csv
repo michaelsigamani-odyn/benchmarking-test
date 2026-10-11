@@ -1,0 +1,48 @@
+Snapshot_TS,KPI_Domain,KPI_Metric,KPI_Detail,KPI_Count,KPI_Value
+2026-10-11 10:48:58,D1 Commercial,Benchmark rows,status=MEASURED,1,19
+2026-10-11 10:48:58,D1 Commercial,Measurable cost rows,status=UNAVAILABLE|Missing governed token_count + governed buyer/supplier pricing table join in current BigQuery schema.,1,0
+2026-10-11 10:48:58,D2 Util/Reliability,Peak concurrent users,status=MEASURED,1,1
+2026-10-11 10:48:58,D2 Util/Reliability,Peak concurrent GPU jobs,status=MEASURED,1,7
+2026-10-11 10:48:58,D2 Util/Reliability,Failure rate % (Observed Digester cohort 12/58),status=MEASURED,1,20.69
+2026-10-11 10:48:58,D2 Util/Reliability,OOM failed jobs (Observed Digester cohort),status=MEASURED,1,5
+2026-10-11 10:48:58,D2 Util/Reliability,Production telemetry rows,status=UNAVAILABLE|clean_ops.fact_gpu_telemetry_v1 empty,1,0
+2026-10-11 10:48:58,D3 Digester quality,VRAM comparable rows,status=UNAVAILABLE,1,0
+2026-10-11 10:48:58,D3 Digester quality,LangSmith eval rows,status=UNAVAILABLE,1,0
+2026-10-11 10:48:58,D4 Estimation,Completed jobs N,status=MEASURED,1,46
+2026-10-11 10:48:58,D4 Estimation,Runtime MAPE %,status=MEASURED,1,73.52
+2026-10-11 10:48:58,D4 Estimation,Cost MAPE %,status=MEASURED,1,74.12
+2026-10-11 10:48:58,D4 Estimation,Runtime underestimation %,status=MEASURED,1,82.61
+2026-10-11 10:48:58,D4 Estimation,Cost underestimation %,status=MEASURED,1,80.43
+2026-10-11 10:48:58,D5 Fleet,Edge telemetry coverage %,status=MEASURED,1,71.42857142857143
+2026-10-11 10:48:58,D5 Fleet,GPU telemetry coverage %,status=MEASURED,1,87.5
+2026-10-11 10:48:58,D5 Fleet,Degraded machines,status=MEASURED,1,1.0
+2026-10-11 10:48:58,D5 Fleet,odyn-radeon2 sample count,status=NOT_MONITORED|manual/stale sample only,1,1
+2026-10-11 10:48:58,D5 Fleet,odyn-radeon3 sample count,status=NOT_MONITORED|manual/stale sample only,1,1
+2026-10-11 10:48:58,D6 Scheduler econ,Scheduler economics rows,status=MEASURED,1,19
+2026-10-11 10:48:58,D6 Scheduler econ,Measured economics rows,status=UNAVAILABLE|Missing governed pricing source and token-accounting join in current BigQuery schema.,1,0
+2026-10-11 10:48:58,D5 Machine Drilldown,odyn-dgx-spark-02 gpu_rows,status=FRESH|state=IDLE_WITH_CONTAINER|health=online|last_sample=2026-10-11 10:48:09,1,1.0
+2026-10-11 10:48:58,D5 Machine Drilldown,odyn-radeon2 gpu_rows,status=STALE|state=NO_RECENT_SAMPLE|health=unknown|last_sample=2026-10-11 10:38:45,1,1.0
+2026-10-11 10:48:58,D5 Machine Drilldown,odyn-dgx1 gpu_rows,status=FRESH|state=GPU_FAULT|health=degraded|last_sample=2026-10-11 10:48:09,1,0.0
+2026-10-11 10:48:58,D5 Machine Drilldown,odyn-dgx3 gpu_rows,status=FRESH|state=IDLE_WITH_CONTAINER|health=online|last_sample=2026-10-11 10:48:09,1,1.0
+2026-10-11 10:48:58,D5 Machine Drilldown,odyn-a6000 gpu_rows,status=FRESH|state=IDLE|health=online|last_sample=2026-10-11 10:48:09,1,2.0
+2026-10-11 10:48:58,D5 Machine Drilldown,radeon gpu_rows,status=FRESH|state=IDLE_WITH_CONTAINER|health=online|last_sample=2026-10-11 10:48:09,1,1.0
+2026-10-11 10:48:58,D5 Machine Drilldown,odyn-radeon3 gpu_rows,status=STALE|state=NO_RECENT_SAMPLE|health=unknown|last_sample=2026-10-11 10:38:45,1,1.0
+2026-10-11 10:48:58,D4 Job Drilldown,ft-b61858e9-228c wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,12.55195
+2026-10-11 10:48:58,D4 Job Drilldown,ft-2fe19cba-b1d3 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,14.479933333333333
+2026-10-11 10:48:58,D4 Job Drilldown,ft-db904a53-822c wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,14.625633333333333
+2026-10-11 10:48:58,D4 Job Drilldown,90cf04b2-be84-5f59-8242-046b2bff9ead wall_time_min,status=UNKNOWN|provider=odyn|type=serving|failure_class=,1,
+2026-10-11 10:48:58,D4 Job Drilldown,ft-f7900121-8871 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,14.55435
+2026-10-11 10:48:58,D4 Job Drilldown,ft-203f3d09-1cf6 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,11.79575
+2026-10-11 10:48:58,D4 Job Drilldown,ft-15dec247-d184 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,14.210616666666665
+2026-10-11 10:48:58,D4 Job Drilldown,ft-d3580354-5bff wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,8.382666666666667
+2026-10-11 10:48:58,D4 Job Drilldown,c2104b10-f154-53cb-9f19-4169369251b5 wall_time_min,status=UNKNOWN|provider=odyn|type=serving|failure_class=,1,
+2026-10-11 10:48:58,D4 Job Drilldown,92fa7793-2c1d-5b15-83e4-de59fc529c14 wall_time_min,status=UNKNOWN|provider=odyn|type=serving|failure_class=,1,
+2026-10-11 10:48:58,D4 Job Drilldown,ft-800f78cc-228c wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,8.671050000000001
+2026-10-11 10:48:58,D4 Job Drilldown,ft-8d9597ed-cfa0 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,10.243633333333333
+2026-10-11 10:48:58,D4 Job Drilldown,ft-1fce124e-17b1 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,9.054183333333333
+2026-10-11 10:48:58,D4 Job Drilldown,ft-48fa226c-5142 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,20.59466666666667
+2026-10-11 10:48:58,D4 Job Drilldown,ft-79f6d24e-ff70 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,14.379616666666667
+2026-10-11 10:48:58,D4 Job Drilldown,ft-c8bfe61e-9d76 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,8.65445
+2026-10-11 10:48:58,D4 Job Drilldown,ft-13dd5f5f-d688 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,9.3458
+2026-10-11 10:48:58,D4 Job Drilldown,ft-c605677b-1ee3 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,10.82935
+2026-10-11 10:48:58,D4 Job Drilldown,ft-bcf4ff51-89fc wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,47.43983333333333
