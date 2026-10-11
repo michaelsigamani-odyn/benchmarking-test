@@ -40,6 +40,8 @@ class SpyKMS:
             raise RuntimeError(f"invalid KeyId form: {KeyId}")
         if not mod.is_valid_kms_key_ref(str(KeyId)):
             raise RuntimeError(f"invalid KeyId form: {KeyId}")
+        if len(Message) < 1:
+            raise RuntimeError("ValidationException: Member must have length greater than or equal to 1")
         self.key_ids.append(str(KeyId))
         self.messages.append(Message.decode("utf-8"))
         return {"Mac": hashlib.sha256(Message).digest()}
@@ -167,6 +169,17 @@ class ExtractorRealPostgresFixtureTests(unittest.TestCase):
     def _manifest_path(self, run_id: str) -> Path:
         return self.sink_dir / f"pg/v1/run={run_id}/_manifest.json"
 
+    def _all_records_from_manifest(self, run_id: str) -> list[dict]:
+        manifest = json.loads(self._manifest_path(run_id).read_text(encoding="utf-8"))
+        out: list[dict] = []
+        for item in manifest.get("files", []):
+            p = self.sink_dir / item["object"]
+            if p.suffix != ".gz":
+                continue
+            with gzip.open(p, "rt", encoding="utf-8") as fp:
+                out.extend(json.loads(line) for line in fp if line.strip())
+        return out
+
     def test_01_kms_keyid_uses_full_arn_not_key_slash_id(self):
         self._run()
         self.assertGreater(len(self.kms.key_ids), 0)
@@ -190,7 +203,7 @@ class ExtractorRealPostgresFixtureTests(unittest.TestCase):
         after_fail = json.loads((self.state_dir / "public.ray_train_jobs.state.json").read_text(encoding="utf-8"))
         self.assertEqual(after_fail, baseline_state_t1)
 
-        self._db_exec("UPDATE public.ray_train_jobs SET status='changed' WHERE id=%s::uuid", ("11111111-1111-1111-1111-111111111111",))
+        self._db_exec("UPDATE public.ray_train_jobs SET status='changed' WHERE id=%s", ("rtj-normal",))
         rerun = self._run(cfg=cfg, run_id="rerun")
         t1 = next(t for t in rerun["tables"] if t["table_name"] == "public.ray_train_jobs")
         self.assertEqual(t1["emitted_row_count"], 1)
@@ -212,16 +225,16 @@ class ExtractorRealPostgresFixtureTests(unittest.TestCase):
     def test_05_recursive_json_string_scanning_and_mask_abort(self):
         # free-text value in JSON should mask and alert
         self._db_exec(
-            "UPDATE public.scheduler_workload_requests SET response_json=%s::jsonb WHERE id=%s::uuid",
-            ('{"status":"ok","next_route":"hello user@example.com"}', "33333333-3333-3333-3333-333333333333"),
+            "UPDATE public.scheduler_workload_requests SET response_json=%s::jsonb WHERE id=%s",
+            ('{"status":"ok","next_route":"hello user@example.com"}', "swr-normal"),
         )
         res = self._run()
         self.assertTrue(res["alert"])
 
         # id-path value in JSON should abort
         self._db_exec(
-            "UPDATE public.scheduler_workload_requests SET accepted_recommendation_json=%s::jsonb WHERE id=%s::uuid",
-            ('{"selected_placement":{"node_id":"arn:aws:iam::000000000000:role/x"}}', "33333333-3333-3333-3333-333333333333"),
+            "UPDATE public.scheduler_workload_requests SET accepted_recommendation_json=%s::jsonb WHERE id=%s",
+            ('{"selected_placement":{"node_id":"arn:aws:iam::000000000000:role/x"}}', "swr-normal"),
         )
         with self.assertRaises(RuntimeError):
             self._run()
@@ -244,19 +257,27 @@ class ExtractorRealPostgresFixtureTests(unittest.TestCase):
         try:
             cfg = self._all_tables_config()
             state = mod.JsonStateStore(self.state_dir)
+            stdout = io.StringIO()
             with psycopg.connect(self.uri) as conn:
                 with conn.cursor() as cur:
                     cur.execute("SET ROLE odyn_ingest_ro")
-                mod.run(
-                    cfg,
-                    since=None,
-                    limit_per_table=5000,
-                    kms_client=self.kms,
-                    sink=None,
-                    state_store=state,
-                    conn=conn,
-                    dry_run=True,
-                )
+                with contextlib.redirect_stdout(stdout):
+                    result = mod.run(
+                        cfg,
+                        since=None,
+                        limit_per_table=5000,
+                        kms_client=self.kms,
+                        sink=None,
+                        state_store=state,
+                        conn=conn,
+                        dry_run=True,
+                    )
+            out = stdout.getvalue()
+            self.assertIn("FREE_TEXT_FIELDS:", out)
+            self.assertIn("STRUCTURED_FIELDS:", out)
+            self.assertIn("FINDING table=", out)
+            self.assertIn("findings", result)
+            self.assertEqual(result["findings_count"], len(result["findings"]))
         finally:
             mod.GcsSink = original
 
@@ -337,6 +358,70 @@ class ExtractorRealPostgresFixtureTests(unittest.TestCase):
         names = {f"{t['schema']}.{t['table']}" for t in skeleton["tables"]}
         self.assertIn("public.ingest_job_placement_v1", names)
         self.assertIn("public.job_cost_summary", names)
+
+    def test_14_empty_and_whitespace_hmac_inputs_emit_empty_string(self):
+        # SpyKMS rejects empty Message. Run must still succeed with '' and whitespace-only values.
+        res = self._run(run_id="emptyhmac")
+        self.assertEqual(res["status"], "ok")
+
+        records = self._all_records_from_manifest("emptyhmac")
+        self.assertGreater(len(records), 0)
+
+        def rows(table_name: str) -> list[dict]:
+            return [r for r in records if r.get("table_name") == table_name and not r.get("is_deleted")]
+
+        # ray_train_jobs: owner_user_id + dataset_s3_key include empty/whitespace/null/normal
+        rtj_rows = rows("public.ray_train_jobs")
+        self.assertTrue(any(r["row_json"].get("owner_user_id") == "" for r in rtj_rows))
+        self.assertTrue(any(r["row_json"].get("dataset_s3_key") == "" for r in rtj_rows))
+        self.assertTrue(any(r["row_json"].get("owner_user_id") is None for r in rtj_rows))
+
+        swr_rows = rows("public.scheduler_workload_requests")
+        self.assertTrue(any(r["row_json"].get("user_id") == "" for r in swr_rows))
+        self.assertTrue(any(r["row_json"].get("user_id") is None for r in swr_rows))
+
+        jcs_rows = rows("public.job_cost_summary")
+        self.assertTrue(any(r["row_json"].get("tenant_id") == "" for r in jcs_rows))
+        self.assertTrue(any(r["row_json"].get("tenant_id") is None for r in jcs_rows))
+
+        ijp_rows = rows("public.ingest_job_placement_v1")
+        self.assertTrue(any(r["row_json"].get("job_id") == "" for r in ijp_rows))
+        self.assertTrue(any(r["row_json"].get("gpu_reservation_id") == "" for r in ijp_rows))
+        self.assertTrue(any(r["row_json"].get("job_id") is None for r in ijp_rows))
+        self.assertTrue(any(r["row_json"].get("gpu_reservation_id") is None for r in ijp_rows))
+
+    def test_15_transform_errors_include_table_field_rowpk_not_value(self):
+        class ExplodingKMS(SpyKMS):
+            def generate_mac(self, KeyId, Message, MacAlgorithm):  # noqa: N803
+                raise RuntimeError("kms explode")
+
+        self.kms = ExplodingKMS()
+        with self.assertRaises(RuntimeError) as ctx:
+            self._run(run_id="ctxfail")
+        msg = str(ctx.exception)
+        self.assertIn("transform error table=public.ray_train_jobs", msg)
+        self.assertIn("field=owner_user_id", msg)
+        self.assertIn("row_pk=", msg)
+        self.assertNotIn("owner-normal", msg)
+
+    def test_16_dry_run_finding_line_identifies_ingest_column_pattern(self):
+        # non-aborting finding in ingest view via dropped array element
+        self._db_exec(
+            "UPDATE public.ingest_job_placement_fixture_src SET gpu_identifiers=%s::jsonb WHERE row_id=%s",
+            ('["GPU-123e4567-e89b-12d3-a456-426614174000", 5]', "ijp-normal"),
+        )
+        stdout = io.StringIO()
+        with contextlib.redirect_stdout(stdout):
+            res = self._run(run_id="dryingest", dry_run=True)
+
+        out = stdout.getvalue()
+        self.assertIn("TABLE public.ingest_job_placement_v1", out)
+        self.assertIn("FREE_TEXT_FIELDS: <none>", out)
+        self.assertIn("STRUCTURED_FIELDS: 9", out)
+        self.assertIn("FINDING table=public.ingest_job_placement_v1 field=gpu_identifiers pattern=gpu_identifiers_element", out)
+        self.assertIn("\"gpu_identifiers\":1", out)  # DROPPED_ARRAY_ELEMENTS evidence
+        self.assertIn("findings", res)
+        self.assertTrue(any(f.get("table") == "public.ingest_job_placement_v1" and f.get("pattern") == "gpu_identifiers_element" for f in res["findings"]))
 
 
 if __name__ == "__main__":

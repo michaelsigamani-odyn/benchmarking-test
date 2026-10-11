@@ -238,6 +238,8 @@ def normalize_hmac_input(column_name: str, value: Any) -> Optional[str]:
 def kms_hmac_hex(kms_client: Any, key_id: str, value: Optional[str]) -> Optional[str]:
     if value is None:
         return None
+    if value == "":
+        return ""
     if kms_client is None:
         raise RuntimeError("KMS client unavailable; extractor requires GenerateMac capability")
     out = kms_client.generate_mac(KeyId=key_id, Message=value.encode("utf-8"), MacAlgorithm="HMAC_SHA_256")
@@ -538,69 +540,72 @@ def transform_row(
         col_l = col.lower()
         db_type = column_types.get(col, "")
 
-        if col_l in FORBIDDEN_JSON_COLUMNS:
-            continue
+        try:
+            if col_l in FORBIDDEN_JSON_COLUMNS:
+                continue
 
-        value = raw_value
-        if "json" in db_type.lower() and isinstance(value, str):
-            try:
-                value = json.loads(value)
-            except Exception:
-                value = None
+            value = raw_value
+            if "json" in db_type.lower() and isinstance(value, str):
+                try:
+                    value = json.loads(value)
+                except Exception:
+                    value = None
 
-        if col_l in {"gpu_identifiers", "node_ids"}:
-            value, dropped = _safe_array_of_strings(
-                value,
-                finding_prefix=col_l,
-                findings=findings,
-                table_name=table_name,
-                row_pk=row_pk_str,
-                field=col,
-            )
-            if dropped:
-                dropped_array_by_col[col] = dropped_array_by_col.get(col, 0) + dropped
+            if col_l in {"gpu_identifiers", "node_ids"}:
+                value, dropped = _safe_array_of_strings(
+                    value,
+                    finding_prefix=col_l,
+                    findings=findings,
+                    table_name=table_name,
+                    row_pk=row_pk_str,
+                    field=col,
+                )
+                if dropped:
+                    dropped_array_by_col[col] = dropped_array_by_col.get(col, 0) + dropped
 
-        if col_l in ALLOWLISTED_JSON_COLUMNS:
-            value, dropped_keys, dropped_array = sanitize_json_column(col_l, value, findings, table_name, row_pk_str)
-            if dropped_keys:
-                dropped_keys_by_col[col] = dropped_keys_by_col.get(col, 0) + dropped_keys
-            if dropped_array:
-                dropped_array_by_col[col] = dropped_array_by_col.get(col, 0) + dropped_array
+            if col_l in ALLOWLISTED_JSON_COLUMNS:
+                value, dropped_keys, dropped_array = sanitize_json_column(col_l, value, findings, table_name, row_pk_str)
+                if dropped_keys:
+                    dropped_keys_by_col[col] = dropped_keys_by_col.get(col, 0) + dropped_keys
+                if dropped_array:
+                    dropped_array_by_col[col] = dropped_array_by_col.get(col, 0) + dropped_array
 
-        if "json" in db_type.lower():
-            value = _scan_json_strings_recursive(
-                value,
-                parent_field=col,
-                table_name=table_name,
-                row_pk=row_pk_str,
-                findings=findings,
-            )
+            if "json" in db_type.lower():
+                value = _scan_json_strings_recursive(
+                    value,
+                    parent_field=col,
+                    table_name=table_name,
+                    row_pk=row_pk_str,
+                    findings=findings,
+                )
 
-        if isinstance(value, str):
-            if col_l in FREE_TEXT_FIELDS:
-                value = sanitize_urls_in_text(value)
-                value, free_text_hits = mask_free_text(value)
-                value = truncate_utf8_with_marker(value)
-                for hit in free_text_hits:
-                    findings.append({"pattern": hit, "table": table_name, "row_pk": row_pk_str, "field": col})
-                    alert = True
-            else:
-                value = sanitize_uri(value) or value
-                hits = scan_text_patterns(value)
-                if hits:
-                    hit = hits[0]
-                    raise RuntimeError(
-                        f"structured scan finding pattern={hit} table={table_name} row_pk={row_pk_str} field={col}"
-                    )
+            if isinstance(value, str):
+                if col_l in FREE_TEXT_FIELDS:
+                    value = sanitize_urls_in_text(value)
+                    value, free_text_hits = mask_free_text(value)
+                    value = truncate_utf8_with_marker(value)
+                    for hit in free_text_hits:
+                        findings.append({"pattern": hit, "table": table_name, "row_pk": row_pk_str, "field": col})
+                        alert = True
+                else:
+                    value = sanitize_uri(value) or value
+                    hits = scan_text_patterns(value)
+                    if hits:
+                        hit = hits[0]
+                        raise RuntimeError(
+                            f"structured scan finding pattern={hit} table={table_name} row_pk={row_pk_str} field={col}"
+                        )
 
-        if col in set(table_cfg.get("hmac_fields", [])):
-            sanitized_for_hmac = value
-            if isinstance(sanitized_for_hmac, str):
-                sanitized_for_hmac = sanitize_uri(sanitized_for_hmac) or sanitized_for_hmac
-            hmac_input = normalize_hmac_input(col, sanitized_for_hmac)
-            value = kms_hmac_hex(kms_client, kms_key_id, hmac_input)
+            if col in set(table_cfg.get("hmac_fields", [])):
+                sanitized_for_hmac = value
+                if isinstance(sanitized_for_hmac, str):
+                    sanitized_for_hmac = sanitize_uri(sanitized_for_hmac) or sanitized_for_hmac
+                hmac_input = normalize_hmac_input(col, sanitized_for_hmac)
+                value = kms_hmac_hex(kms_client, kms_key_id, hmac_input)
 
-        out[col] = serialize_scalar(db_type, value)
+            out[col] = serialize_scalar(db_type, value)
+        except Exception as exc:
+            raise RuntimeError(f"transform error table={table_name} field={col} row_pk={row_pk_str}: {exc}") from exc
 
     return out, findings, alert, {
         "dropped_keys": dropped_keys_by_col,
@@ -1089,8 +1094,12 @@ def run(
             if dry_run:
                 sample = records[0] if records else None
                 row_findings_count = sum(1 for f in overall_findings if f.get("table") == table_name)
+                free_text_cols = [c for c in selected_columns if c.lower() in FREE_TEXT_FIELDS]
+                structured_count = len(selected_columns) - len(free_text_cols)
                 print(f"TABLE {table_name}")
                 print(f"  COLUMNS: {', '.join(selected_columns)}")
+                print(f"  FREE_TEXT_FIELDS: {', '.join(free_text_cols) if free_text_cols else '<none>'}")
+                print(f"  STRUCTURED_FIELDS: {structured_count}")
                 print(f"  SOURCE_COUNT: {source_row_count}")
                 print(f"  SAMPLE_REDACTED_ROW: {canonical_json(sample) if sample else 'null'}")
                 print(f"  FINDINGS_COUNT: {row_findings_count}")
@@ -1147,6 +1156,15 @@ def run(
 
         if alert:
             print(f"ALERT run_id={run_id} findings_count={len(overall_findings)}", file=sys.stderr)
+        if dry_run:
+            for finding in overall_findings:
+                print(
+                    "FINDING "
+                    f"table={finding.get('table', '')} "
+                    f"field={finding.get('field', '')} "
+                    f"pattern={finding.get('pattern', '')} "
+                    f"row_pk={finding.get('row_pk', '')}"
+                )
         print(
             "INFO effective_sslmode="
             f"{effective_sslmode} connection_encrypted={str(bool(ssl_status.get('encrypted', False))).lower()}"
@@ -1162,6 +1180,7 @@ def run(
             "transaction": tx_settings,
             "findings_count": len(overall_findings),
             "finding_count": len(overall_findings),
+            "findings": overall_findings,
             "connection": {
                 "effective_sslmode": effective_sslmode,
                 "encrypted": bool(ssl_status.get("encrypted", False)),
