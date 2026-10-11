@@ -1,0 +1,20 @@
+Snapshot_TS,KPI_Domain,KPI_Metric,KPI_Detail,KPI_Count,KPI_Value
+2026-10-11 10:48:58,D4 Job Drilldown,ft-b61858e9-228c wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,12.55195
+2026-10-11 10:48:58,D4 Job Drilldown,ft-2fe19cba-b1d3 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,14.479933333333333
+2026-10-11 10:48:58,D4 Job Drilldown,ft-db904a53-822c wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,14.625633333333333
+2026-10-11 10:48:58,D4 Job Drilldown,90cf04b2-be84-5f59-8242-046b2bff9ead wall_time_min,status=UNKNOWN|provider=odyn|type=serving|failure_class=,1,
+2026-10-11 10:48:58,D4 Job Drilldown,ft-f7900121-8871 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,14.55435
+2026-10-11 10:48:58,D4 Job Drilldown,ft-203f3d09-1cf6 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,11.79575
+2026-10-11 10:48:58,D4 Job Drilldown,ft-15dec247-d184 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,14.210616666666665
+2026-10-11 10:48:58,D4 Job Drilldown,ft-d3580354-5bff wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,8.382666666666667
+2026-10-11 10:48:58,D4 Job Drilldown,c2104b10-f154-53cb-9f19-4169369251b5 wall_time_min,status=UNKNOWN|provider=odyn|type=serving|failure_class=,1,
+2026-10-11 10:48:58,D4 Job Drilldown,92fa7793-2c1d-5b15-83e4-de59fc529c14 wall_time_min,status=UNKNOWN|provider=odyn|type=serving|failure_class=,1,
+2026-10-11 10:48:58,D4 Job Drilldown,ft-800f78cc-228c wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,8.671050000000001
+2026-10-11 10:48:58,D4 Job Drilldown,ft-8d9597ed-cfa0 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,10.243633333333333
+2026-10-11 10:48:58,D4 Job Drilldown,ft-1fce124e-17b1 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,9.054183333333333
+2026-10-11 10:48:58,D4 Job Drilldown,ft-48fa226c-5142 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,20.59466666666667
+2026-10-11 10:48:58,D4 Job Drilldown,ft-79f6d24e-ff70 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,14.379616666666667
+2026-10-11 10:48:58,D4 Job Drilldown,ft-c8bfe61e-9d76 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,8.65445
+2026-10-11 10:48:58,D4 Job Drilldown,ft-13dd5f5f-d688 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,9.3458
+2026-10-11 10:48:58,D4 Job Drilldown,ft-c605677b-1ee3 wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,10.82935
+2026-10-11 10:48:58,D4 Job Drilldown,ft-bcf4ff51-89fc wall_time_min,status=UNKNOWN|provider=together|type=finetune|failure_class=,1,47.43983333333333

@@ -1,0 +1,2 @@
+metric_date,plane,observed_rows,util_rows,util_coverage,util_avg_pct,util_p95_pct,util_peak_pct,pct_time_above_50
+2026-10-11,edge,1304,1086,0.8328220858895705,0.0,0.0,0.0,0.0

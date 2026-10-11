@@ -1,0 +1,633 @@
+prediction_ts,prediction_date,prediction_year_week,session_id,message_id,workload_id,job_id,predicted_model_id,predicted_dataset_ref,predicted_sample_count,predicted_runtime_hours,actual_runtime_hours,runtime_signed_error_hours,runtime_abs_error_hours,runtime_abs_pct_error,runtime_underestimate_flag,runtime_overestimate_flag,runtime_accuracy_bucket,predicted_operational_cost_usd,actual_operational_cost_usd,model_size_bucket,selected_hourly_rate_usd,selected_gpu_tier,selected_gpu_count,scheduler_status,job_status,observed_peak_vram_gb,is_oom_failure,match_status,missing_predicted_runtime,missing_actual_runtime,prediction_text
+2026-10-05 16:03:58,2026-10-05,2026-W41,TK4UGIi1zZ,D9lnax4viQ,0b8f197a-8f30-46ec-aed9-610916ea043b,9ba9663f-6ac8-5309-89c3-e897083becc8,Qwen/Qwen2.5-7B-Instruct,dpo_preference_pairs_10000.jsonl,10000,0.34,0.3481222222222222,-0.008122222222222197,0.008122222222222197,0.02333152468800861,true,false,<=10%,0.5,0.522184,Medium(7-14B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-7B-Instruct** on **dpo_preference_pairs_10000.jsonl** (10,000 training samples) using LoRA (1 epochs, lr=5e-06, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **beta** — No beta set for this DPO job — 0.1 is the TRL/Qwen and MistralFactory default (controls how far the policy may drift from the reference model).
+- **seq_len** — seq_len 128 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.34 hours (≈$0.50 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-05 15:05:24,2026-10-05,2026-W41,ZwI6eqWbYs,Y4PnHdtwnH,c2ec5881-cb78-4efb-8b46-4106901c6d44,14ddb443-e1e5-5672-8e35-e8fcf64ca51f,Qwen/Qwen2.5-0.5B-Instruct,alpaca_train_1200.jsonl,1200,0.009,0.0825,-0.07350000000000001,0.07350000000000001,0.890909090909091,true,false,50-100%,0.01,,Small(<=1.5B),0.75,NVIDIA A100-SXM4-40GB,1,stopped,stopped,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **alpaca_train_1200.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.009 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-05 15:30:17,2026-10-05,2026-W41,pFDjk9RqeX,C3y7zDQNgz,45c6273c-5146-4086-b293-36cdd27d96af,2c4ae890-6356-58c8-87da-b2f1fbfb2102,Qwen/Qwen2.5-7B-Instruct,alpaca_train_1200.jsonl,1200,0.15,0.12200472222222222,0.02799527777777777,0.02799527777777777,0.2294606083097876,false,true,10-25%,0.22,0.183007,Medium(7-14B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-7B-Instruct** on **alpaca_train_1200.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=16). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.15 hours (≈$0.22 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-03 14:38:29,2026-09-03,2026-W36,DJjvmJQqwN,Iyvee6ZBIa,,,Qwen/Qwen2.5-0.5B-Instruct,72b_alpaca_train_800.jsonl,800,0.0062,,,,,,,missing_actual_or_prediction,0.01,,Small(<=1.5B),,,,,,,false,unmatched_prediction,false,true,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **72b_alpaca_train_800.jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0062 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-06 15:27:18,2026-10-06,2026-W41,doo0LWeELU,2aOGJ7gzLR,d99e8358-bddc-46b0-9da2-6f1a5f99f7f0,2e3b03c7-cdfc-597a-af50-1c56c7f53bf1,mistralai/Ministral-3-14B-Instruct-2512,odyn_sft_northstar_800.jsonl,800,0.0089,0.16354805555555557,-0.15464805555555558,0.15464805555555558,0.9455817437280583,true,false,50-100%,0.01,0.245322,Medium(7-14B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **mistralai/Ministral-3-14B-Instruct-2512** on **odyn_sft_northstar_800.jsonl** (800 training samples) using LoRA (2 epochs, lr=5e-5, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 128 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0089 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-09 13:03:18,2026-10-09,2026-W41,Q9OpPkyi2D,99mstWfoy0,8c155feb-9711-4b0a-94ae-b06b3eccd57e,92cb8f5d-388d-5096-b05f-8a7bfb7008e2,Qwen/Qwen2.5-0.5B-Instruct,poetry_target_tags_10k_alpaca.jsonl,1110,0.0226,0.015555555555555555,0.0070444444444444435,0.0070444444444444435,0.4528571428571428,false,true,25-50%,0.04,,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,failed,failed,13.145631232,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **poetry_target_tags_10k_alpaca.jsonl** (1,110 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 20736 is long and needs more/bigger GPUs to fit — the plan will scale hardware to match, or reduce it to 4096 if that's not the size job you meant to run. 2048 is a safe default.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0226 hours (≈$0.04 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-22 22:10:10,2026-09-22,2026-W39,KS86QaNkS0,zC1BvWReL3,,,Qwen/Qwen2.5-0.5B-Instruct,Sample_Dataset_Template.jsonl,800,0.0062,,,,,,,missing_actual_or_prediction,0.01,,Small(<=1.5B),,,,,,,false,unmatched_prediction,false,true,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **Sample_Dataset_Template.jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0062 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-23 16:57:33,2026-09-23,2026-W39,TK1NbbAopu,yfEQzM6TN6,,,Qwen/Qwen2.5-0.5B-Instruct,bitext_sft_train.jsonl,810,0.0055,,,,,,,missing_actual_or_prediction,0.01,,Small(<=1.5B),,,,,,,false,unmatched_prediction,false,true,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **bitext_sft_train.jsonl** (810 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0055 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-16 18:44:03,2026-09-16,2026-W38,WqGanU21Lg,pVRPuq8Dp1,f53158be-2917-495c-b269-53a0c883c883,a5cd1fc6-2d06-5b95-9c0d-4837209a9555,Qwen/Qwen2.5-0.5B-Instruct,alpaca_train (2).jsonl,800,0.0062,0.05998083333333334,-0.05378083333333334,0.05378083333333334,0.8966336468594135,true,false,50-100%,0.01,0.089971,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **alpaca_train (2).jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0062 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-30 14:15:54,2026-09-30,2026-W40,xxWUSLosxu,mk1JHnrSkW,,,Qwen/Qwen2.5-0.5B-Instruct,fever_10k.jsonl,10000,0.0441,,,,,,,missing_actual_or_prediction,0.04,,Small(<=1.5B),,,,,,,false,unmatched_prediction,false,true,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **fever_10k.jsonl** (10,000 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0441 hours (≈$0.04 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-30 11:53:55,2026-09-30,2026-W40,McOThZtR4V,xn1YofBBdT,,,Qwen/Qwen2.5-0.5B-Instruct,quant_mentor_500_alpaca.jsonl,500,0.0073,,,,,,,missing_actual_or_prediction,0.01,,Small(<=1.5B),,,,,,,false,unmatched_prediction,false,true,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **quant_mentor_500_alpaca.jsonl** (500 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 384 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0073 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-08 07:46:04,2026-09-08,2026-W37,dzxMK13Zbr,fNsIMlWeVs,7d84284a-1a45-4ea4-94bd-b394a6794d8b,9ad7a8a5-23c7-574a-a045-0c41582657ef,Qwen/Qwen2.5-14B-Instruct,quant_mentor_700.jsonl,700,0.33,0.8455163888888889,-0.515516388888889,0.515516388888889,0.609705968640466,true,false,50-100%,0.5,1.268274,Medium(7-14B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-14B-Instruct** on **quant_mentor_700.jsonl** (700 training samples) using LoRA (2 epochs, lr=5e-5, LoRA rank=16). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.33 hours (≈$0.50 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-05 14:53:27,2026-10-05,2026-W41,xEEQIuYPTt,XsqiL0aR04,a153d821-961d-46bb-985d-cd48666c26cf,47ecc291-827f-5f42-bb26-8859dc85b830,Qwen/Qwen2.5-1.5B-Instruct,alpaca_train_1200.jsonl,1200,0.0151,0.09416666666666666,-0.07906666666666666,0.07906666666666666,0.8396460176991151,true,false,50-100%,0.01,,Small(<=1.5B),0.75,NVIDIA A100-SXM4-40GB,1,stopped,stopped,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-1.5B-Instruct** on **alpaca_train_1200.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0151 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-05 15:16:04,2026-10-05,2026-W41,MIbuwl6v3f,rtDVFjC5I1,76dee58c-c3a4-4d55-afee-bb95643faa8e,6cfd192a-c715-55fa-bf98-dff47187147b,Qwen/Qwen2.5-0.5B-Instruct,supervised_fine_tuning_1000.jsonl,1000,0.0027,0.008888888888888889,-0.006188888888888889,0.006188888888888889,0.69625,true,false,50-100%,0.0,,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,stopped,stopped,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **supervised_fine_tuning_1000.jsonl** (1,000 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 128 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0027 hours (≈$0.00 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-18 20:29:42,2026-09-18,2026-W38,MEyFMYLt6x,gVucttIYJt,916dc33d-d0cc-461b-828f-aa4bdd7fc8f3,b7034850-f713-5ae1-856b-1721f74f4003,mistralai/Ministral-3-14B-Instruct-2512,alpaca_train_1200.jsonl,1200,0.0617,0.17483083333333332,-0.11313083333333332,0.11313083333333332,0.647087422603755,true,false,50-100%,0.1,0.262246,Medium(7-14B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **mistralai/Ministral-3-14B-Instruct-2512** on **alpaca_train_1200.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=5e-5, LoRA rank=16). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0617 hours (≈$0.10 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-28 16:22:25,2026-09-28,2026-W40,fAKwYEhLvR,oc4i96Fj07,932ec5e4-ef26-4767-9102-a05830c71f4a,d8432e2d-1a4a-5d70-a8d0-3ecaaf0d7334,Qwen/Qwen3-8B,odyn_sft_train.jsonl,48,5.0E-4,0.05309277777777777,-0.05259277777777777,0.05259277777777777,0.9905825232559357,true,false,50-100%,0.0,0.079639,Medium(7-14B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen3-8B** on **odyn_sft_train.jsonl** (48 training samples) using LoRA (3 epochs, lr=5e-5, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 128 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0005 hours (≈$0.00 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-10 22:53:37,2026-09-10,2026-W37,uLM6Pg8QS6,XRvBM1St7i,,,Qwen/Qwen2.5-1.5B-Instruct,alpaca_train.jsonl,800,0.0103,,,,,,,missing_actual_or_prediction,0.02,,Small(<=1.5B),,,,,,,false,unmatched_prediction,false,true,"I can fine-tune **Qwen/Qwen2.5-1.5B-Instruct** on **alpaca_train.jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0103 hours (≈$0.02 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-08 16:33:17,2026-10-08,2026-W41,zgWCt4PZTi,vJAxFyd160,41761e68-8874-48d0-9f2a-7192c361d64f,28e6ad82-dacd-5a17-b12d-46bf4db04492,Qwen/Qwen3-32B,mixture_finetune.jsonl,8981,0.9879,0.0225,0.9654,0.9654,42.90666666666667,false,true,>100%,6.52,,Large(>=32B),6.0,NVIDIA A100-SXM4-80GB,4,failed,failed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen3-32B** on **mixture_finetune.jsonl** (8,981 training samples) using LoRA (2 epochs, lr=3e-5, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 8064 is long and needs more/bigger GPUs to fit — the plan will scale hardware to match, or reduce it to 4096 if that's not the size job you meant to run. 2048 is a safe default.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.9879 hours (≈$6.52 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-09 12:30:24,2026-10-09,2026-W41,rjl7sf8ydH,R65ZufXFbN,328aa2a5-84c0-46dd-b85a-25c4ea101af3,f874f516-92cc-5ac2-b456-7537c21e92d5,Qwen/Qwen2.5-0.5B-Instruct,poetry_target_tags_10k_alpaca.jsonl,1110,0.0226,0.016944444444444446,0.0056555555555555526,0.0056555555555555526,0.3337704918032785,false,true,25-50%,0.04,,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,failed,failed,13.145631232,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **poetry_target_tags_10k_alpaca.jsonl** (1,110 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 20736 is long and needs more/bigger GPUs to fit — the plan will scale hardware to match, or reduce it to 4096 if that's not the size job you meant to run. 2048 is a safe default.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0226 hours (≈$0.04 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-27 12:01:54,2026-09-27,2026-W39,nsB4I2wtKN,LT42KvIInG,e74a0581-de33-4fd6-b32c-657e8cedbeaa,8971fefc-60c3-5eaf-994d-89bf5994200c,mistralai/Mistral-Small-24B-Instruct-2501,quant_mentor_500_alpaca.jsonl,500,0.0687,0.24100472222222222,-0.1723047222222222,0.1723047222222222,0.7149433448168949,true,false,50-100%,0.11,0.723014,Unknown,3.0,NVIDIA A100-SXM4-80GB,2,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **mistralai/Mistral-Small-24B-Instruct-2501** on **quant_mentor_500_alpaca.jsonl** (500 training samples) using LoRA (2 epochs, lr=5e-5, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 384 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0687 hours (≈$0.11 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-28 17:37:16,2026-09-28,2026-W40,Rz97io8Xtp,gFVJSut501,6f83422c-9426-4805-90a1-44eeef4975c4,9e9c5265-c141-55b4-bcdd-f65b66620de5,mistralai/Mistral-Small-24B-Instruct-2501,odyn_dpo_northstar_post_sft_1200.jsonl,1200,0.021,0.15160444444444443,-0.13060444444444444,0.13060444444444444,0.8614816334906629,true,false,50-100%,0.03,0.454814,Unknown,3.0,NVIDIA A100-SXM4-80GB,2,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **mistralai/Mistral-Small-24B-Instruct-2501** on **odyn_dpo_northstar_post_sft_1200.jsonl** (1,200 training samples) using LoRA (1 epochs, lr=5e-06, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **beta** — No beta set for this DPO job — 0.1 is the TRL/Qwen and MistralFactory default (controls how far the policy may drift from the reference model).
+- **seq_len** — seq_len 128 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.021 hours (≈$0.03 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-05 03:18:06,2026-09-05,2026-W36,8tFwXCpIlK,XxRQ0MHyev,488b49d6-a763-41f6-acc1-39e9786b8ab9,bff398fb-e600-5c0e-9e87-5caefee62b5a,Qwen/Qwen2.5-0.5B-Instruct,72b_alpaca_train_800.jsonl,800,0.0062,0.03277777777777778,-0.02657777777777778,0.02657777777777778,0.8108474576271186,true,false,50-100%,0.01,,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,failed,failed,,true,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **72b_alpaca_train_800.jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0062 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-29 19:06:22,2026-09-29,2026-W40,JAh8n8K8fZ,wJGpaKutbt,,,Qwen/Qwen2.5-7B-Instruct,support_assistant_dpo_1100.jsonl,1100,0.22,,,,,,,missing_actual_or_prediction,0.16,,Medium(7-14B),,,,,,,false,unmatched_prediction,false,true,"I can fine-tune **Qwen/Qwen2.5-7B-Instruct** on **support_assistant_dpo_1100.jsonl** (1,100 training samples) using LoRA (1 epochs, lr=5e-06, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **beta** — No beta set for this DPO job — 0.1 is the TRL/Qwen and MistralFactory default (controls how far the policy may drift from the reference model).
+- **seq_len** — seq_len 128 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.22 hours (≈$0.16 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-08 12:31:55,2026-10-08,2026-W41,lMUjb4d0gn,Q2bwKWOPQu,fe4abb7a-8587-4089-96a5-d01d59fc208e,0177ad61-0911-5034-a3ac-b722f86f5355,Qwen/Qwen2.5-0.5B-Instruct,quant_mentor_500_alpaca.jsonl,500,0.0073,0.06278444444444445,-0.05548444444444445,0.05548444444444445,0.8837291615049729,true,false,50-100%,0.01,0.047088,Small(<=1.5B),0.75,NVIDIA A100-SXM4-40GB,1,completed,completed,5.66235136,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **quant_mentor_500_alpaca.jsonl** (500 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 384 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0073 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-08 06:44:39,2026-09-08,2026-W37,MEZxrMkiIe,n5K06bDnFc,8d7aab91-70ac-44c0-be36-3205022d5226,b7da5f14-7283-52f1-9b7d-48c3016cb39e,Qwen/Qwen2.5-32B-Instruct,quant_mentor_700_alpaca.jsonl,700,0.19,0.26924055555555554,-0.07924055555555554,0.07924055555555554,0.2943113655075077,true,false,25-50%,0.56,0.403861,Large(>=32B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-32B-Instruct** on **quant_mentor_700_alpaca.jsonl** (700 training samples) using LoRA (2 epochs, lr=3e-5, LoRA rank=16). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.19 hours (≈$0.56 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-05 14:33:48,2026-10-05,2026-W41,YQGQzf07AW,azwzkJhqy7,a48ce317-7160-4c9c-b31b-302d122774f0,8e004e0a-cecd-5bc2-abe5-205b4f1f4f83,Qwen/Qwen2.5-1.5B-Instruct,alpaca_train_1200.jsonl,1200,0.0151,0.09666666666666666,-0.08156666666666666,0.08156666666666666,0.8437931034482758,true,false,50-100%,0.01,,Small(<=1.5B),0.75,NVIDIA A100-SXM4-40GB,1,stopped,stopped,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-1.5B-Instruct** on **alpaca_train_1200.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0151 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-29 17:29:34,2026-09-29,2026-W40,Re7Wn11iog,3EqgcBc1Zo,8611ad35-57be-450c-bbe1-39f64270a15f,41502468-9d39-5c7a-a35d-39b7ca4282b9,Qwen/Qwen2.5-0.5B-Instruct,dpoPreferencePairs.jsonl,50,4.0E-4,1.4477777777777778,-1.4473777777777779,1.4473777777777779,0.9997237145049885,true,false,50-100%,0.0,,Small(<=1.5B),,,,stopped,stopped,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **dpoPreferencePairs.jsonl** (50 training samples) using LoRA (2 epochs, lr=5e-06, LoRA rank=8).
+
+**💡 A couple of suggestions on your settings:**
+- **beta** — No beta set for this DPO job — 0.1 is the TRL/Qwen and MistralFactory default (controls how far the policy may drift from the reference model).
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0004 hours (≈$0.00 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-09 02:58:43,2026-09-09,2026-W37,UhK6YmWsOz,FcTNocg7gS,fe462173-90b8-473d-b39e-68aed28dce76,e6129dec-bbb2-54bc-a076-2fd4ca55efb8,Qwen/Qwen2.5-32B-Instruct,quant_mentor2_700.jsonl,700,0.61,1.2805555555555554,-0.6705555555555555,0.6705555555555555,0.523644251626898,true,false,50-100%,0.92,,Large(>=32B),1.5,NVIDIA A100-SXM4-80GB,1,failed,failed,,true,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-32B-Instruct** on **quant_mentor2_700.jsonl** (700 training samples) using LoRA (2 epochs, lr=3e-5, LoRA rank=16). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.61 hours (≈$0.92 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-05 14:39:43,2026-10-05,2026-W41,7qFB9wEkQe,Qix8o56ivu,ba3e8a84-63a9-41d1-91db-a86098c0075e,af05ed08-e8bd-5d4a-9d31-36925dc0a8d7,Qwen/Qwen2.5-1.5B-Instruct,alpaca_train_1200.jsonl,1200,0.0151,0.21888888888888888,-0.20378888888888888,0.20378888888888888,0.931015228426396,true,false,50-100%,0.01,,Small(<=1.5B),0.75,NVIDIA A100-SXM4-40GB,1,stopped,stopped,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-1.5B-Instruct** on **alpaca_train_1200.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0151 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-30 11:25:46,2026-09-30,2026-W40,RePCAqQUDA,n1uSxcjAGJ,,,Qwen/Qwen2.5-0.5B-Instruct,quant_mentor_500_alpaca.jsonl,500,0.0073,,,,,,,missing_actual_or_prediction,0.01,,Small(<=1.5B),,,,,,,false,unmatched_prediction,false,true,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **quant_mentor_500_alpaca.jsonl** (500 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 384 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0073 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-18 20:34:16,2026-09-18,2026-W38,SWjpmRqkbV,HqXutEvaQc,00394d8c-db78-49e1-ab66-859b3f0c1f50,8aa1f483-0e42-50f0-af34-393664fef225,mistralai/Mistral-Small-24B-Instruct-2501,alpaca_train_1200.jsonl,1200,0.0853,0.23646333333333333,-0.15116333333333332,0.15116333333333332,0.6392675397172217,true,false,50-100%,0.14,0.354695,Unknown,1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **mistralai/Mistral-Small-24B-Instruct-2501** on **alpaca_train_1200.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=5e-5, LoRA rank=16). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0853 hours (≈$0.14 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-29 20:35:53,2026-09-29,2026-W40,kNf5se89B4,KyHKnqrGkJ,8717dfd5-a772-485f-b398-a2b39f5c30f1,ddd26bdb-a1b0-5b01-a99c-95dd56a6aa33,Qwen/Qwen2.5-7B-Instruct,alignment-preferences.jsonl,175,0.46,0.41435333333333335,0.04564666666666667,0.04564666666666667,0.11016362846523901,false,true,10-25%,0.7,0.62153,Medium(7-14B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-7B-Instruct** on **alignment-preferences.jsonl** (175 training samples) using LoRA (3 epochs, lr=2e-4, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **beta** — No beta set for this DPO job — 0.1 is the TRL/Qwen and MistralFactory default (controls how far the policy may drift from the reference model).
+- **num_epochs** — 3 epochs is more than this job needs. on every run observed at this scale the best-validation checkpoint landed near epoch 1, so passes beyond 2 cost GPU time without improving the adapter that ships
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.46 hours (≈$0.70 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-07 04:16:29,2026-09-07,2026-W37,liRsPreNvW,yfsplTUycO,,,Qwen/Qwen2.5-0.5B-Instruct,72b_alpaca_train_800.jsonl,800,0.0062,,,,,,,missing_actual_or_prediction,0.01,,Small(<=1.5B),,,,,,,false,unmatched_prediction,false,true,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **72b_alpaca_train_800.jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0062 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-06 12:03:36,2026-09-06,2026-W36,aWCFheycMR,H0jfVDMMia,2326d424-bb90-4f16-aae3-78039125156b,eb739487-5e2d-51f7-a2c4-1d44d2242bfe,Qwen/Qwen2.5-1.5B-Instruct,quant_mentor_100_alpaca.jsonl,100,0.0021,0.045496944444444444,-0.043396944444444446,0.043396944444444446,0.9538430541733572,true,false,50-100%,0.0,0.068245,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-1.5B-Instruct** on **quant_mentor_100_alpaca.jsonl** (100 training samples) using LoRA (3 epochs, lr=1e-4, LoRA rank=8).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 256 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0021 hours (≈$0.00 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-25 10:24:22,2026-09-25,2026-W39,TDmUZH4BWQ,0YtoACfLyc,d427578e-e6cd-428c-8e71-c70cda0346ff,ee5c9f51-dcab-54e2-a10d-171c81a0b8ce,Qwen/Qwen2.5-0.5B-Instruct,quant_mentor_500_alpaca.jsonl,500,0.0073,0.05132805555555556,-0.044028055555555556,0.044028055555555556,0.8577775853578019,true,false,50-100%,0.01,0.076992,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **quant_mentor_500_alpaca.jsonl** (500 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 384 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0073 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-18 20:42:59,2026-09-18,2026-W38,3FkRRnNJvY,5F8Zgt26LF,561c84af-37b4-406a-807d-b537f1cfd37e,ef3d4c4f-34e1-5e2a-ac2d-127ce16fa215,Qwen/Qwen2.5-0.5B-Instruct,alpaca_train_1200.jsonl,1200,0.009,0.07025583333333334,-0.061255833333333336,0.061255833333333336,0.8718967582762998,true,false,50-100%,0.01,0.105384,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **alpaca_train_1200.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.009 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-05 14:33:25,2026-10-05,2026-W41,8W6HlQRxsJ,PARxNy39Q6,03471f3d-edc6-4322-b030-7d40242413f2,bdac432b-f6d8-5065-9bd5-438c8373bb2f,Qwen/Qwen2.5-14B-Instruct,odyn_sft_northstar_800.jsonl,800,0.11,1.4841666666666666,-1.3741666666666665,1.3741666666666665,0.9258843346434587,true,false,50-100%,0.17,,Medium(7-14B),1.8,NVIDIA H100 PCIe,1,failed,failed,,true,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-14B-Instruct** on **odyn_sft_northstar_800.jsonl** (800 training samples) using LoRA (2 epochs, lr=5e-5, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 128 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.11 hours (≈$0.17 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-03 15:53:09,2026-09-03,2026-W36,FpYa6ce0xD,gq4nHoSZzc,,,Qwen/Qwen2.5-0.5B-Instruct,Sample_Dataset_Template.jsonl,800,0.0062,,,,,,,missing_actual_or_prediction,0.01,,Small(<=1.5B),,,,,,,false,unmatched_prediction,false,true,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **Sample_Dataset_Template.jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0062 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-22 19:07:35,2026-09-22,2026-W39,e56oODetY8,npvvW4aSGl,4ddf85dc-663b-4ec9-8b82-f7c6d04e68e9,bee08f3b-2e4e-5bb5-9d39-649735c5b4b8,Qwen/Qwen2.5-0.5B-Instruct,72b_alpaca_train_800.jsonl,800,0.0062,0.1059475,-0.0997475,0.0997475,0.9414804502229879,true,false,50-100%,0.01,0.158921,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **72b_alpaca_train_800.jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0062 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-06 14:32:55,2026-10-06,2026-W41,r3fGuVgiId,WkBqQBNXeG,a8833180-e34a-4fe5-8ea2-b0f7407a53ef,29865eb3-661a-59d5-981c-4fc58f9ac6e7,Qwen/Qwen2.5-1.5B-Instruct,odyn_sft_northstar_800.jsonl,800,0.0022,0.11560305555555556,-0.11340305555555556,0.11340305555555556,0.9809693611520265,true,false,50-100%,0.0,0.086702,Small(<=1.5B),0.75,NVIDIA A100-SXM4-40GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-1.5B-Instruct** on **odyn_sft_northstar_800.jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 128 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0022 hours (≈$0.00 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-08 06:16:34,2026-09-08,2026-W37,qiLfXmTCxs,j3mPpGdEnG,8e56ffa4-ae3e-461f-a538-828d28d41312,58375cbe-8287-582b-8164-f0657bccdd3c,Qwen/Qwen2.5-14B-Instruct,quant_mentor_700_alpaca.jsonl,700,0.18,0.017777777777777778,0.1622222222222222,0.1622222222222222,9.125,false,true,>100%,0.27,,Medium(7-14B),3.0,NVIDIA A100-SXM4-80GB,2,failed,failed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-14B-Instruct** on **quant_mentor_700_alpaca.jsonl** (700 training samples) using LoRA (2 epochs, lr=5e-5, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — Your dataset's longest example is ~783 tokens, but seq_len is 512 — longer examples will be truncated during training. Consider raising seq_len to at least 783.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.18 hours (≈$0.27 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-29 17:45:59,2026-09-29,2026-W40,cWiueT8NIX,Aa8X9yHw9Q,de1645a9-a809-41fd-89e4-54f1fd3a7984,931c1c6e-f401-5da7-bf7e-1060de6c0a35,Qwen/Qwen2.5-1.5B-Instruct,supervisedFineTuning_Updated.jsonl,600,0.0046,0.07915694444444443,-0.07455694444444444,0.07455694444444444,0.9418876002316074,true,false,50-100%,0.0,0.059368,Small(<=1.5B),0.75,NVIDIA A100-SXM4-40GB,,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-1.5B-Instruct** on **supervisedFineTuning_Updated.jsonl** (600 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 128 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0046 hours (≈$0.00 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-05 15:05:42,2026-10-05,2026-W41,ruxgpnDfRD,fvB8QWAPvP,3f9873d5-d0dd-4c7d-9fef-b75fc377d92b,b8e78765-54bb-59a2-a5a1-130120d41df5,Qwen/Qwen2.5-7B-Instruct,alpaca_train_1200.jsonl,1200,0.15,0.07333333333333333,0.07666666666666666,0.07666666666666666,1.0454545454545454,false,true,>100%,0.22,,Medium(7-14B),1.5,NVIDIA A100-SXM4-80GB,1,stopped,stopped,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-7B-Instruct** on **alpaca_train_1200.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=16). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.15 hours (≈$0.22 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-08 16:24:12,2026-10-08,2026-W41,xizkMJQp84,Meewczc6k6,2345b3ad-38ce-425c-a952-3c1fe2fe66ca,92fa7793-2c1d-5b15-83e4-de59fc529c14,Qwen/Qwen2.5-0.5B-Instruct,quant_mentor_500_alpaca.jsonl,500,0.0073,0.05814166666666667,-0.05084166666666667,0.05084166666666667,0.8744446036978644,true,false,50-100%,0.01,0.087213,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,5.66235136,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **quant_mentor_500_alpaca.jsonl** (500 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 384 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0073 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-29 19:10:43,2026-09-29,2026-W40,cQmjUoxy69,SI6ih9MYaI,5670a18b-8bf8-4a54-a139-1b19bb47611b,c2104b10-f154-53cb-9f19-4169369251b5,Qwen/Qwen2.5-7B-Instruct,support_assistant_dpo_1100.jsonl,1100,0.22,0.07748805555555556,0.14251194444444443,0.14251194444444443,1.8391472520854466,false,true,>100%,0.32,0.116232,Medium(7-14B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-7B-Instruct** on **support_assistant_dpo_1100.jsonl** (1,100 training samples) using LoRA (1 epochs, lr=5e-06, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **beta** — No beta set for this DPO job — 0.1 is the TRL/Qwen and MistralFactory default (controls how far the policy may drift from the reference model).
+- **seq_len** — seq_len 128 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.22 hours (≈$0.32 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-18 20:05:05,2026-09-18,2026-W38,kCCkhtheVZ,oDPUjWTSNV,90c15537-452c-4eff-910d-3c13e332ecd1,d833d290-f311-5a75-b169-4efbfa13426e,Qwen/Qwen3-0.6B,alpaca_train_1200.jsonl,1200,0.1,0.08102166666666667,0.018978333333333333,0.018978333333333333,0.23423775533293562,false,true,10-25%,0.16,0.121532,Unknown,1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen3-0.6B** on **alpaca_train_1200.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.1 hours (≈$0.16 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-08 16:34:55,2026-09-08,2026-W37,DcFrONbkGE,LIkkO2dfyv,8b7d98cb-1d85-4dac-8ab3-ab86a2886b01,478d9fa2-acc8-51c4-a61f-ab1e1fdb1856,Qwen/Qwen2.5-32B-Instruct,quant_mentor2_700.jsonl,700,0.61,0.2311111111111111,0.3788888888888889,0.3788888888888889,1.639423076923077,false,true,>100%,0.92,,Large(>=32B),1.5,NVIDIA A100-SXM4-80GB,1,failed,failed,,true,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-32B-Instruct** on **quant_mentor2_700.jsonl** (700 training samples) using LoRA (2 epochs, lr=3e-5, LoRA rank=16). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.61 hours (≈$0.92 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-05 04:44:39,2026-09-05,2026-W36,5ddz2HwBFG,0u6rtmSd8I,73749f1d-930e-4a55-81fc-44bce669455f,824f96f5-5502-56fc-b40c-c7cb5c6c6f86,Qwen/Qwen2.5-7B-Instruct,72b_alpaca_train_800.jsonl,800,0.13,0.09860388888888888,0.031396111111111125,0.031396111111111125,0.31840641849825635,false,true,25-50%,0.2,0.147906,Medium(7-14B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-7B-Instruct** on **72b_alpaca_train_800.jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=16). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.13 hours (≈$0.20 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-08 15:50:36,2026-09-08,2026-W37,8u6z8B8bfL,BCPWOCIuxI,3f822df7-7b55-4f1c-b0a1-55f8a7d8a48b,20c93db9-6740-5316-82ab-eabda01b6ab9,Qwen/Qwen2.5-0.5B-Instruct,quant_mentor2_700.jsonl,700,0.2408,0.295,-0.0542,0.0542,0.18372881355932202,true,false,10-25%,0.4,,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,failed,failed,,true,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **quant_mentor2_700.jsonl** (700 training samples) using LoRA (20 epochs, lr=5e-5, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **num_epochs** — 20 epochs is high and tends to overfit. Try 3–5.
+- **seq_len** — Your dataset's longest example is ~759 tokens, but seq_len is 512 — longer examples will be truncated during training. Consider raising seq_len to at least 759.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.2408 hours (≈$0.40 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-17 03:22:16,2026-09-17,2026-W38,nLJpjMpONX,NwMuHWFtUK,e0ea2b66-4ec7-459a-b769-bb18ba012660,7eb5af7f-acd8-5f26-9005-51f7a2bf13e9,Qwen/Qwen2.5-0.5B-Instruct,Sample_Dataset_Template.jsonl,800,0.0062,0.06052333333333333,-0.054323333333333335,0.054323333333333335,0.8975601696315471,true,false,50-100%,0.01,0.090785,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **Sample_Dataset_Template.jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0062 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-06 13:33:26,2026-09-06,2026-W36,qnaCmviSOc,bVoTWaIvqH,eb9370d3-0825-4928-8177-f2fba411bf9b,b0366d32-8991-51d0-a346-784163ecbb5e,Qwen/Qwen2.5-7B-Instruct,quant_mentor_300_alpaca.jsonl,300,0.13,0.1981216666666667,-0.06812166666666669,0.06812166666666669,0.3438375409049995,true,false,25-50%,0.2,0.297183,Medium(7-14B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-7B-Instruct** on **quant_mentor_300_alpaca.jsonl** (300 training samples) using LoRA (3 epochs, lr=1e-4, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 384 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.13 hours (≈$0.20 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-07 22:03:07,2026-09-07,2026-W37,UAsplHAL3n,JGstYzjmXS,,,Qwen/Qwen2.5-1.5B-Instruct,alpaca_train_1500.jsonl,1200,0.0151,,,,,,,missing_actual_or_prediction,0.02,,Small(<=1.5B),,,,,,,false,unmatched_prediction,false,true,"I can fine-tune **Qwen/Qwen2.5-1.5B-Instruct** on **alpaca_train_1500.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0151 hours (≈$0.02 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-28 17:23:27,2026-09-28,2026-W40,CyyN5t0p0T,8yP7vHaJQW,38b3abc5-9074-4235-91bf-3793fb739df6,7ebd6abe-37ab-571b-9d82-c6adb1e15be8,mistralai/Mistral-Small-24B-Instruct-2501,odyn_sft_northstar_800.jsonl,800,0.0123,0.08606861111111111,-0.0737686111111111,0.0737686111111111,0.8570907576965405,true,false,50-100%,0.02,0.129103,Unknown,1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **mistralai/Mistral-Small-24B-Instruct-2501** on **odyn_sft_northstar_800.jsonl** (800 training samples) using LoRA (2 epochs, lr=5e-5, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 128 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0123 hours (≈$0.02 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-23 14:38:22,2026-09-23,2026-W39,lwDV8VHQEd,0XW0XaQwTr,,,mistralai/Ministral-3-14B-Instruct-2512,alpaca_train_1200.jsonl,1200,0.0617,,,,,,,missing_actual_or_prediction,0.1,,Medium(7-14B),,,,,,,false,unmatched_prediction,false,true,"I can fine-tune **mistralai/Ministral-3-14B-Instruct-2512** on **alpaca_train_1200.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=5e-5, LoRA rank=16). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0617 hours (≈$0.10 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-22 12:47:50,2026-09-22,2026-W39,qJOLrJghw9,kmWecNW8Gy,5ad146df-c29a-4fc6-9430-4a8b3fb1447f,1543a2ec-becc-5094-b4a3-da46fdc732c6,mistralai/Mistral-Small-24B-Instruct-2501,quant_mentor_500_alpaca.jsonl,500,0.0687,0.23101583333333334,-0.16231583333333333,0.16231583333333333,0.7026177859381932,true,false,50-100%,0.11,0.346524,Unknown,1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **mistralai/Mistral-Small-24B-Instruct-2501** on **quant_mentor_500_alpaca.jsonl** (500 training samples) using LoRA (2 epochs, lr=5e-5, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 384 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0687 hours (≈$0.11 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-03 12:19:08,2026-09-03,2026-W36,sfavfPrhtm,hrAFFdOuov,0c338cc0-a290-4d52-b80b-9349e4739a2a,9b2dc390-bb5c-577b-9c26-680e28d7796e,Qwen/Qwen2.5-1.5B-Instruct,alpaca_train_1500.jsonl,1200,0.0151,0.10270583333333333,-0.08760583333333333,0.08760583333333333,0.852978165797139,true,false,50-100%,0.02,0.154059,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-1.5B-Instruct** on **alpaca_train_1500.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0151 hours (≈$0.02 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-03 16:28:47,2026-09-03,2026-W36,xo5WNY2sxI,2kyN5Fgc3q,,,Qwen/Qwen2.5-0.5B-Instruct,72b_alpaca_train_800.jsonl,800,0.0062,,,,,,,missing_actual_or_prediction,0.01,,Small(<=1.5B),,,,,,,false,unmatched_prediction,false,true,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **72b_alpaca_train_800.jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0062 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-08 17:05:59,2026-10-08,2026-W41,spnnvVg2m5,kbt1QvS9Fd,1402e572-d532-4507-97dd-ca3b21246fed,1876ddc1-6919-53f4-b2e0-2506a89ebb2d,Qwen/Qwen3-32B,mixture_finetune.jsonl,8981,0.9879,0.021388888888888888,0.9665111111111111,0.9665111111111111,45.18753246753247,false,true,>100%,6.52,,Large(>=32B),6.0,NVIDIA A100-SXM4-80GB,4,failed,failed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen3-32B** on **mixture_finetune.jsonl** (8,981 training samples) using LoRA (2 epochs, lr=3e-5, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 8064 is long and needs more/bigger GPUs to fit — the plan will scale hardware to match, or reduce it to 4096 if that's not the size job you meant to run. 2048 is a safe default.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.9879 hours (≈$6.52 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-18 19:29:04,2026-09-18,2026-W38,05cZe5rSSX,uRvaTbAoZS,576449ee-07ef-4cfa-8112-ed8175c3a613,6d2a068f-937b-5588-b092-eaf8cefd6512,mistralai/Ministral-3-14B-Instruct-2512,alpaca_train_1200.jsonl,1200,0.0617,0.06444444444444444,-0.002744444444444445,0.002744444444444445,0.04258620689655174,true,false,<=10%,0.1,,Medium(7-14B),1.5,NVIDIA A100-SXM4-80GB,1,failed,failed,,false,matched_to_job,false,false,"I can fine-tune **mistralai/Ministral-3-14B-Instruct-2512** on **alpaca_train_1200.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=5e-5, LoRA rank=16). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0617 hours (≈$0.10 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-05 14:49:46,2026-10-05,2026-W41,OIzfOdXW9M,uqFaxoxt2g,36a5e450-3f1d-43fd-a66e-efaa95a774d1,edc217ae-65c8-5a23-9cc3-0c59f702977b,mistralai/Ministral-3-14B-Instruct-2512,asteria_protocol_sft_50000.jsonl,50000,0.4481,2.0347391666666668,-1.5866391666666668,1.5866391666666668,0.7797752127934499,true,false,50-100%,0.74,3.052109,Medium(7-14B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **mistralai/Ministral-3-14B-Instruct-2512** on **asteria_protocol_sft_50000.jsonl** (50,000 training samples) using LoRA (1 epochs, lr=5e-5, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 128 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.4481 hours (≈$0.74 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-03 15:44:09,2026-09-03,2026-W36,qq4OjRNMdz,LPboXQX1ff,,,Qwen/Qwen2.5-1.5B-Instruct,alpaca_train_1500.jsonl,1200,0.0151,,,,,,,missing_actual_or_prediction,0.02,,Small(<=1.5B),,,,,,,false,unmatched_prediction,false,true,"I can fine-tune **Qwen/Qwen2.5-1.5B-Instruct** on **alpaca_train_1500.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0151 hours (≈$0.02 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-18 20:44:13,2026-09-18,2026-W38,O2S7gXN8Fv,quvvGgNHy6,7a392480-7ca0-4d7e-b5e3-20d20dafae3b,64016229-7276-521c-80c9-efc9e142b15d,Qwen/Qwen3-0.6B,alpaca_train_1200.jsonl,1200,0.1,0.078925,0.02107500000000001,0.02107500000000001,0.26702565726955985,false,true,25-50%,0.16,0.118387,Unknown,1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen3-0.6B** on **alpaca_train_1200.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.1 hours (≈$0.16 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-03 15:08:43,2026-09-03,2026-W36,Q8dcLDefh0,Wxlo7bjx71,f0eae4d8-7926-4ecf-a8d7-e70dad5b364b,2b3e86df-498b-55be-a791-4b55061df3e1,Qwen/Qwen2.5-0.5B-Instruct,72b_alpaca_train_800.jsonl,800,0.0062,0.06359388888888888,-0.05739388888888888,0.05739388888888888,0.9025063554324751,true,false,50-100%,0.01,0.095391,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **72b_alpaca_train_800.jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0062 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-07 16:45:42,2026-09-07,2026-W37,qEH12E2KIp,N91dVTmwpP,,,Qwen/Qwen2.5-0.5B-Instruct,72b_alpaca_train_800.jsonl,800,0.0062,,,,,,,missing_actual_or_prediction,0.01,,Small(<=1.5B),,,,,,,false,unmatched_prediction,false,true,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **72b_alpaca_train_800.jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0062 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-18 16:30:49,2026-09-18,2026-W38,rKv5IeOSSY,rXQcHAXQSA,4ae1b9cd-87a6-4b40-a564-2f25d418f9d8,6cdce809-9123-5942-9586-f13c8c9ed338,mistralai/Mistral-7B-Instruct-v0.3,fever_10k.jsonl,10000,0.3,0.4725283333333334,-0.1725283333333334,0.1725283333333334,0.36511743563878013,true,false,25-50%,0.46,0.708792,Medium(7-14B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **mistralai/Mistral-7B-Instruct-v0.3** on **fever_10k.jsonl** (10,000 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=16). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.3 hours (≈$0.46 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-17 03:21:09,2026-09-17,2026-W38,bl6LcfYo52,Obx0u9dCKk,,,Qwen/Qwen2.5-0.5B-Instruct,alpaca_train_1200.jsonl,1200,0.009,,,,,,,missing_actual_or_prediction,0.01,,Small(<=1.5B),,,,,,,false,unmatched_prediction,false,true,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **alpaca_train_1200.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.009 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-23 13:36:41,2026-09-23,2026-W39,aFF8QIoFH0,foJysWa2GA,b5fd4b98-c22c-4d9f-b563-c077fa9af0f4,4ad5ae7c-4016-55a1-b99d-d3a701e0f1d5,Qwen/Qwen2.5-1.5B-Instruct,alpaca_train_1200.jsonl,1200,0.0151,0.22926055555555555,-0.21416055555555555,0.21416055555555555,0.9341360751595104,true,false,50-100%,0.02,0.343891,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-1.5B-Instruct** on **alpaca_train_1200.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0151 hours (≈$0.02 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-15 20:19:02,2026-09-15,2026-W38,c1RvasdcfS,bCdaUMC2ut,4479cbf1-007d-4a3b-9885-b1f41ed1cb6a,bc613ead-6498-5619-8663-1ca228dbc7c5,Qwen/Qwen2.5-1.5B-Instruct,72b_alpaca_train_800.jsonl,800,0.0103,0.07732694444444445,-0.06702694444444444,0.06702694444444444,0.8667993404627538,true,false,50-100%,0.02,0.11599,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-1.5B-Instruct** on **72b_alpaca_train_800.jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0103 hours (≈$0.02 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-05 16:02:38,2026-10-05,2026-W41,NGdyRuVJaq,9OjUSVe4tk,edec0d84-026a-4b82-8f4f-68424cc1e4cc,a77c1400-aaaa-5a84-80dc-a73db1077bbb,Qwen/Qwen2.5-0.5B-Instruct,supervised_fine_tuning_1000.jsonl,1000,0.0027,0.09137666666666668,-0.08867666666666668,0.08867666666666668,0.9704519753401671,true,false,50-100%,0.0,0.068533,Small(<=1.5B),0.75,NVIDIA A100-SXM4-40GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **supervised_fine_tuning_1000.jsonl** (1,000 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0027 hours (≈$0.00 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-28 16:43:26,2026-09-28,2026-W40,RlDMrrzYlz,oiHu3tZx5r,a508d3f7-5fc2-4c93-92e0-df2a9bb83b52,563c8492-b9df-597e-b30a-4fbda2edae48,mistralai/Ministral-3-14B-Instruct-2512,odyn_sft_northstar_800.jsonl,800,0.0089,0.0819861111111111,-0.0730861111111111,0.0730861111111111,0.8914450279518888,true,false,50-100%,0.01,0.122979,Medium(7-14B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **mistralai/Ministral-3-14B-Instruct-2512** on **odyn_sft_northstar_800.jsonl** (800 training samples) using LoRA (2 epochs, lr=5e-5, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 128 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0089 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-05 15:43:07,2026-10-05,2026-W41,g4N1xAIQ6G,RI07B3j4Cw,5c95a99b-59cc-4fef-b7b5-afb89c945283,fd566ec7-21c3-5a99-89f3-244486fcb71e,Qwen/Qwen2.5-1.5B-Instruct,alpaca_train_1200.jsonl,1200,0.0151,0.079075,-0.063975,0.063975,0.8090420486879545,true,false,50-100%,0.02,0.118612,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-1.5B-Instruct** on **alpaca_train_1200.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0151 hours (≈$0.02 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-10 22:54:11,2026-09-10,2026-W37,GEPeNXhyyu,X6RcD0HB5u,,,Qwen/Qwen2.5-1.5B-Instruct,alpaca_train.jsonl,800,0.0103,,,,,,,missing_actual_or_prediction,0.02,,Small(<=1.5B),,,,,,,false,unmatched_prediction,false,true,"I can fine-tune **Qwen/Qwen2.5-1.5B-Instruct** on **alpaca_train.jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0103 hours (≈$0.02 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-08 15:05:17,2026-10-08,2026-W41,LKUJnDy7kr,WqZLrSuqUG,6da4e072-420b-412d-affb-835357981761,90cf04b2-be84-5f59-8242-046b2bff9ead,Qwen/Qwen2.5-0.5B-Instruct,quant_mentor_500_alpaca.jsonl,500,0.0073,0.06494666666666667,-0.057646666666666666,0.057646666666666666,0.8876000821186615,true,false,50-100%,0.01,0.04871,Small(<=1.5B),0.75,NVIDIA A100-SXM4-40GB,1,completed,completed,5.662352896,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **quant_mentor_500_alpaca.jsonl** (500 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 384 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0073 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-07 00:43:22,2026-10-07,2026-W41,rxuMNBK09i,JwPtnVzDIF,bb8808a3-ac22-4156-b89b-eb49b2376b81,51f94dad-adf2-5b35-8560-0c800216276a,Qwen/Qwen2.5-0.5B-Instruct,72b_alpaca_train_800.jsonl,800,0.0062,0.08871361111111112,-0.08251361111111112,0.08251361111111112,0.9301121899746062,true,false,50-100%,0.01,0.066535,Small(<=1.5B),0.75,NVIDIA A100-SXM4-40GB,1,completed,completed,8.875177984,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **72b_alpaca_train_800.jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0062 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-18 19:52:41,2026-09-18,2026-W38,iNlO4JKixb,u3RhMHKrvg,b4fc4b41-35c3-42e9-a43e-a1a2850884f1,041b9522-f7f4-5c76-8165-3f8f46c724cd,Qwen/Qwen2.5-0.5B-Instruct,alpaca_train_1200.jsonl,1200,0.009,0.07109888888888889,-0.06209888888888889,0.06209888888888889,0.873415743330885,true,false,50-100%,0.01,0.106648,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **alpaca_train_1200.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.009 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-15 09:56:32,2026-09-15,2026-W38,Bl7ibxaum2,h9MRK12Lxk,a7f1a59c-9d20-42b1-b661-0fc0adbde6c2,2858a99c-ab56-5528-97f6-7ec3a96405ea,Qwen/Qwen2.5-32B-Instruct,quant_mentor_100_alpaca.jsonl,100,0.13,0.08147722222222221,0.04852277777777779,0.04852277777777779,0.5955379485745848,false,true,50-100%,0.19,0.122216,Large(>=32B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-32B-Instruct** on **quant_mentor_100_alpaca.jsonl** (100 training samples) using LoRA (3 epochs, lr=3e-5, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 256 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.13 hours (≈$0.19 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-06 13:50:02,2026-09-06,2026-W36,P1M5mct75O,Ly6A8BVBvp,cb7b47db-3ee7-4541-91c2-abd33182af4c,182259d0-eff6-5490-87bf-66876914c90f,Qwen/Qwen2.5-14B-Instruct,quant_mentor_500_alpaca.jsonl,500,0.17,0.2923997222222222,-0.1223997222222222,0.1223997222222222,0.4186040988411031,true,false,25-50%,0.26,0.4386,Medium(7-14B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-14B-Instruct** on **quant_mentor_500_alpaca.jsonl** (500 training samples) using LoRA (2 epochs, lr=5e-5, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 384 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.17 hours (≈$0.26 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-03 06:50:05,2026-09-03,2026-W36,75wHoqG5wP,esVNStmAJg,319b8f38-7afa-4c6a-ae80-da4e5f81d630,6b8d2f29-1dc6-54b7-be72-e65db65eedd6,Qwen/Qwen2.5-0.5B-Instruct,72b_alpaca_train_800.jsonl,800,0.0062,0.061628055555555554,-0.05542805555555556,0.05542805555555556,0.899396468960295,true,false,50-100%,0.01,0.092442,Small(<=1.5B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **72b_alpaca_train_800.jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0062 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-28 17:11:57,2026-09-28,2026-W40,bpLE1COblE,cADf4H1f1n,8ba06755-4896-44f1-bf37-6391292e78e0,113a8054-2cdd-5e7f-989a-cd8d607256e7,mistralai/Ministral-3-14B-Instruct-2512,odyn_dpo_northstar_1200.jsonl,1200,0.0144,0.08598972222222222,-0.07158972222222222,0.07158972222222222,0.8325381263264667,true,false,50-100%,0.02,0.128985,Medium(7-14B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **mistralai/Ministral-3-14B-Instruct-2512** on **odyn_dpo_northstar_1200.jsonl** (1,200 training samples) using LoRA (1 epochs, lr=5e-06, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **beta** — No beta set for this DPO job — 0.1 is the TRL/Qwen and MistralFactory default (controls how far the policy may drift from the reference model).
+- **seq_len** — seq_len 128 is very short and will truncate most instruction pairs. 512–2048 is typical.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0144 hours (≈$0.02 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-18 19:29:49,2026-09-18,2026-W38,DGumc4vlIj,76oytiNV17,6a5e2baa-9571-4cc6-8941-4eb187a0c865,b42f9b2c-5917-5912-a0e9-437eabc8d270,mistralai/Mistral-Small-24B-Instruct-2501,alpaca_train_1200.jsonl,1200,0.0853,0.06888888888888889,0.016411111111111112,0.016411111111111112,0.23822580645161293,false,true,10-25%,0.14,,Unknown,1.5,NVIDIA A100-SXM4-80GB,1,failed,failed,,false,matched_to_job,false,false,"I can fine-tune **mistralai/Mistral-Small-24B-Instruct-2501** on **alpaca_train_1200.jsonl** (1,200 training samples) using LoRA (2 epochs, lr=5e-5, LoRA rank=16). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0853 hours (≈$0.14 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-10-08 16:13:58,2026-10-08,2026-W41,TzaWRJ6dlj,XOEgWaCkOD,812aff7c-9631-471c-b5d2-7b4f51faf172,69b8f566-522c-5930-ba3d-f87259212ae6,Qwen/Qwen3-14B,dataset_instruction.jsonl,4755,3.7803,2.7829155555555554,0.9973844444444446,0.9973844444444446,0.35839551166163075,false,true,25-50%,6.24,4.174373,Medium(7-14B),1.5,NVIDIA A100-SXM4-80GB,1,completed,completed,55.795764736,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen3-14B** on **dataset_instruction.jsonl** (4,755 training samples) using LoRA (2 epochs, lr=5e-5, LoRA rank=16).
+
+**💡 A couple of suggestions on your settings:**
+- **seq_len** — seq_len 5504 is long and needs more/bigger GPUs to fit — the plan will scale hardware to match, or reduce it to 4096 if that's not the size job you meant to run. 2048 is a safe default.
+
+
+_Use the ✓ / ✕ buttons above to apply or keep each setting._ I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈3.7803 hours (≈$6.24 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-09 14:26:36,2026-09-09,2026-W37,gJQ2gaSPNN,KesVYWHvIJ,871dcab3-22e7-4941-a302-9b426524ee60,55590255-1787-5a07-9b4c-56a8fd33e4f1,Qwen/Qwen2.5-32B-Instruct,quant_mentor2_700.jsonl,700,0.61,2.4947222222222223,-1.8847222222222224,1.8847222222222224,0.7554837991314999,true,false,50-100%,0.92,,Large(>=32B),1.5,NVIDIA A100-SXM4-80GB,1,stopped,stopped,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-32B-Instruct** on **quant_mentor2_700.jsonl** (700 training samples) using LoRA (2 epochs, lr=3e-5, LoRA rank=16). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.61 hours (≈$0.92 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."
+2026-09-29 20:12:55,2026-09-29,2026-W40,284ZKLQMdV,1ZD9eimGt3,8c5cd98f-b67e-4e2b-8f66-cd5fb5cffdbc,227f569c-8393-52f4-b829-899dd46cc7f4,Qwen/Qwen2.5-0.5B-Instruct,alpaca_train (3).jsonl,800,0.0062,0.08231027777777777,-0.07611027777777778,0.07611027777777778,0.9246752633159758,true,false,50-100%,0.01,0.061733,Small(<=1.5B),0.75,NVIDIA A100-SXM4-40GB,1,completed,completed,,false,matched_to_job,false,false,"I can fine-tune **Qwen/Qwen2.5-0.5B-Instruct** on **alpaca_train (3).jsonl** (800 training samples) using LoRA (2 epochs, lr=1e-4, LoRA rank=8). I picked the best available Odyn placement and prepared the workload builder.
+
+_Estimated training time: ≈0.0062 hours (≈$0.01 total) — a rough estimate, not a quote._
+
+Use the **Open Workload Builder** button when you are ready."

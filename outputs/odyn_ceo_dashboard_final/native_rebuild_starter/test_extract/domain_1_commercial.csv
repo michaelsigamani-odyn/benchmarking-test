@@ -1,0 +1,3 @@
+Snapshot_TS,KPI_Domain,KPI_Metric,KPI_Detail,KPI_Count,KPI_Value
+2026-10-11 10:48:58,D1 Commercial,Benchmark rows,status=MEASURED,1,19
+2026-10-11 10:48:58,D1 Commercial,Measurable cost rows,status=UNAVAILABLE|Missing governed token_count + governed buyer/supplier pricing table join in current BigQuery schema.,1,0

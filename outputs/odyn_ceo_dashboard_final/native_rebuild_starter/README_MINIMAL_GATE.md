@@ -2,6 +2,8 @@
 
 Use this folder only for the **first gate** workbook.
 
+> Source of truth for continuation work: `../TABLEAU_DESKTOP_HANDOFF.md`
+
 ## Files
 
 - `ceo_dashboard_snapshot.csv` (executive KPI snapshot)
@@ -34,6 +36,13 @@ Use this folder only for the **first gate** workbook.
 
 - Keep unavailable KPIs shown via `KPI_Detail` status text (do not convert to 0).
 - This gate uses static CSV snapshots, not live BigQuery or live telemetry.
+
+## Continuation status (after minimal gate)
+
+- Minimal workbook `ODYN_CEO_Dashboard_minimal_native.twbx` is approved.
+- Next build is the full six-domain native Tableau dashboard plus drill-down interactivity and visual validation.
+- Preserve the agreed executive visual design (KPI cards, trend charts, failure breakdowns, estimation accuracy, fleet health, machine/job drill-downs); do not reduce to six flat CSV tables.
+- Do not perform XML-based workbook generation/editing unless a required visualization is blocked by missing fields.
 
 ## Next phase files (for six-domain extension)
 

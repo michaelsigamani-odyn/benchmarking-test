@@ -6,6 +6,7 @@ import hashlib
 import importlib.util
 import io
 import json
+import os
 import shutil
 import sys
 import tempfile
@@ -422,6 +423,47 @@ class ExtractorRealPostgresFixtureTests(unittest.TestCase):
         self.assertIn("\"gpu_identifiers\":1", out)  # DROPPED_ARRAY_ELEMENTS evidence
         self.assertIn("findings", res)
         self.assertTrue(any(f.get("table") == "public.ingest_job_placement_v1" and f.get("pattern") == "gpu_identifiers_element" for f in res["findings"]))
+
+    def test_17_kms_hmac_memoization(self):
+        cache = {}
+        key = "arn:aws:kms:us-west-2:123456789012:key/12345678-1234-1234-1234-123456789012"
+        out1 = mod.kms_hmac_hex(self.kms, key, "same-value", cache=cache)
+        out2 = mod.kms_hmac_hex(self.kms, key, "same-value", cache=cache)
+        self.assertEqual(out1, out2)
+        # one KMS call only for same key+value
+        self.assertEqual(self.kms.messages.count("same-value"), 1)
+
+    def test_18_secret_json_unrecognized_shape_raises(self):
+        class FakeSM:
+            def get_secret_value(self, SecretId):  # noqa: N803
+                return {"SecretString": '{"unexpected":"shape"}'}
+
+        class FakeSession:
+            def client(self, service, region_name=None):
+                self._service = service
+                self._region = region_name
+                return FakeSM()
+
+        class FakeBoto3:
+            class session:
+                @staticmethod
+                def Session(profile_name=None):
+                    _ = profile_name
+                    return FakeSession()
+
+        cfg = self._all_tables_config()
+        original_boto3 = mod.boto3
+        original_pgpassword = os.environ.get("PGPASSWORD")
+        try:
+            if "PGPASSWORD" in os.environ:
+                del os.environ["PGPASSWORD"]
+            mod.boto3 = FakeBoto3()
+            with self.assertRaises(RuntimeError):
+                mod._resolve_pg_password(cfg)
+        finally:
+            mod.boto3 = original_boto3
+            if original_pgpassword is not None:
+                os.environ["PGPASSWORD"] = original_pgpassword
 
 
 if __name__ == "__main__":

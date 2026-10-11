@@ -1,0 +1,3 @@
+plane,registered_machines,observed_machines,reporting_machines,telemetry_coverage_pct,expected_gpu_count,reporting_gpu_count,gpu_telemetry_coverage_pct,healthy_available_machines,availability_pct,unmonitored_machines,confirmed_offline_machines,degraded_machines,latest_telemetry_ts
+edge,7,7,5,71.42857142857143,8,7,87.5,4,57.142857142857146,0,0,1,2026-10-11 10:48:09
+production,,,,,,,,,,,,,

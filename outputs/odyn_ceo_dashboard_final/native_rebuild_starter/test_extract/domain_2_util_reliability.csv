@@ -1,0 +1,6 @@
+Snapshot_TS,KPI_Domain,KPI_Metric,KPI_Detail,KPI_Count,KPI_Value
+2026-10-11 10:48:58,D2 Util/Reliability,Peak concurrent users,status=MEASURED,1,1
+2026-10-11 10:48:58,D2 Util/Reliability,Peak concurrent GPU jobs,status=MEASURED,1,7
+2026-10-11 10:48:58,D2 Util/Reliability,Failure rate % (Observed Digester cohort 12/58),status=MEASURED,1,20.69
+2026-10-11 10:48:58,D2 Util/Reliability,OOM failed jobs (Observed Digester cohort),status=MEASURED,1,5
+2026-10-11 10:48:58,D2 Util/Reliability,Production telemetry rows,status=UNAVAILABLE|clean_ops.fact_gpu_telemetry_v1 empty,1,0

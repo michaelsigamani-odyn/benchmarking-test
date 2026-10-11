@@ -1,0 +1,40 @@
+{
+  "export_file": "/Users/michaelsigamani/Documents/DevelopmentCode/benchmarking-test/ODYN_CEO_Dashboard_full_native.twbx",
+  "export_size_bytes": 31800,
+  "worksheets": [
+    "D1 Commercial Sheet",
+    "D2 Util Reliability Sheet",
+    "D3 Digester Quality Sheet",
+    "D4 Estimation Pricing Sheet",
+    "D5 Fleet Health Sheet",
+    "D6 Scheduler Economics Sheet",
+    "Executive KPI Sheet",
+    "Job Drill Sheet",
+    "Machine Drill Sheet"
+  ],
+  "worksheet_datasources": {
+    "D1 Commercial Sheet": "federated.d1",
+    "D2 Util Reliability Sheet": "federated.d2",
+    "D3 Digester Quality Sheet": "federated.d3",
+    "D4 Estimation Pricing Sheet": "federated.d4",
+    "D5 Fleet Health Sheet": "federated.d5",
+    "D6 Scheduler Economics Sheet": "federated.d6",
+    "Executive KPI Sheet": "federated.execsnapshot",
+    "Job Drill Sheet": "federated.job",
+    "Machine Drill Sheet": "federated.mach"
+  },
+  "dashboards": [
+    "Odyn CEO Dashboard"
+  ],
+  "odyn_ceo_dashboard_zone_refs": [
+    "Executive KPI Sheet",
+    "D1 Commercial Sheet",
+    "D2 Util Reliability Sheet",
+    "D3 Digester Quality Sheet",
+    "D4 Estimation Pricing Sheet",
+    "D5 Fleet Health Sheet",
+    "D6 Scheduler Economics Sheet",
+    "Machine Drill Sheet",
+    "Job Drill Sheet"
+  ]
+}

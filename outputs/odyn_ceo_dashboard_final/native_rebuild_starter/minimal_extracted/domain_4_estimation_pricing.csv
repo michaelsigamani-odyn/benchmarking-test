@@ -1,0 +1,6 @@
+Snapshot_TS,KPI_Domain,KPI_Metric,KPI_Detail,KPI_Count,KPI_Value
+2026-10-11 10:48:58,D4 Estimation,Completed jobs N,status=MEASURED,1,46
+2026-10-11 10:48:58,D4 Estimation,Runtime MAPE %,status=MEASURED,1,73.52
+2026-10-11 10:48:58,D4 Estimation,Cost MAPE %,status=MEASURED,1,74.12
+2026-10-11 10:48:58,D4 Estimation,Runtime underestimation %,status=MEASURED,1,82.61
+2026-10-11 10:48:58,D4 Estimation,Cost underestimation %,status=MEASURED,1,80.43

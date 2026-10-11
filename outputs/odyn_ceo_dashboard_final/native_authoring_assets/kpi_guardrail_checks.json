@@ -1,0 +1,41 @@
+{
+  "checks": [
+    {
+      "metric": "Runtime MAPE",
+      "expected_rounded": 73.52,
+      "actual": 73.52397811396885,
+      "pass": true
+    },
+    {
+      "metric": "Cost MAPE",
+      "expected_rounded": 74.12,
+      "actual": 74.12133632652032,
+      "pass": true
+    },
+    {
+      "metric": "Runtime underestimation rate",
+      "expected_rounded": 82.61,
+      "actual": 82.6086956521739,
+      "pass": true
+    },
+    {
+      "metric": "Cost underestimation rate",
+      "expected_rounded": 80.43,
+      "actual": 80.43478260869566,
+      "pass": true
+    },
+    {
+      "metric": "Commercial comparable pairs supported",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "metric": "LangSmith rows unavailable card exists",
+      "expected": "UNAVAILABLE",
+      "actual": "UNAVAILABLE",
+      "pass": true
+    }
+  ],
+  "all_pass": true
+}

@@ -1,0 +1,7 @@
+card_order,card_key,card_title,value_display,value_numeric,unit,status,coverage_display,freshness_ts,detail_note
+1,workload_success_rate,Workload success rate (matched jobs),69.70%,69.6969696969697,%,MEASURED,46 / 66 matched jobs,2026-10-09 13:03:18,Completed / matched jobs from digester runtime cohort.
+2,avg_gpu_utilization,Average GPU utilization (edge telemetry),0.00%,0.0,%,MEASURED,35 util samples / 100 rows,2026-10-11 10:48:09,Average of util_gpu_pct where telemetry field is present.
+3,peak_concurrency,Peak concurrent GPU jobs,7,7.0,jobs,MEASURED,32 event timestamps,2026-10-09 16:13:30,Peak concurrent users observed: 1.
+4,completed_jobs,Completed jobs in estimation cohort,46,46.0,jobs,MEASURED,Completed matched jobs with actual runtime+cost,2026-10-09 13:03:18,Cohort used for runtime/cost MAPE and underestimation rates.
+5,edge_telemetry_coverage,Edge fleet telemetry coverage,71.43%,71.42857142857143,%,MEASURED,5 / 7 machines reporting,2026-10-11 10:48:09,Production plane coverage unavailable in current governed snapshot.
+6,commercial_comparison,Commercial comparability (Odyn vs Together),N/A,,USD / 1M tokens,UNAVAILABLE,0 / 6 comparable model/workload pairs,2026-10-10 20:17:07,Cost-per-million fields are missing in governed BigQuery extract.

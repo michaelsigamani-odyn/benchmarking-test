@@ -687,6 +687,27 @@ def _run_post_load_dq(cfg: BqConfig) -> None:
             "OR REGEXP_CONTAINS(TO_JSON_STRING(payload_redacted), r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}')"
         ),
         "timing_negative_values": f"SELECT COUNT(*) FROM `{cfg.project}.{TIME_TABLE}` WHERE wall_time_min < 0 OR training_time_min < 0",
+        "raw_duplicate_keys": (
+            f"SELECT COUNT(*) FROM ("
+            f"SELECT provider, provider_run_id, payload_sha256 "
+            f"FROM `{cfg.project}.{RAW_TABLE}` "
+            f"GROUP BY provider, provider_run_id, payload_sha256 "
+            f"HAVING COUNT(*) > 1)"
+        ),
+        "conditions_duplicate_keys": (
+            f"SELECT COUNT(*) FROM ("
+            f"SELECT provider, workload_id, workload_type, as_of_ts "
+            f"FROM `{cfg.project}.{COND_TABLE}` "
+            f"GROUP BY provider, workload_id, workload_type, as_of_ts "
+            f"HAVING COUNT(*) > 1)"
+        ),
+        "timing_duplicate_keys": (
+            f"SELECT COUNT(*) FROM ("
+            f"SELECT provider, workload_id, workload_type, as_of_ts "
+            f"FROM `{cfg.project}.{TIME_TABLE}` "
+            f"GROUP BY provider, workload_id, workload_type, as_of_ts "
+            f"HAVING COUNT(*) > 1)"
+        ),
     }
 
     failures: List[str] = []

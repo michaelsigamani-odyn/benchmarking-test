@@ -1,0 +1,2 @@
+inspected_at,latest_s3_mirror_observed_at,oldest_s3_mirror_observed_at,mirror_rows,latest_workload_fetched_at,latest_workload_event_date,workload_rows,latest_edge_sample_ts,edge_rows,mirror_location_note
+2026-10-11 10:48:58,,,,2026-10-10 20:11:45,2026-10-10,38,2026-10-11 10:48:09,1304,ops_ingest.s3_mirror_daily is in US location and cannot be joined into EU governed views directly.

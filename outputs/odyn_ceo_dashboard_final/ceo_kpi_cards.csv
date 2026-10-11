@@ -1,0 +1,41 @@
+OrderDate,Region,Rep,Item,Units,Unit Price
+2026-10-11,D1 Commercial,Rows in benchmark view,summary,1,19
+2026-10-11,D1 Commercial,Measurable cost rows,summary,1,0
+2026-10-11,D2 Util/Reliability,Peak concurrent users,summary,1,1
+2026-10-11,D2 Util/Reliability,Peak concurrent gpu jobs,summary,1,7
+2026-10-11,D2 Util/Reliability,Failure pct completed+failed,summary,1,20.69
+2026-10-11,D3 Digester quality,VRAM comparable rows,summary,1,0
+2026-10-11,D3 Digester quality,LangSmith eval rows,summary,1,0
+2026-10-11,D4 Estimation,Completed jobs N,summary,1,46
+2026-10-11,D4 Estimation,Runtime MAPE %,summary,1,73.52
+2026-10-11,D4 Estimation,Cost MAPE %,summary,1,74.12
+2026-10-11,D4 Estimation,Runtime underest %,summary,1,82.61
+2026-10-11,D4 Estimation,Cost underest %,summary,1,80.43
+2026-10-11,D6 Scheduler econ,Rows in scheduler economics view,summary,1,19
+2026-10-11,D6 Scheduler econ,Measured economics rows,summary,1,0
+2026-10-11,D5 Machine Drilldown,odyn-dgx-spark-02,IDLE_WITH_CONTAINER|FRESH|online,1,1.0
+2026-10-11,D5 Machine Drilldown,odyn-radeon2,NO_RECENT_SAMPLE|STALE|unknown,1,1.0
+2026-10-11,D5 Machine Drilldown,odyn-dgx1,GPU_FAULT|FRESH|degraded,1,0.0
+2026-10-11,D5 Machine Drilldown,odyn-dgx3,IDLE_WITH_CONTAINER|FRESH|online,1,1.0
+2026-10-11,D5 Machine Drilldown,odyn-a6000,IDLE|FRESH|online,2,2.0
+2026-10-11,D5 Machine Drilldown,radeon,IDLE_WITH_CONTAINER|FRESH|online,1,1.0
+2026-10-11,D5 Machine Drilldown,odyn-radeon3,NO_RECENT_SAMPLE|STALE|unknown,1,1.0
+2026-10-11,D4 Job Drilldown,ft-b61858e9-228c,together|finetune|UNKNOWN,0,12.55195
+2026-10-11,D4 Job Drilldown,ft-2fe19cba-b1d3,together|finetune|UNKNOWN,0,14.479933333333333
+2026-10-11,D4 Job Drilldown,ft-db904a53-822c,together|finetune|UNKNOWN,0,14.625633333333333
+2026-10-11,D4 Job Drilldown,90cf04b2-be84-5f59-8242-046b2bff9ead,odyn|serving|UNKNOWN,0,0.0
+2026-10-11,D4 Job Drilldown,ft-f7900121-8871,together|finetune|UNKNOWN,0,14.55435
+2026-10-11,D4 Job Drilldown,ft-203f3d09-1cf6,together|finetune|UNKNOWN,0,11.79575
+2026-10-11,D4 Job Drilldown,ft-15dec247-d184,together|finetune|UNKNOWN,0,14.210616666666665
+2026-10-11,D4 Job Drilldown,ft-d3580354-5bff,together|finetune|UNKNOWN,0,8.382666666666667
+2026-10-11,D4 Job Drilldown,c2104b10-f154-53cb-9f19-4169369251b5,odyn|serving|UNKNOWN,0,0.0
+2026-10-11,D4 Job Drilldown,92fa7793-2c1d-5b15-83e4-de59fc529c14,odyn|serving|UNKNOWN,0,0.0
+2026-10-11,D4 Job Drilldown,ft-800f78cc-228c,together|finetune|UNKNOWN,0,8.671050000000001
+2026-10-11,D4 Job Drilldown,ft-8d9597ed-cfa0,together|finetune|UNKNOWN,0,10.243633333333333
+2026-10-11,D4 Job Drilldown,ft-1fce124e-17b1,together|finetune|UNKNOWN,0,9.054183333333333
+2026-10-11,D4 Job Drilldown,ft-48fa226c-5142,together|finetune|UNKNOWN,0,20.59466666666667
+2026-10-11,D4 Job Drilldown,ft-79f6d24e-ff70,together|finetune|UNKNOWN,0,14.379616666666667
+2026-10-11,D4 Job Drilldown,ft-c8bfe61e-9d76,together|finetune|UNKNOWN,0,8.65445
+2026-10-11,D4 Job Drilldown,ft-13dd5f5f-d688,together|finetune|UNKNOWN,0,9.3458
+2026-10-11,D4 Job Drilldown,ft-c605677b-1ee3,together|finetune|UNKNOWN,0,10.82935
+2026-10-11,D4 Job Drilldown,ft-bcf4ff51-89fc,together|finetune|UNKNOWN,0,47.43983333333333

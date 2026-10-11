@@ -1,0 +1,8 @@
+Snapshot_TS,KPI_Domain,KPI_Metric,KPI_Detail,KPI_Count,KPI_Value
+2026-10-11 10:48:58,D5 Machine Drilldown,odyn-dgx-spark-02 gpu_rows,status=FRESH|state=IDLE_WITH_CONTAINER|health=online|last_sample=2026-10-11 10:48:09,1,1.0
+2026-10-11 10:48:58,D5 Machine Drilldown,odyn-radeon2 gpu_rows,status=STALE|state=NO_RECENT_SAMPLE|health=unknown|last_sample=2026-10-11 10:38:45,1,1.0
+2026-10-11 10:48:58,D5 Machine Drilldown,odyn-dgx1 gpu_rows,status=FRESH|state=GPU_FAULT|health=degraded|last_sample=2026-10-11 10:48:09,1,0.0
+2026-10-11 10:48:58,D5 Machine Drilldown,odyn-dgx3 gpu_rows,status=FRESH|state=IDLE_WITH_CONTAINER|health=online|last_sample=2026-10-11 10:48:09,1,1.0
+2026-10-11 10:48:58,D5 Machine Drilldown,odyn-a6000 gpu_rows,status=FRESH|state=IDLE|health=online|last_sample=2026-10-11 10:48:09,1,2.0
+2026-10-11 10:48:58,D5 Machine Drilldown,radeon gpu_rows,status=FRESH|state=IDLE_WITH_CONTAINER|health=online|last_sample=2026-10-11 10:48:09,1,1.0
+2026-10-11 10:48:58,D5 Machine Drilldown,odyn-radeon3 gpu_rows,status=STALE|state=NO_RECENT_SAMPLE|health=unknown|last_sample=2026-10-11 10:38:45,1,1.0

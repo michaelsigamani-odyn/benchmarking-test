@@ -1,0 +1,8 @@
+host,display_name,vendor,state,machine_health_state,telemetry_status,telemetry_fresh,last_sample_ts,age_s,expected_gpus,gpu_rows,util_gpu_pct_max,power_w_sum,temp_c_max,containers,load1,demo_readiness,machine_drill_key
+odyn-a6000,2x RTX A6000 server,nvidia,IDLE,online,FRESH,true,2026-10-11 10:48:09,39.0,2.0,2.0,0.0,31.83,34.0,0.0,0.03,READY,machine://odyn-a6000
+odyn-dgx-spark-02,DGX Spark 2,nvidia,IDLE_WITH_CONTAINER,online,FRESH,true,2026-10-11 10:48:09,39.0,1.0,1.0,0.0,10.74,36.0,1.0,0.15,READY,machine://odyn-dgx-spark-02
+odyn-dgx1,DGX Spark 1,nvidia,GPU_FAULT,degraded,FRESH,true,2026-10-11 10:48:09,39.0,1.0,0.0,,,,,,AT_RISK,machine://odyn-dgx1
+odyn-dgx3,DGX Spark 3,nvidia,IDLE_WITH_CONTAINER,online,FRESH,true,2026-10-11 10:48:09,39.0,1.0,1.0,0.0,4.81,40.0,1.0,0.33,UNKNOWN,machine://odyn-dgx3
+odyn-radeon2,Radeon Office 2 (GMKtec EVO-X2),amd,NO_RECENT_SAMPLE,unknown,STALE,false,2026-10-11 10:38:45,602.0,1.0,1.0,0.0,4.063,28.0,,,UNKNOWN,machine://odyn-radeon2
+odyn-radeon3,Radeon Office 3 (GMKtec EVO-X2),amd,NO_RECENT_SAMPLE,unknown,STALE,false,2026-10-11 10:38:45,602.0,1.0,1.0,,,,,,UNKNOWN,machine://odyn-radeon3
+radeon,Radeon Office 1 (GMKtec EVO-X2),amd,IDLE_WITH_CONTAINER,online,FRESH,true,2026-10-11 10:48:09,39.0,1.0,1.0,0.0,4.099,28.0,1.0,0.21,READY,machine://radeon

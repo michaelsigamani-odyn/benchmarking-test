@@ -1,0 +1,100 @@
+{
+  "observation_windows": {
+    "freshness": {
+      "inspected_at": "2026-10-11 10:48:58",
+      "latest_s3_mirror_observed_at": "",
+      "oldest_s3_mirror_observed_at": "",
+      "mirror_rows": "",
+      "latest_workload_fetched_at": "2026-10-10 20:11:45",
+      "latest_workload_event_date": "2026-10-10",
+      "workload_rows": "38",
+      "latest_edge_sample_ts": "2026-10-11 10:48:09",
+      "edge_rows": "1304",
+      "mirror_location_note": "ops_ingest.s3_mirror_daily is in US location and cannot be joined into EU governed views directly."
+    }
+  },
+  "domain_metrics": {
+    "commercial": {
+      "rows": 19,
+      "measurable_cost_rows": 0,
+      "all_unavailable_reason": "Missing governed token_count + governed buyer/supplier pricing table join in current BigQuery schema."
+    },
+    "utilization_reliability": {
+      "gpu_util_days": 1,
+      "peak_concurrent_users": 1,
+      "peak_concurrent_gpu_jobs": 7,
+      "runtime_completed": 46,
+      "runtime_failed": 12,
+      "runtime_failure_pct_completed_plus_failed": 20.69,
+      "oom_failed_jobs": 5,
+      "production_telemetry_rows": 0
+    },
+    "digester_quality": {
+      "vram_rows_total": 83,
+      "vram_comparable_rows": 0,
+      "vram_mae_gb": null,
+      "langsmith_eval_rows": 0
+    },
+    "estimation_pricing_accuracy": {
+      "completed_jobs_n": 46,
+      "runtime_mape_pct": 73.52,
+      "cost_mape_pct": 74.12,
+      "runtime_underestimate_rate_pct": 82.61,
+      "runtime_underestimate_wilson95_pct": [
+        69.28,
+        90.91
+      ],
+      "cost_underestimate_rate_pct": 80.43,
+      "cost_underestimate_wilson95_pct": [
+        66.83,
+        89.35
+      ]
+    },
+    "fleet_health_diversity": {
+      "fleet_summary_rows": [
+        {
+          "plane": "edge",
+          "registered_machines": "7",
+          "observed_machines": "7",
+          "reporting_machines": "5",
+          "telemetry_coverage_pct": "71.42857142857143",
+          "expected_gpu_count": "8",
+          "reporting_gpu_count": "7",
+          "gpu_telemetry_coverage_pct": "87.5",
+          "healthy_available_machines": "4",
+          "availability_pct": "57.142857142857146",
+          "unmonitored_machines": "0",
+          "confirmed_offline_machines": "0",
+          "degraded_machines": "1",
+          "latest_telemetry_ts": "2026-10-11 10:48:09"
+        },
+        {
+          "plane": "production",
+          "registered_machines": "",
+          "observed_machines": "",
+          "reporting_machines": "",
+          "telemetry_coverage_pct": "",
+          "expected_gpu_count": "",
+          "reporting_gpu_count": "",
+          "gpu_telemetry_coverage_pct": "",
+          "healthy_available_machines": "",
+          "availability_pct": "",
+          "unmonitored_machines": "",
+          "confirmed_offline_machines": "",
+          "degraded_machines": "",
+          "latest_telemetry_ts": ""
+        }
+      ],
+      "radeon_manual_sample_counts": {
+        "odyn-radeon2": 1,
+        "odyn-radeon3": 1
+      }
+    },
+    "scheduler_economics": {
+      "rows": 19,
+      "measured_rows": 0,
+      "unavailable_rows": 19,
+      "limitation_reason": "Missing governed pricing source and token-accounting join in current BigQuery schema."
+    }
+  }
+}

@@ -1,0 +1,5 @@
+metric,value_pct,sample_size_n,denominator_note,status,ci_low_pct,ci_high_pct,value_display
+Runtime MAPE,73.52397811396885,46,Completed matched jobs with predicted+actual runtime,MEASURED,,,73.52%
+Cost MAPE,74.12133632652032,46,Completed matched jobs with estimated+actual cost,MEASURED,,,74.12%
+Runtime underestimation rate,82.6086956521739,46,Completed matched jobs with predicted+actual runtime,MEASURED,69.27636765607747,90.91431643111075,82.61%
+Cost underestimation rate,80.43478260869566,46,Completed matched jobs with estimated+actual cost,MEASURED,66.8284622588308,89.3495095558782,80.43%

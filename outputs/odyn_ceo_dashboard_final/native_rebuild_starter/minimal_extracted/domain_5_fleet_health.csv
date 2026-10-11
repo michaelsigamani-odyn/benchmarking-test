@@ -1,0 +1,6 @@
+Snapshot_TS,KPI_Domain,KPI_Metric,KPI_Detail,KPI_Count,KPI_Value
+2026-10-11 10:48:58,D5 Fleet,Edge telemetry coverage %,status=MEASURED,1,71.42857142857143
+2026-10-11 10:48:58,D5 Fleet,GPU telemetry coverage %,status=MEASURED,1,87.5
+2026-10-11 10:48:58,D5 Fleet,Degraded machines,status=MEASURED,1,1.0
+2026-10-11 10:48:58,D5 Fleet,odyn-radeon2 sample count,status=NOT_MONITORED|manual/stale sample only,1,1
+2026-10-11 10:48:58,D5 Fleet,odyn-radeon3 sample count,status=NOT_MONITORED|manual/stale sample only,1,1

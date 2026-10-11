@@ -1,0 +1,162 @@
+[
+  {
+    "file": "AC_VALIDATION_MATRIX.md",
+    "bytes": 1729,
+    "sha256": "a88b78a2de8098a0d621abe9ba1678adbeb47889657a61862174695aa49603b0"
+  },
+  {
+    "file": "ANALYTICAL_BASELINE_REPORT.md",
+    "bytes": 2699,
+    "sha256": "4c0fa5ab3e35fba0d289f0d4c2f405b5e688504d485e859e827df91c006c5aba"
+  },
+  {
+    "file": "DELIVERY_REPORT.md",
+    "bytes": 1799,
+    "sha256": "15d4341bd0384a9e141e25bea36e3df0f79e184191f64c47c2a62c1f220e30ba"
+  },
+  {
+    "file": "IMPLEMENTATION_CHECKLIST_NATIVE.md",
+    "bytes": 3254,
+    "sha256": "e3ed7568005d64d7d26c37e5ec0940c76f949d0b589608484843dd17caf30007"
+  },
+  {
+    "file": "NATIVE_EXECUTION_STATUS.md",
+    "bytes": 1194,
+    "sha256": "4af39025b9d0d4790e90df256bdf9ddded365900fc3765aa140d44b6f77430c0"
+  },
+  {
+    "file": "NATIVE_TABLEAU_VISUAL_SPEC.md",
+    "bytes": 6973,
+    "sha256": "79d671a6ed1fa15f7a9f0aaf39ce6c9e82e7fcf030fa7444069a8bc2e532ad6e"
+  },
+  {
+    "file": "README.md",
+    "bytes": 1670,
+    "sha256": "fa58ab64114c12095c741322b54e73d93b5f3381234e54023597c48b08b1288a"
+  },
+  {
+    "file": "VISUAL_STYLE_TOKENS.md",
+    "bytes": 1206,
+    "sha256": "1e0d76252f945c3ab3482fbb1fecdc2ef79bed77ae556becbf4301f1074b566e"
+  },
+  {
+    "file": "WORKSHEET_BUILD_MAP.md",
+    "bytes": 4766,
+    "sha256": "c99b1ccd344ec0b9804aa48a68561d58d52b092efc5d9d70259e69628d787f6c"
+  },
+  {
+    "file": "asset_build_summary.json",
+    "bytes": 1286,
+    "sha256": "6395eb2adcf3dfdccefb17e368eab440cdcf771849b21f67761d254f1b7070ca"
+  },
+  {
+    "file": "build_native_authoring_assets.py",
+    "bytes": 58812,
+    "sha256": "d31a9ea8e55c505c48629a4b510acf27027aec57549f66e789310ac55b071cff"
+  },
+  {
+    "file": "commercial_comparability.csv",
+    "bytes": 1067,
+    "sha256": "be3351b75088d243be506eb6306f33168991b897593a317d0692d14d43e68fee"
+  },
+  {
+    "file": "concurrency_timeline.csv",
+    "bytes": 1333,
+    "sha256": "aa4d6f7d271ad01d7e4e0d7eaf062dde02d23ac707936b960ccdd51fc14ac233"
+  },
+  {
+    "file": "cost_scatter_points.csv",
+    "bytes": 8665,
+    "sha256": "22eabe71b4064b1bf08b547dc73c0b70afe57558b321fbf81dac9eabf4fe20a3"
+  },
+  {
+    "file": "digester_availability_cards.csv",
+    "bytes": 370,
+    "sha256": "21e4b732400fd886fd2e0611884c866114f97d41f2dfed700935b2c9a08b9a6f"
+  },
+  {
+    "file": "estimation_accuracy_summary.csv",
+    "bytes": 602,
+    "sha256": "298bd2ac677aa46901710228fe026a1364961f37c1d97f77f4da19a95b52eee0"
+  },
+  {
+    "file": "executive_kpi_cards.csv",
+    "bytes": 1274,
+    "sha256": "748cf7af21ec809cb58b8190165b20cccf6a3d8eded7f0de8cf75b9d5b2a3f91"
+  },
+  {
+    "file": "fleet_gpu_model_distribution.csv",
+    "bytes": 1013,
+    "sha256": "5da4d6de6d0daf901cc09ffcaa80c1df38b072699238673a686c4affb1b5bc45"
+  },
+  {
+    "file": "fleet_health_overview.csv",
+    "bytes": 1299,
+    "sha256": "25480745e7cfe304ef686e328a098a9f844dc24d850854e6cd3694315b4910c2"
+  },
+  {
+    "file": "gpu_utilization_timeseries.csv",
+    "bytes": 8361,
+    "sha256": "144c0bcfb4efca6410e7d6f74114a6e4e036b1a8d162895bdcce966ae9ffc45c"
+  },
+  {
+    "file": "job_drill_records.csv",
+    "bytes": 4338,
+    "sha256": "84fa952f992dacc0831fc02af0d0dd2acf1e2942ad9ac4679095895a81848855"
+  },
+  {
+    "file": "kpi_guardrail_checks.json",
+    "bytes": 876,
+    "sha256": "cdbbbd42b61e5571ee0787b7cafcac7b71a5865fa0118d8aa7d56e65bc7b81f3"
+  },
+  {
+    "file": "machine_drill_records.csv",
+    "bytes": 1475,
+    "sha256": "01fd793fdfb102de4bd4633b9db9c723b2b24e2494aae051e1a92bd6250dd9be"
+  },
+  {
+    "file": "machine_gpu_telemetry_records.csv",
+    "bytes": 17097,
+    "sha256": "8a0122b37768720cc6b29ee96a00515a6a3dda8343f30bf09126589ecfa138fa"
+  },
+  {
+    "file": "oom_failure_breakdown.csv",
+    "bytes": 290,
+    "sha256": "676a206f82d30e288cc136d5754b2dc61147a6188dd144af43293deef75d1123"
+  },
+  {
+    "file": "provider_coverage.csv",
+    "bytes": 550,
+    "sha256": "025702383941f8c82c756a642f2a02858d13caabb6df730981e7d989976160ee"
+  },
+  {
+    "file": "render_validation_checklist_template.csv",
+    "bytes": 3779,
+    "sha256": "a377f829fc988a89879bd98fe4f71ab105b518f291819574ed97b47cd458f684"
+  },
+  {
+    "file": "runtime_scatter_points.csv",
+    "bytes": 9283,
+    "sha256": "215db1fb64b58362ff94aa9442338011b8680a39eb2c9aeebfa9c87684a9a222"
+  },
+  {
+    "file": "scheduler_economics_status.csv",
+    "bytes": 578,
+    "sha256": "19113fde135b3a6ff6efbddfc4218faf5eb321f20ab64d3daf01a0b4f0d2ab32"
+  },
+  {
+    "file": "semantic_kpi_model.csv",
+    "bytes": 4373,
+    "sha256": "29848ca1be9e84d1b689ab5541ad4e5ef69c3f188e4df304d294b4b732c68344"
+  },
+  {
+    "file": "unmatched_predictions.csv",
+    "bytes": 3017,
+    "sha256": "690fe226d36e2e768263706818f5a88f74f02e5defafa5f1170bd6135939642c"
+  },
+  {
+    "file": "workload_outcomes_by_week.csv",
+    "bytes": 381,
+    "sha256": "2c08f1b559c9584ae25d37f7cadf89e6f908a6a64390438ae54e7cf86efc61eb"
+  }
+]

@@ -1,0 +1,5 @@
+as_of_date,vendor,gpu_model,registered_hosts,observed_hosts,expected_gpu_count,reporting_gpu_count,telemetry_coverage_pct,compatibility_status,compatibility_note,gpu_model_raw_examples
+2026-10-11,amd,Radeon 8060S,3.0,3.0,3.0,3.0,100.0,UNTESTED,Inventory and observation are separated: registered_hosts vs observed_hosts and expected_gpu_count vs reporting_gpu_count.,AMD Radeon Graphics || AMD Radeon(TM) 8060S Graphics
+2026-10-11,nvidia,NVIDIA GB10,2.0,2.0,2.0,2.0,100.0,UNTESTED,Inventory and observation are separated: registered_hosts vs observed_hosts and expected_gpu_count vs reporting_gpu_count.,NVIDIA GB10
+2026-10-11,nvidia,NVIDIA RTX A6000,1.0,1.0,2.0,2.0,100.0,UNTESTED,Inventory and observation are separated: registered_hosts vs observed_hosts and expected_gpu_count vs reporting_gpu_count.,NVIDIA RTX A6000
+2026-10-11,nvidia,UNKNOWN,1.0,1.0,1.0,0.0,0.0,UNTESTED,Inventory and observation are separated: registered_hosts vs observed_hosts and expected_gpu_count vs reporting_gpu_count.,UNKNOWN

@@ -1,0 +1,22 @@
+{
+  "data_mode": "Packaged CSV Snapshot",
+  "snapshot_timestamp": "2026-10-11 10:48:58",
+  "primary_workbook_start": "/Users/michaelsigamani/Desktop/ceo-dash.twb",
+  "domain_files": [
+    "domain_1_commercial.csv",
+    "domain_2_util_reliability.csv",
+    "domain_3_digester_quality.csv",
+    "domain_4_estimation_pricing.csv",
+    "domain_5_fleet_health.csv",
+    "domain_6_scheduler_economics.csv",
+    "machine_drilldown_snapshot.csv",
+    "job_drilldown_snapshot.csv"
+  ],
+  "raw_drilldown_files": [
+    "machine_detail_raw.csv",
+    "machine_overview_raw.csv",
+    "job_investigation_raw.csv",
+    "digester_runtime_accuracy_raw.csv",
+    "digester_pricing_accuracy_raw.csv"
+  ]
+}

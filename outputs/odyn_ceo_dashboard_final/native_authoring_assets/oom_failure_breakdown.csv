@@ -1,0 +1,8 @@
+year_week,failure_bucket,jobs,share_of_failures_pct,total_failed_or_stopped_jobs
+2026-W36,OOM,1,100.0,1
+2026-W37,OOM,3,60.0,5
+2026-W37,NON_OOM,2,40.0,5
+2026-W38,NON_OOM,2,100.0,2
+2026-W40,NON_OOM,1,100.0,1
+2026-W41,OOM,1,9.090909090909092,11
+2026-W41,NON_OOM,10,90.9090909090909,11

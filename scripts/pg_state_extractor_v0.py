@@ -235,15 +235,29 @@ def normalize_hmac_input(column_name: str, value: Any) -> Optional[str]:
     return s
 
 
-def kms_hmac_hex(kms_client: Any, key_id: str, value: Optional[str]) -> Optional[str]:
+def kms_hmac_hex(
+    kms_client: Any,
+    key_id: str,
+    value: Optional[str],
+    *,
+    cache: Optional[Dict[Tuple[str, str], str]] = None,
+) -> Optional[str]:
     if value is None:
         return None
     if value == "":
         return ""
+
+    cache_key = (key_id, value)
+    if cache is not None and cache_key in cache:
+        return cache[cache_key]
+
     if kms_client is None:
         raise RuntimeError("KMS client unavailable; extractor requires GenerateMac capability")
     out = kms_client.generate_mac(KeyId=key_id, Message=value.encode("utf-8"), MacAlgorithm="HMAC_SHA_256")
-    return base64.b16encode(out["Mac"]).decode("ascii").lower()
+    digest = base64.b16encode(out["Mac"]).decode("ascii").lower()
+    if cache is not None:
+        cache[cache_key] = digest
+    return digest
 
 
 def to_rfc3339_utc(value: Any) -> Optional[str]:
@@ -601,7 +615,12 @@ def transform_row(
                 if isinstance(sanitized_for_hmac, str):
                     sanitized_for_hmac = sanitize_uri(sanitized_for_hmac) or sanitized_for_hmac
                 hmac_input = normalize_hmac_input(col, sanitized_for_hmac)
-                value = kms_hmac_hex(kms_client, kms_key_id, hmac_input)
+                value = kms_hmac_hex(
+                    kms_client,
+                    kms_key_id,
+                    hmac_input,
+                    cache=table_cfg.get("_hmac_cache"),
+                )
 
             out[col] = serialize_scalar(db_type, value)
         except Exception as exc:
@@ -632,8 +651,16 @@ def _resolve_pg_password(config: ExtractorConfig) -> Optional[str]:
             for key in ["password", "pg_password", "PGPASSWORD", "value"]:
                 if key in payload and payload[key]:
                     return str(payload[key])
+            raise RuntimeError(
+                "Secrets Manager secret JSON object is missing supported password keys "
+                "(password, pg_password, PGPASSWORD, value)"
+            )
+        raise RuntimeError("Secrets Manager secret JSON must be an object with a supported password key")
     except Exception:
-        return str(raw)
+        # Non-JSON secret strings are accepted.
+        if isinstance(raw, str) and not raw.strip().startswith(("{", "[")):
+            return str(raw)
+        raise
     return None
 
 
@@ -773,16 +800,31 @@ def begin_readonly_repeatable_read(conn: Any) -> None:
 
 def fetch_table_count(conn: Any, schema: str, table: str) -> int:
     with conn.cursor() as cur:
-        cur.execute(f"SELECT count(*) FROM {schema}.{table}")
+        if psycopg is None:
+            raise RuntimeError("psycopg is not installed")
+        cur.execute(
+            psycopg.sql.SQL("SELECT count(*) FROM {}.{}").format(
+                psycopg.sql.Identifier(schema),
+                psycopg.sql.Identifier(table),
+            )
+        )
         row = cur.fetchone()
     return int(row[0])
 
 
 def fetch_rows(conn: Any, schema: str, table: str, columns: Sequence[str], pk_columns: Sequence[str], limit: int) -> List[Dict[str, Any]]:
-    order_by = ", ".join(pk_columns)
-    sql = f"SELECT {', '.join(columns)} FROM {schema}.{table} ORDER BY {order_by} LIMIT {int(limit) + 1}"
+    if psycopg is None:
+        raise RuntimeError("psycopg is not installed")
+    col_sql = psycopg.sql.SQL(", ").join(psycopg.sql.Identifier(c) for c in columns)
+    order_sql = psycopg.sql.SQL(", ").join(psycopg.sql.Identifier(c) for c in pk_columns)
+    q = psycopg.sql.SQL("SELECT {} FROM {}.{} ORDER BY {} LIMIT %s").format(
+        col_sql,
+        psycopg.sql.Identifier(schema),
+        psycopg.sql.Identifier(table),
+        order_sql,
+    )
     with conn.cursor() as cur:
-        cur.execute(sql)
+        cur.execute(q, (int(limit) + 1,))
         colnames = [d.name for d in cur.description]
         recs = cur.fetchall()
     return [dict(zip(colnames, rec)) for rec in recs]
@@ -960,6 +1002,7 @@ def run(
     tx_settings: Dict[str, str] = {}
     seen_alert_fingerprints = state_store.load_alert_fingerprints()
     ssl_status: Dict[str, Any] = {}
+    hmac_cache: Dict[Tuple[str, str], str] = {}
 
     try:
         begin_readonly_repeatable_read(conn)
@@ -979,6 +1022,7 @@ def run(
             raise RuntimeError("sslmode=require but backend connection is not encrypted")
 
         for t in config.tables:
+            t["_hmac_cache"] = hmac_cache
             schema = t["schema"]
             table = t["table"]
             table_name = f"{schema}.{table}"

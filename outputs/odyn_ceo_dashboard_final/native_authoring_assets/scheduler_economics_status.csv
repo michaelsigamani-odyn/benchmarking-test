@@ -1,0 +1,5 @@
+metric,status,measured_rows,total_rows,note
+Throughput tokens per second,UNAVAILABLE,0,19,Missing governed pricing source and token-accounting join in current BigQuery schema.
+Supplier cost per million tokens,UNAVAILABLE,0,19,Missing governed pricing source and token-accounting join in current BigQuery schema.
+Buyer price per million tokens,UNAVAILABLE,0,19,Missing governed pricing source and token-accounting join in current BigQuery schema.
+Contribution margin pct,UNAVAILABLE,0,19,Missing governed pricing source and token-accounting join in current BigQuery schema.

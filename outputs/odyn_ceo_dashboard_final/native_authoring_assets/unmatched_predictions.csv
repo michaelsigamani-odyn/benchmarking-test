@@ -1,0 +1,18 @@
+prediction_ts,prediction_date,prediction_year_week,session_id,message_id,predicted_model_id,predicted_dataset_ref,predicted_sample_count,predicted_runtime_hours,predicted_operational_cost_usd,scheduler_status,job_status,missing_actual_runtime,match_status
+2026-09-03 14:38:29,2026-09-03,2026-W36,DJjvmJQqwN,Iyvee6ZBIa,Qwen/Qwen2.5-0.5B-Instruct,72b_alpaca_train_800.jsonl,800.0,0.0062,0.01,,,true,unmatched_prediction
+2026-09-03 15:44:09,2026-09-03,2026-W36,qq4OjRNMdz,LPboXQX1ff,Qwen/Qwen2.5-1.5B-Instruct,alpaca_train_1500.jsonl,1200.0,0.0151,0.02,,,true,unmatched_prediction
+2026-09-03 15:53:09,2026-09-03,2026-W36,FpYa6ce0xD,gq4nHoSZzc,Qwen/Qwen2.5-0.5B-Instruct,Sample_Dataset_Template.jsonl,800.0,0.0062,0.01,,,true,unmatched_prediction
+2026-09-03 16:28:47,2026-09-03,2026-W36,xo5WNY2sxI,2kyN5Fgc3q,Qwen/Qwen2.5-0.5B-Instruct,72b_alpaca_train_800.jsonl,800.0,0.0062,0.01,,,true,unmatched_prediction
+2026-09-07 04:16:29,2026-09-07,2026-W37,liRsPreNvW,yfsplTUycO,Qwen/Qwen2.5-0.5B-Instruct,72b_alpaca_train_800.jsonl,800.0,0.0062,0.01,,,true,unmatched_prediction
+2026-09-07 16:45:42,2026-09-07,2026-W37,qEH12E2KIp,N91dVTmwpP,Qwen/Qwen2.5-0.5B-Instruct,72b_alpaca_train_800.jsonl,800.0,0.0062,0.01,,,true,unmatched_prediction
+2026-09-07 22:03:07,2026-09-07,2026-W37,UAsplHAL3n,JGstYzjmXS,Qwen/Qwen2.5-1.5B-Instruct,alpaca_train_1500.jsonl,1200.0,0.0151,0.02,,,true,unmatched_prediction
+2026-09-10 22:53:37,2026-09-10,2026-W37,uLM6Pg8QS6,XRvBM1St7i,Qwen/Qwen2.5-1.5B-Instruct,alpaca_train.jsonl,800.0,0.0103,0.02,,,true,unmatched_prediction
+2026-09-10 22:54:11,2026-09-10,2026-W37,GEPeNXhyyu,X6RcD0HB5u,Qwen/Qwen2.5-1.5B-Instruct,alpaca_train.jsonl,800.0,0.0103,0.02,,,true,unmatched_prediction
+2026-09-17 03:21:09,2026-09-17,2026-W38,bl6LcfYo52,Obx0u9dCKk,Qwen/Qwen2.5-0.5B-Instruct,alpaca_train_1200.jsonl,1200.0,0.009,0.01,,,true,unmatched_prediction
+2026-09-22 22:10:10,2026-09-22,2026-W39,KS86QaNkS0,zC1BvWReL3,Qwen/Qwen2.5-0.5B-Instruct,Sample_Dataset_Template.jsonl,800.0,0.0062,0.01,,,true,unmatched_prediction
+2026-09-23 14:38:22,2026-09-23,2026-W39,lwDV8VHQEd,0XW0XaQwTr,mistralai/Ministral-3-14B-Instruct-2512,alpaca_train_1200.jsonl,1200.0,0.0617,0.1,,,true,unmatched_prediction
+2026-09-23 16:57:33,2026-09-23,2026-W39,TK1NbbAopu,yfEQzM6TN6,Qwen/Qwen2.5-0.5B-Instruct,bitext_sft_train.jsonl,810.0,0.0055,0.01,,,true,unmatched_prediction
+2026-09-29 19:06:22,2026-09-29,2026-W40,JAh8n8K8fZ,wJGpaKutbt,Qwen/Qwen2.5-7B-Instruct,support_assistant_dpo_1100.jsonl,1100.0,0.22,0.16,,,true,unmatched_prediction
+2026-09-30 11:25:46,2026-09-30,2026-W40,RePCAqQUDA,n1uSxcjAGJ,Qwen/Qwen2.5-0.5B-Instruct,quant_mentor_500_alpaca.jsonl,500.0,0.0073,0.01,,,true,unmatched_prediction
+2026-09-30 11:53:55,2026-09-30,2026-W40,McOThZtR4V,xn1YofBBdT,Qwen/Qwen2.5-0.5B-Instruct,quant_mentor_500_alpaca.jsonl,500.0,0.0073,0.01,,,true,unmatched_prediction
+2026-09-30 14:15:54,2026-09-30,2026-W40,xxWUSLosxu,mk1JHnrSkW,Qwen/Qwen2.5-0.5B-Instruct,fever_10k.jsonl,10000.0,0.0441,0.04,,,true,unmatched_prediction

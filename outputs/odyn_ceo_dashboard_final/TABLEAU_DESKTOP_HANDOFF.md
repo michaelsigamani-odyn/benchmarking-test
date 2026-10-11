@@ -4,6 +4,37 @@ Use this document to complete the workbook **only in Tableau Desktop UI**.
 
 > Status note: the **minimal workbook is approved**, but the full six-domain executive dashboard is **not yet complete**.
 
+> **P0 rebuild update (analytical + visual):**
+> Use the curated native-authoring package in:
+>
+> - `outputs/odyn_ceo_dashboard_final/native_authoring_assets/`
+>
+> Specifically:
+>
+> - `NATIVE_TABLEAU_VISUAL_SPEC.md`
+> - `WORKSHEET_BUILD_MAP.md`
+> - `IMPLEMENTATION_CHECKLIST_NATIVE.md`
+> - `semantic_kpi_model.csv`
+>
+> These supersede any generic metric/value bar-chart pattern.
+
+## Continuation status (authoritative)
+
+- Preserve the approved minimal Tableau workbook as the baseline.
+- Use the existing validated packaged CSV datasets listed in this handoff/manifest.
+- Implement the agreed executive visual design (not a six-table CSV reproduction):
+  - executive KPI cards
+  - trend charts
+  - failure breakdowns
+  - estimation accuracy
+  - fleet health
+  - machine/job drill-downs
+- Current completion state:
+  - Minimal workbook: **approved**
+  - Full six-domain native Tableau dashboard: **pending**
+  - Interactive drill-down actions: **pending visual validation**
+- No further data engineering or XML-based workbook generation is required unless a specific missing field blocks a required visualization.
+
 ## Design intent (from approved mockup)
 
 Primary executive question:
