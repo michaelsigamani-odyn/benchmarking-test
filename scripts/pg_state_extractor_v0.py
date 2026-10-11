@@ -28,12 +28,6 @@ try:
 except Exception:  # pragma: no cover
     boto3 = None
 
-try:
-    from google.cloud import storage
-except Exception:  # pragma: no cover
-    storage = None
-
-
 SCHEMA_VERSION = "pg_state_snapshot_v1"
 REDACTION_VERSION = "extractor_v0_redact_2026_10_11"
 MAX_TEXT_BYTES = 4096
@@ -51,6 +45,16 @@ FORBIDDEN_JSON_COLUMNS = {
 ALLOWLISTED_JSON_COLUMNS = {"accepted_recommendation_json", "response_json"}
 DENYLIST_EXACT = {"hf_token", "password_hash", "email", "training_config"}
 GPU_ID_SAFE_PATTERN = re.compile(r"^[a-zA-Z0-9_.:/-]+$")
+
+REQUIRED_HMAC_BY_TABLE: Dict[str, set[str]] = {
+    "public.ray_train_jobs": {"owner_user_id", "dataset_s3_key"},
+    "public.post_training_workloads": {"owner_user_id"},
+    "public.finetune_billing_intervals": {"owner_user_id"},
+    "public.scheduler_workload_requests": {"user_id"},
+    "public.ray_clusters": {"user_id"},
+    "public.gpu_reservations": {"user_id"},
+    "public.job_cost_summary": {"tenant_id"},
+}
 
 
 SCAN_PATTERNS: List[Tuple[str, re.Pattern[str]]] = [
@@ -78,18 +82,14 @@ SCAN_PATTERNS: List[Tuple[str, re.Pattern[str]]] = [
     ("hex_40_plus", re.compile(r"\b[a-fA-F0-9]{40,}\b")),
     (
         "signed_url_param",
-        re.compile(r"(?i)(?:[?&](?:x-amz-signature|x-goog-signature|signature|sig)=|x-amz-credential=)"),
+        re.compile(r"(?i)(?:[?&](?:x-amz-signature|x-goog-signature|signature|sig|x-amz-credential)=[^&#\s]+)"),
     ),
     ("signed_url_literal", re.compile(r"(?i)\bX-Amz-(?:Signature|Credential)\b")),
     ("bearer_token", re.compile(r"(?i)\bbearer\s+[A-Za-z0-9._~+/-]+=*")),
     ("hf_token", re.compile(r"(?i)\bhf_[A-Za-z0-9]{4,}\b")),
-    ("fake_literal", re.compile(r"\bFAKEFAKEFAKE\b")),
-    ("customer_secret_literal", re.compile(r"(?i)\bcustomer\s+secret\b")),
-    ("other_supplier_literal", re.compile(r"(?i)\bother-supplier\b")),
-    ("supplier_host_literal", re.compile(r"(?i)\bsupplier-host-\d+\b")),
 ]
 
-URL_PATTERN = re.compile(r"https?://[^\\s'\"<>]+")
+URL_PATTERN = re.compile(r"https?://[^\s'\"<>]+")
 
 
 @dataclasses.dataclass
@@ -114,6 +114,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--limit-per-table", type=int, default=5000)
     p.add_argument("--dry-run", action="store_true", help="Read/scan only. Print table summaries and do not write sink objects.")
     p.add_argument("--canary", action="store_true", help="Write only _canary/<run_id>.json through the GCS sink.")
+    p.add_argument("--state-dir", default=None, help="Absolute path for extractor state directory")
+    p.add_argument("--print-granted-config", action="store_true", help="Print grants-derived table skeleton and exit")
     return p.parse_args()
 
 
@@ -201,12 +203,24 @@ def truncate_utf8_with_marker(text: str, max_bytes: int = MAX_TEXT_BYTES) -> str
     return trimmed + TRUNCATION_MARKER
 
 
+def is_valid_kms_key_ref(value: str) -> bool:
+    s = (value or "").strip()
+    if not s:
+        return False
+    if s.startswith("alias/") or ":alias/" in s or s.startswith("key/"):
+        return False
+    if re.match(r"^arn:aws:kms:[^:]+:\d{12}:key/[A-Za-z0-9-]+$", s):
+        return True
+    if re.match(r"^[A-Za-z0-9-]{8,}$", s):
+        return True
+    return False
+
+
 def kms_key_id_from_arn(kms_key_arn: str) -> str:
-    arn = (kms_key_arn or "").strip()
-    m = re.match(r"^arn:aws:kms:[^:]+:\d{12}:(key|alias)/(.+)$", arn)
-    if not m:
-        raise RuntimeError("kms_hmac_key_arn is not a valid KMS key/alias ARN")
-    return f"{m.group(1)}/{m.group(2)}"
+    key_ref = (kms_key_arn or "").strip()
+    if not is_valid_kms_key_ref(key_ref):
+        raise RuntimeError("kms_hmac_key_arn must be a KMS key ARN or bare key id; aliases are not allowed")
+    return key_ref
 
 
 def normalize_hmac_input(column_name: str, value: Any) -> Optional[str]:
@@ -443,6 +457,63 @@ def mask_free_text(text: str) -> Tuple[str, List[str]]:
     return masked, sorted(set(findings))
 
 
+def _is_identifier_like_field(field_name: str) -> bool:
+    f = (field_name or "").lower()
+    return (
+        f == "id"
+        or f.endswith("_id")
+        or f.endswith("_ids")
+        or f.endswith("_key")
+        or f.startswith("owner_")
+        or f.startswith("user_")
+        or f.startswith("dataset")
+    )
+
+
+def _scan_json_strings_recursive(
+    value: Any,
+    *,
+    parent_field: str,
+    table_name: str,
+    row_pk: str,
+    findings: List[Dict[str, str]],
+) -> Any:
+    if isinstance(value, dict):
+        out: Dict[str, Any] = {}
+        for k, v in value.items():
+            out[k] = _scan_json_strings_recursive(
+                v,
+                parent_field=str(k),
+                table_name=table_name,
+                row_pk=row_pk,
+                findings=findings,
+            )
+        return out
+
+    if isinstance(value, list):
+        return [
+            _scan_json_strings_recursive(v, parent_field=parent_field, table_name=table_name, row_pk=row_pk, findings=findings)
+            for v in value
+        ]
+
+    if isinstance(value, str):
+        candidate = sanitize_urls_in_text(value)
+        hits = scan_text_patterns(candidate)
+        if not hits:
+            return candidate
+        if _is_identifier_like_field(parent_field):
+            raise RuntimeError(
+                f"structured scan finding pattern={hits[0]} table={table_name} row_pk={row_pk} field={parent_field}"
+            )
+        masked, free_hits = mask_free_text(candidate)
+        masked = truncate_utf8_with_marker(masked)
+        for hit in free_hits:
+            findings.append({"pattern": hit, "table": table_name, "row_pk": row_pk, "field": parent_field})
+        return masked
+
+    return value
+
+
 def parse_pk(row: Mapping[str, Any], pk_cols: Sequence[str]) -> Dict[str, Any]:
     return {k: row.get(k) for k in pk_cols}
 
@@ -495,6 +566,15 @@ def transform_row(
                 dropped_keys_by_col[col] = dropped_keys_by_col.get(col, 0) + dropped_keys
             if dropped_array:
                 dropped_array_by_col[col] = dropped_array_by_col.get(col, 0) + dropped_array
+
+        if "json" in db_type.lower():
+            value = _scan_json_strings_recursive(
+                value,
+                parent_field=col,
+                table_name=table_name,
+                row_pk=row_pk_str,
+                findings=findings,
+            )
 
         if isinstance(value, str):
             if col_l in FREE_TEXT_FIELDS:
@@ -616,6 +696,8 @@ def assert_config_matches_grants(conn: Any, table_cfg: Dict[str, Any]) -> Tuple[
     full = f"{schema}.{table}"
 
     configured_columns = list(table_cfg.get("columns") or [])
+    configured_pk = list(table_cfg.get("pk_columns") or [])
+    configured_hmac = {str(x) for x in (table_cfg.get("hmac_fields") or [])}
     if not configured_columns:
         raise RuntimeError(f"{full} requires explicit columns generated from grants")
 
@@ -630,6 +712,24 @@ def assert_config_matches_grants(conn: Any, table_cfg: Dict[str, Any]) -> Tuple[
         raise RuntimeError(
             f"{full} config/grants mismatch only_in_config={only_in_config} only_in_grants={only_in_grants}"
         )
+
+    missing_pk = [c for c in configured_pk if c not in configured_set]
+    if missing_pk:
+        raise RuntimeError(f"{full} pk_columns must be included in granted/configured columns missing={missing_pk}")
+
+    required_hmac_dynamic = {
+        c
+        for c in configured_columns
+        if (
+            c.lower().endswith("user_id")
+            or c.lower().startswith("owner_")
+            or ("dataset" in c.lower() and "key" in c.lower())
+        )
+    }
+    required_hmac = required_hmac_dynamic | REQUIRED_HMAC_BY_TABLE.get(full, set())
+    missing_hmac = sorted(required_hmac - configured_hmac)
+    if missing_hmac:
+        raise RuntimeError(f"{full} missing required hmac_fields columns={missing_hmac}")
 
     json_allowlists = set((table_cfg.get("json_allowlists") or {}).keys())
     type_by_col = {r["column_name"]: r["data_type"] for r in rows}
@@ -699,10 +799,14 @@ class LocalDirectorySink:
 
 class GcsSink:
     def __init__(self, bucket: str, *, storage_client: Any = None):
-        if storage is None and storage_client is None:
-            raise RuntimeError("google-cloud-storage is unavailable")
         self.bucket = bucket
-        self.storage_client = storage_client or storage.Client()
+        if storage_client is None:
+            try:
+                from google.cloud import storage as gcs_storage  # lazy import
+            except Exception as exc:  # pragma: no cover
+                raise RuntimeError("google-cloud-storage is unavailable") from exc
+            storage_client = gcs_storage.Client()
+        self.storage_client = storage_client
         self.write_order: List[str] = []
 
     def put_once(self, key: str, body: bytes, content_type: str) -> None:
@@ -828,7 +932,7 @@ def run(
     owned_conn = conn is None
     conn = conn or pg_connect_from_env(config)
 
-    if sink is None:
+    if sink is None and not dry_run:
         sink = GcsSink(config.gcs_bucket)
 
     if kms_client is None:
@@ -844,6 +948,8 @@ def run(
     run_id = ingest_run_id or f"extractor_v0_{captured_dt.strftime('%Y%m%dT%H%M%S%fZ')}_{uuid.uuid4().hex[:10]}"
 
     table_manifests: List[Dict[str, Any]] = []
+    manifest_files: List[Dict[str, Any]] = []
+    pending_states: Dict[str, Dict[str, str]] = {}
     overall_findings: List[Dict[str, str]] = []
     alert = False
     tx_settings: Dict[str, str] = {}
@@ -965,10 +1071,20 @@ def run(
                 if payload:
                     payload += "\n"
                 compressed = gzip.compress(payload.encode("utf-8"))
+                if sink is None:
+                    raise RuntimeError("sink is required when dry_run is false")
                 sink.put_once(data_key, compressed, "application/x-ndjson+gzip")
+                manifest_files.append(
+                    {
+                        "object": data_key,
+                        "content_type": "application/x-ndjson+gzip",
+                        "bytes": len(compressed),
+                        "sha256": hashlib.sha256(compressed).hexdigest(),
+                    }
+                )
 
             if not dry_run:
-                state_store.save(table_name, current_state_map)
+                pending_states[table_name] = current_state_map
 
             if dry_run:
                 sample = records[0] if records else None
@@ -1017,11 +1133,16 @@ def run(
         }
 
         if not dry_run:
-            # Manifest must be written last.
-            for table_info in table_manifests:
-                prefix = table_info["data_object"].rsplit("/", 1)[0]
-                manifest_key = f"{prefix}/_manifest.json"
-                sink.put_once(manifest_key, canonical_json(manifest).encode("utf-8"), "application/json")
+            manifest["files"] = manifest_files
+            # Manifest must be written last and only once per run.
+            manifest_key = f"{config.gcs_prefix.strip('/')}/v1/run={run_id}/_manifest.json"
+            manifest_bytes = canonical_json(manifest).encode("utf-8")
+            if sink is None:
+                raise RuntimeError("sink is required when dry_run is false")
+            sink.put_once(manifest_key, manifest_bytes, "application/json")
+
+            for table_name, state_map in pending_states.items():
+                state_store.save(table_name, state_map)
             state_store.save_alert_fingerprints(seen_alert_fingerprints)
 
         if alert:
@@ -1064,18 +1185,28 @@ def run(
 
 def validate_local_manifest_files(manifest: Dict[str, Any], sink_root: Path) -> None:
     root = Path(sink_root)
-    tables = list(manifest.get("tables") or [])
+    files = list(manifest.get("files") or [])
     missing: List[str] = []
-    for table in tables:
-        obj = str(table.get("data_object") or "")
+    invalid: List[str] = []
+    for entry in files:
+        obj = str(entry.get("object") or "")
         if not obj:
             missing.append("<empty>")
             continue
         p = root / obj
         if not p.exists():
             missing.append(obj)
+            continue
+        raw = p.read_bytes()
+        want_bytes = int(entry.get("bytes", -1))
+        want_sha = str(entry.get("sha256") or "")
+        got_sha = hashlib.sha256(raw).hexdigest()
+        if len(raw) != want_bytes or got_sha != want_sha:
+            invalid.append(obj)
     if missing:
         raise RuntimeError(f"manifest references missing data objects: {missing}")
+    if invalid:
+        raise RuntimeError(f"manifest file checksum/size mismatch: {invalid}")
 
 
 def _read_connection_ssl_status(conn: Any) -> Dict[str, Any]:
@@ -1102,6 +1233,39 @@ def _read_connection_ssl_status(conn: Any) -> Dict[str, Any]:
     }
 
 
+def build_granted_config_skeleton(conn: Any, config: ExtractorConfig) -> Dict[str, Any]:
+    tables: List[Dict[str, Any]] = []
+    for t in config.tables:
+        schema = str(t["schema"])
+        table = str(t["table"])
+        rows = fetch_table_columns(conn, schema, table)
+        granted = [r["column_name"] for r in rows if r["has_select"]]
+        tables.append(
+            {
+                "schema": schema,
+                "table": table,
+                "cadence": str(t.get("cadence", "change_only")),
+                "columns": granted,
+                "pk_columns": list(t.get("pk_columns") or ["id"]),
+                "hmac_fields": list(t.get("hmac_fields") or []),
+                "json_allowlists": dict(t.get("json_allowlists") or {}),
+            }
+        )
+
+    return {
+        "pg_dsn_env": config.pg_dsn_env,
+        "pg_database": config.pg_database,
+        "sslmode": config.sslmode,
+        "pg_password_secret_name": config.pg_password_secret_name,
+        "pg_password_secret_region": config.pg_password_secret_region,
+        "gcs_bucket": config.gcs_bucket,
+        "gcs_prefix": config.gcs_prefix,
+        "kms_hmac_key_arn": config.kms_hmac_key_arn,
+        "hmac_key_version": config.hmac_key_version,
+        "tables": tables,
+    }
+
+
 def run_canary(config: ExtractorConfig, *, sink: Any = None, run_id: Optional[str] = None) -> Dict[str, Any]:
     sink = sink or GcsSink(config.gcs_bucket)
     rid = run_id or f"canary_{utc_now().strftime('%Y%m%dT%H%M%S%fZ')}_{uuid.uuid4().hex[:8]}"
@@ -1119,11 +1283,31 @@ def main() -> None:
     args = parse_args()
     cfg = load_config(Path(args.config))
     try:
+        state_store = None
+        if args.state_dir:
+            p = Path(args.state_dir)
+            if not p.is_absolute():
+                raise RuntimeError("--state-dir must be an absolute path")
+            state_store = JsonStateStore(p)
+
         if args.canary:
             result = run_canary(cfg)
             print(json.dumps(result, indent=2))
             raise SystemExit(EXIT_OK)
-        result = run(cfg, since=args.since, limit_per_table=args.limit_per_table, dry_run=args.dry_run)
+
+        if args.print_granted_config:
+            with pg_connect_from_env(cfg) as conn:
+                skeleton = build_granted_config_skeleton(conn, cfg)
+                print(json.dumps(skeleton, indent=2))
+            raise SystemExit(EXIT_OK)
+
+        result = run(
+            cfg,
+            since=args.since,
+            limit_per_table=args.limit_per_table,
+            dry_run=args.dry_run,
+            state_store=state_store,
+        )
         print(json.dumps(result, indent=2))
         raise SystemExit(exit_code_for_result(result))
     except SystemExit:

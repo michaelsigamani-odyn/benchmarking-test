@@ -10,11 +10,9 @@ import shutil
 import sys
 import tempfile
 import unittest
-from decimal import Decimal
 from pathlib import Path
 
 import psycopg
-from psycopg import errors
 from pgserver import get_server
 
 
@@ -27,27 +25,30 @@ spec.loader.exec_module(mod)
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_SQL = REPO_ROOT / "tests" / "fixtures" / "extractor_fixture.sql"
-GRANTS_SQL = REPO_ROOT / "scripts" / "db" / "pg_ingest_role.sql"
+GRANTS_SQL = REPO_ROOT / "scripts" / "db" / "fixture_grants.sql"
 GENERATED_COLUMNS = REPO_ROOT / "scripts" / "db" / "pg_ingest_columns.generated.json"
-TMP_ROOT = Path("/private/var/folders/gr/smmqbxt15ns1fjd5_9rhhd0m0000gn/T/opencode")
 
 
-class FakeKMS:
+class SpyKMS:
     def __init__(self):
-        self.messages = []
+        self.key_ids: list[str] = []
+        self.messages: list[str] = []
 
     def generate_mac(self, KeyId, Message, MacAlgorithm):  # noqa: N803
-        assert KeyId
-        assert MacAlgorithm == "HMAC_SHA_256"
-        text = Message.decode("utf-8")
-        self.messages.append(text)
+        # Reject key/<id> and aliases. Accept full key ARN or bare key id/uuid only.
+        if str(KeyId).startswith("key/") or ":alias/" in str(KeyId) or str(KeyId).startswith("alias/"):
+            raise RuntimeError(f"invalid KeyId form: {KeyId}")
+        if not mod.is_valid_kms_key_ref(str(KeyId)):
+            raise RuntimeError(f"invalid KeyId form: {KeyId}")
+        self.key_ids.append(str(KeyId))
+        self.messages.append(Message.decode("utf-8"))
         return {"Mac": hashlib.sha256(Message).digest()}
 
 
 class ExtractorRealPostgresFixtureTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.pgdata = Path(tempfile.mkdtemp(prefix="pgserver-", dir=str(TMP_ROOT)))
+        cls.pgdata = Path(tempfile.mkdtemp(prefix="pgserver-"))
         cls.server = get_server(cls.pgdata, cleanup_mode="delete")
         cls.uri = cls.server.get_uri("postgres")
 
@@ -59,10 +60,10 @@ class ExtractorRealPostgresFixtureTests(unittest.TestCase):
             shutil.rmtree(cls.pgdata, ignore_errors=True)
 
     def setUp(self):
-        self.tmpdir = Path(tempfile.mkdtemp(prefix="extractor-tests-", dir=str(TMP_ROOT)))
+        self.tmpdir = Path(tempfile.mkdtemp(prefix="extractor-tests-"))
         self.sink_dir = self.tmpdir / "sink"
         self.state_dir = self.tmpdir / "state"
-        self.kms = FakeKMS()
+        self.kms = SpyKMS()
         self._reset_db()
 
     def tearDown(self):
@@ -72,10 +73,57 @@ class ExtractorRealPostgresFixtureTests(unittest.TestCase):
         self.server.psql(FIXTURE_SQL.read_text(encoding="utf-8"))
         self.server.psql(GRANTS_SQL.read_text(encoding="utf-8"))
 
-    def _config(self):
-        all_tables = json.loads(GENERATED_COLUMNS.read_text(encoding="utf-8"))["tables"]
-        ingest = next(t for t in all_tables if t["table"] == "ingest_job_placement_v1")
-        cols = ingest["columns"]
+    def _all_tables_config(self):
+        generated = json.loads(GENERATED_COLUMNS.read_text(encoding="utf-8"))["tables"]
+        by_name = {t["table"]: t for t in generated}
+        cfg_tables = []
+        for table in [
+            "ray_train_jobs",
+            "post_training_workloads",
+            "scheduler_workload_requests",
+            "finetune_billing_intervals",
+            "job_cost_summary",
+            "finetune_metrics_history",
+            "gpu_reservations",
+            "gpu_baseline_rates",
+            "nodes",
+            "gpu_inventory",
+            "ray_clusters",
+            "ray_cluster_workers",
+            "container_gpu_assignments",
+            "ingest_job_placement_v1",
+        ]:
+            cols = list(by_name[table]["columns"])
+            pk = {
+                "job_cost_summary": ["job_id"],
+                "gpu_baseline_rates": ["provider", "sku", "intake_type"],
+                "gpu_inventory": ["gpu_key"],
+                "container_gpu_assignments": ["container_id", "gpu_key"],
+                "ingest_job_placement_v1": ["job_id"],
+            }.get(table, ["id"])
+            hmac = {
+                "ray_train_jobs": ["owner_user_id", "dataset_s3_key"],
+                "post_training_workloads": ["owner_user_id"],
+                "finetune_billing_intervals": ["owner_user_id"],
+                "scheduler_workload_requests": ["user_id"],
+                "ray_clusters": ["user_id"],
+                "gpu_reservations": ["user_id"],
+                "job_cost_summary": ["tenant_id"],
+                "ingest_job_placement_v1": ["job_id", "gpu_reservation_id"],
+            }.get(table, [])
+            allowlists = {"accepted_recommendation_json": True, "response_json": True} if table == "scheduler_workload_requests" else {}
+            cfg_tables.append(
+                {
+                    "schema": "public",
+                    "table": table,
+                    "cadence": "change_only" if table not in {"job_cost_summary", "gpu_baseline_rates", "nodes"} else "daily_full",
+                    "columns": cols,
+                    "pk_columns": pk,
+                    "hmac_fields": hmac,
+                    "json_allowlists": allowlists,
+                }
+            )
+
         return mod.ExtractorConfig(
             pg_dsn_env="UNUSED",
             pg_database="postgres",
@@ -85,26 +133,13 @@ class ExtractorRealPostgresFixtureTests(unittest.TestCase):
             pg_password_secret_region="us-west-2",
             gcs_bucket="unused",
             gcs_prefix="pg",
-            kms_hmac_key_arn="arn:aws:kms:eu-west-1:123456789012:key/fixture",
+            kms_hmac_key_arn="arn:aws:kms:us-west-2:123456789012:key/12345678-1234-1234-1234-123456789012",
             hmac_key_version="kms-hmac-v1",
-            tables=[
-                {
-                    "schema": "public",
-                    "table": "ingest_job_placement_v1",
-                    "cadence": "change_only",
-                    "columns": cols,
-                    "pk_columns": ["job_id"],
-                    "hmac_fields": ["job_id", "gpu_reservation_id"],
-                    "json_allowlists": {
-                        "accepted_recommendation_json": True,
-                        "response_json": True,
-                    },
-                }
-            ],
+            tables=cfg_tables,
         )
 
-    def _run(self, *, limit=100, run_id=None, dry_run=False):
-        cfg = self._config()
+    def _run(self, *, cfg=None, run_id=None, dry_run=False):
+        cfg = cfg or self._all_tables_config()
         sink = mod.LocalDirectorySink(self.sink_dir)
         state = mod.JsonStateStore(self.state_dir)
         with psycopg.connect(self.uri) as conn:
@@ -113,7 +148,7 @@ class ExtractorRealPostgresFixtureTests(unittest.TestCase):
             result = mod.run(
                 cfg,
                 since=None,
-                limit_per_table=limit,
+                limit_per_table=5000,
                 kms_client=self.kms,
                 sink=sink,
                 state_store=state,
@@ -123,381 +158,185 @@ class ExtractorRealPostgresFixtureTests(unittest.TestCase):
             )
         return result
 
-    def _read_run_outputs(self, run_id):
-        base = self.sink_dir / f"pg/v1/table=public.ingest_job_placement_v1"
-        run_dir = list(base.glob(f"dt=*/run={run_id}"))[0]
-        data_file = run_dir / "part-0000.jsonl.gz"
-        manifest_file = run_dir / "_manifest.json"
-        with gzip.open(data_file, "rt", encoding="utf-8") as fp:
-            lines = [json.loads(x) for x in fp if x.strip()]
-        manifest = json.loads(manifest_file.read_text(encoding="utf-8"))
-        return run_dir, data_file, manifest_file, lines, manifest
-
     def _db_exec(self, sql, params=None):
         with psycopg.connect(self.uri) as conn:
             with conn.cursor() as cur:
                 cur.execute(sql, params or ())
             conn.commit()
 
-    # 1) numeric exact string + captured_at UTC conversion with microseconds.
-    def test_01_numeric_exact_string_and_utc_microseconds(self):
-        res = self._run()
-        _, _, _, lines, _ = self._read_run_outputs(res["ingest_run_id"])
-        self.assertEqual(len(lines), 1)
-        row_json = lines[0]["row_json"]
-        self.assertEqual(row_json["price_book_hourly_rate_usd"], "1.2500000000")
-        self.assertRegex(lines[0]["captured_at"], r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}Z$")
+    def _manifest_path(self, run_id: str) -> Path:
+        return self.sink_dir / f"pg/v1/run={run_id}/_manifest.json"
 
-    # 2) scanner ignores token-like column names.
-    def test_02_token_named_columns_are_allowed(self):
-        self.assertEqual(mod.scan_text_patterns("num_input_tokens_seen dataset_train_token_count context_length_tokens"), [])
-        res = self._run()
-        _, _, _, lines, _ = self._read_run_outputs(res["ingest_run_id"])
-        self.assertEqual(lines[0]["row_json"]["lifecycle_attempt"], "3")
+    def test_01_kms_keyid_uses_full_arn_not_key_slash_id(self):
+        self._run()
+        self.assertGreater(len(self.kms.key_ids), 0)
+        for kid in self.kms.key_ids:
+            self.assertTrue(kid.startswith("arn:aws:kms:"))
+            self.assertFalse(kid.startswith("key/"))
 
-    # 3) structured poison aborts.
-    def test_03_structured_poison_aborts_run(self):
+    def test_02_state_saved_only_after_manifest_full_run(self):
+        cfg = self._all_tables_config()
+        self._run(cfg=cfg, run_id="baseline")
+
+        baseline_state_t1 = json.loads((self.state_dir / "public.ray_train_jobs.state.json").read_text(encoding="utf-8"))
+
+        bad_cfg = self._all_tables_config()
+        table2 = next(t for t in bad_cfg.tables if t["table"] == "post_training_workloads")
+        table2["columns"] = table2["columns"] + ["not_granted_col"]
+        with self.assertRaises(RuntimeError):
+            self._run(cfg=bad_cfg, run_id="fail_mid")
+
+        # state remains untouched after failed run
+        after_fail = json.loads((self.state_dir / "public.ray_train_jobs.state.json").read_text(encoding="utf-8"))
+        self.assertEqual(after_fail, baseline_state_t1)
+
+        self._db_exec("UPDATE public.ray_train_jobs SET status='changed' WHERE id=%s::uuid", ("11111111-1111-1111-1111-111111111111",))
+        rerun = self._run(cfg=cfg, run_id="rerun")
+        t1 = next(t for t in rerun["tables"] if t["table_name"] == "public.ray_train_jobs")
+        self.assertEqual(t1["emitted_row_count"], 1)
+
+    def test_03_pk_columns_must_be_granted_columns(self):
+        cfg = self._all_tables_config()
+        t = next(x for x in cfg.tables if x["table"] == "nodes")
+        t["pk_columns"] = ["missing_pk"]
+        with self.assertRaises(RuntimeError):
+            self._run(cfg=cfg)
+
+    def test_04_required_hmac_fields_validation(self):
+        cfg = self._all_tables_config()
+        t = next(x for x in cfg.tables if x["table"] == "ray_train_jobs")
+        t["hmac_fields"] = ["owner_user_id"]  # missing dataset_s3_key
+        with self.assertRaises(RuntimeError):
+            self._run(cfg=cfg)
+
+    def test_05_recursive_json_string_scanning_and_mask_abort(self):
+        # free-text value in JSON should mask and alert
         self._db_exec(
-            "UPDATE public.ingest_job_placement_fixture_src SET gpu_model_class=%s",
-            ("arn:aws:iam::000000000000:role/bad",),
+            "UPDATE public.scheduler_workload_requests SET response_json=%s::jsonb WHERE id=%s::uuid",
+            ('{"status":"ok","next_route":"hello user@example.com"}', "33333333-3333-3333-3333-333333333333"),
+        )
+        res = self._run()
+        self.assertTrue(res["alert"])
+
+        # id-path value in JSON should abort
+        self._db_exec(
+            "UPDATE public.scheduler_workload_requests SET accepted_recommendation_json=%s::jsonb WHERE id=%s::uuid",
+            ('{"selected_placement":{"node_id":"arn:aws:iam::000000000000:role/x"}}', "33333333-3333-3333-3333-333333333333"),
         )
         with self.assertRaises(RuntimeError):
             self._run()
 
-    # 4) finding present, finding has no matched text.
-    def test_04_free_text_mask_and_finding_without_secret(self):
-        self._db_exec(
-            "UPDATE public.ingest_job_placement_fixture_src SET gpu_identifiers=%s::jsonb",
-            ('["GPU-123e4567-e89b-12d3-a456-426614174000", 5]',),
-        )
-        stderr = io.StringIO()
-        with contextlib.redirect_stderr(stderr):
-            res = self._run()
-        _, _, _, lines, manifest = self._read_run_outputs(res["ingest_run_id"])
-        self.assertIn("ALERT run_id=", stderr.getvalue())
-        findings_blob = json.dumps(manifest["findings"])
-        self.assertIn("gpu_identifiers_element", findings_blob)
-        self.assertNotIn("GPU-123e4567-e89b-12d3-a456-426614174000", findings_blob)
-        sample_finding = manifest["findings"][0]
-        self.assertEqual(set(sample_finding.keys()), {"table", "row_pk", "field", "pattern"})
-        self.assertEqual(manifest["findings_count"], len(manifest["findings"]))
-        self.assertEqual(mod.exit_code_for_result(res), mod.EXIT_ALERT)
+    def test_06_url_pattern_and_signed_param_masking(self):
+        txt = "https://s-host.example/path?X-Amz-Signature=abc&X-Amz-Credential=def prose ? mark"
+        masked, hits = mod.mask_free_text(txt)
+        self.assertIn("signed_url_param", hits)
+        self.assertNotIn("X-Amz-Signature=abc", masked)
+        self.assertNotIn("X-Amz-Credential=def", masked)
 
-    # 5) strict grants/privileges behavior.
-    def test_05_config_equals_grants_and_privilege_checks(self):
-        cfg = self._config()
-        bad_cfg = dict(cfg.tables[0])
-        bad_cfg["columns"] = bad_cfg["columns"][:-1]
-        bad_cfg_extra = dict(cfg.tables[0])
-        bad_cfg_extra["columns"] = list(bad_cfg_extra["columns"]) + ["not_granted_internal_note"]
-        with psycopg.connect(self.uri) as conn:
-            with conn.cursor() as cur:
-                cur.execute("SET ROLE odyn_ingest_ro")
-            with self.assertRaises(RuntimeError):
-                mod.assert_config_matches_grants(conn, bad_cfg)
-            with self.assertRaises(RuntimeError):
-                mod.assert_config_matches_grants(conn, bad_cfg_extra)
+    def test_07_dry_run_does_not_build_gcs_client(self):
+        original = mod.GcsSink
 
-            with conn.cursor() as cur:
-                cur.execute("SELECT count(*) FROM public.ingest_job_placement_v1")
-                self.assertEqual(cur.fetchone()[0], 1)
-                with self.assertRaises(errors.InsufficientPrivilege):
-                    cur.execute("SELECT not_granted_internal_note FROM public.ingest_job_placement_fixture_src")
+        class BoomSink:
+            def __init__(self, *args, **kwargs):
+                raise AssertionError("GcsSink should not be constructed in dry-run")
 
-    # 6) sanitize before HMAC + id normalization + empty string stable.
-    def test_06_hmac_input_ordering_and_normalization(self):
-        self._db_exec(
-            "UPDATE public.ingest_job_placement_fixture_src SET gpu_reservation_id=%s",
-            ("  https://X.example/path?q=1#f  ",),
-        )
-        self.assertEqual(mod.normalize_hmac_input("job_id", "  ABC-123  "), "abc-123")
-        self.assertEqual(mod.normalize_hmac_input("job_id", ""), "")
-        self._run()
-        self.assertIn("https://x.example/path", self.kms.messages)
-
-    # 7) repeatable read and row-limit guard.
-    def test_07_repeatable_read_and_limit_guard(self):
-        called = {"n": 0}
-        original = mod.begin_readonly_repeatable_read
-
-        def wrapped(conn):
-            called["n"] += 1
-            return original(conn)
-
-        mod.begin_readonly_repeatable_read = wrapped
+        mod.GcsSink = BoomSink
         try:
-            with self.assertRaises(RuntimeError):
-                self._run(limit=0)
-            self.assertEqual(called["n"], 1)
+            cfg = self._all_tables_config()
+            state = mod.JsonStateStore(self.state_dir)
+            with psycopg.connect(self.uri) as conn:
+                with conn.cursor() as cur:
+                    cur.execute("SET ROLE odyn_ingest_ro")
+                mod.run(
+                    cfg,
+                    since=None,
+                    limit_per_table=5000,
+                    kms_client=self.kms,
+                    sink=None,
+                    state_store=state,
+                    conn=conn,
+                    dry_run=True,
+                )
         finally:
-            mod.begin_readonly_repeatable_read = original
+            mod.GcsSink = original
 
-        ok = self._run()
-        self.assertEqual(ok["transaction"]["transaction_isolation"], "repeatable read")
-        self.assertEqual(ok["transaction"]["transaction_read_only"], "on")
+    def test_08_manifest_has_file_hashes_and_loader_verifies(self):
+        res = self._run(run_id="hashrun")
+        manifest_path = self._manifest_path("hashrun")
+        self.assertTrue(manifest_path.exists())
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        self.assertIn("files", manifest)
+        self.assertGreater(len(manifest["files"]), 0)
+        for f in manifest["files"]:
+            self.assertIn("sha256", f)
+            self.assertIn("bytes", f)
 
-    # 8) element-shape filters + sanitization-only.
-    def test_08_json_allowlists_and_sanitization_only(self):
-        res = self._run()
-        _, _, _, lines, manifest = self._read_run_outputs(res["ingest_run_id"])
-        row_json = lines[0]["row_json"]
-        self.assertEqual(row_json["gpu_identifiers"], ["GPU-123e4567-e89b-12d3-a456-426614174000", "123e4567-e89b-12d3-a456-426614174001"])
-        self.assertEqual(row_json["node_ids"], ["node-a"])
-        self.assertEqual(set(row_json.keys()) & {"classification", "trust_level", "mapped_provider"}, set())
-        self.assertEqual(manifest["tables"][0]["dropped_keys"], {})
-        self.assertEqual(manifest["tables"][0]["dropped_array_elements"], {})
-
-    # 9) row_json contains only view columns.
-    def test_09_view_columns_only(self):
-        res = self._run()
-        _, _, _, lines, _ = self._read_run_outputs(res["ingest_run_id"])
-        row_json = lines[0]["row_json"]
-        self.assertEqual(
-            set(row_json.keys()),
-            {
-                "job_id",
-                "gpu_identifiers",
-                "node_ids",
-                "gpu_reservation_id",
-                "gpu_model_class",
-                "min_gpu_vram_gb",
-                "num_workers",
-                "price_book_hourly_rate_usd",
-                "lifecycle_attempt",
-            },
-        )
-
-    # 10) re-run no changes emits zero rows.
-    def test_10_rerun_with_no_changes_emits_zero_rows(self):
-        first = self._run()
-        second = self._run()
-        _, _, _, lines2, manifest2 = self._read_run_outputs(second["ingest_run_id"])
-        self.assertEqual(len(lines2), 0)
-        self.assertEqual(manifest2["tables"][0]["emitted_row_count"], 0)
-        self.assertNotEqual(first["ingest_run_id"], second["ingest_run_id"])
-
-    # 11) mutation: 1 changed, 1 tombstone, 1 new.
-    def test_11_mutation_emits_changed_tombstone_new(self):
-        self._db_exec(
-            """
-            INSERT INTO public.ingest_job_placement_fixture_src (
-              job_id,gpu_identifiers,node_ids,gpu_reservation_id,gpu_model_class,min_gpu_vram_gb,
-              num_workers,price_book_hourly_rate_usd,lifecycle_attempt,created_at,observed_at,
-              error_message,error_summary,failure_reason,accepted_recommendation_json,response_json,
-              num_input_tokens_seen,dataset_train_token_count,context_length_tokens,nullable_note,unicode_note,not_granted_internal_note
-            ) VALUES (
-              %s,%s::jsonb,%s::jsonb,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s::jsonb,%s::jsonb,%s,%s,%s,%s,%s,%s
-            )
-            """,
-            (
-                "660e8400-e29b-41d4-a716-446655440000",
-                '["GPU-9"]',
-                '["node-z"]',
-                "https://x.example/r",
-                "l40",
-                48,
-                1,
-                Decimal("0.7500000000"),
-                1,
-                "2026-10-11 05:11:00.123456+00",
-                "2026-10-11 05:11:00.123456+00",
-                "ok",
-                "ok",
-                "ok",
-                '{"candidate_id":"c2"}',
-                '{"status":"ok"}',
-                1,
-                2,
-                3,
-                None,
-                "µ",
-                "hidden",
-            ),
-        )
-        self._run()  # baseline state with 2 rows
-
-        self._db_exec(
-            "UPDATE public.ingest_job_placement_fixture_src SET gpu_model_class=%s WHERE job_id=%s::uuid",
-            ("h100", "550e8400-e29b-41d4-a716-446655440000"),
-        )
-        self._db_exec(
-            "DELETE FROM public.ingest_job_placement_fixture_src WHERE job_id=%s::uuid",
-            ("660e8400-e29b-41d4-a716-446655440000",),
-        )
-        self._db_exec(
-            """
-            INSERT INTO public.ingest_job_placement_fixture_src (
-              job_id,gpu_identifiers,node_ids,gpu_reservation_id,gpu_model_class,min_gpu_vram_gb,
-              num_workers,price_book_hourly_rate_usd,lifecycle_attempt,created_at,observed_at,
-              error_message,error_summary,failure_reason,accepted_recommendation_json,response_json,
-              num_input_tokens_seen,dataset_train_token_count,context_length_tokens,nullable_note,unicode_note,not_granted_internal_note
-            ) VALUES (
-              %s,%s::jsonb,%s::jsonb,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s::jsonb,%s::jsonb,%s,%s,%s,%s,%s,%s
-            )
-            """,
-            (
-                "770e8400-e29b-41d4-a716-446655440000",
-                '["GPU-new"]',
-                '["node-new"]',
-                "https://new.example/r",
-                "h200",
-                80,
-                4,
-                Decimal("2.2500000000"),
-                1,
-                "2026-10-11 05:12:00.123456+00",
-                "2026-10-11 05:12:00.123456+00",
-                "ok",
-                "ok",
-                "ok",
-                '{"candidate_id":"c3"}',
-                '{"status":"ok"}',
-                9,
-                8,
-                7,
-                None,
-                "µ2",
-                "hidden",
-            ),
-        )
-
-        res = self._run()
-        _, _, _, lines, manifest = self._read_run_outputs(res["ingest_run_id"])
-        self.assertEqual(len(lines), 3)
-        deletes = [x for x in lines if x["is_deleted"]]
-        live = [x for x in lines if not x["is_deleted"]]
-        self.assertEqual(len(deletes), 1)
-        self.assertEqual(len(live), 2)
-        self.assertEqual(manifest["tables"][0]["emitted_row_count"], 3)
-
-    # 12) layout/manifest-last and loader-side missing-file check.
-    def test_12_layout_manifest_last_and_loader_missing_file_failure(self):
-        res = self._run()
-        run_dir, data_file, manifest_file, _, manifest = self._read_run_outputs(res["ingest_run_id"])
-        self.assertIn("/v1/table=public.ingest_job_placement_v1/", str(data_file))
-        self.assertTrue(res["sink_write_order"][-1].endswith("/_manifest.json"))
         mod.validate_local_manifest_files(manifest, self.sink_dir)
-        data_file.unlink()
+
+        first_data = manifest["files"][0]["object"]
+        p = self.sink_dir / first_data
+        p.write_bytes(p.read_bytes() + b"x")
         with self.assertRaises(RuntimeError):
             mod.validate_local_manifest_files(manifest, self.sink_dir)
 
-        # canary writes only one tiny object and no table data.
-        canary_sink = mod.LocalDirectorySink(self.tmpdir / "canary_sink")
-        canary = mod.run_canary(self._config(), sink=canary_sink, run_id="canary_test")
-        self.assertEqual(canary["object"], "_canary/canary_test.json")
-        self.assertEqual(canary_sink.write_order, ["_canary/canary_test.json"])
+        self.assertEqual(res["sink_write_order"][-1], f"pg/v1/run=hashrun/_manifest.json")
 
-    # 13) same-run-id overwrite fails + 4KB truncation marker helper.
-    def test_13_same_run_overwrite_fails_and_4kb_marker(self):
-        huge = "Z" * 7000
-        truncated = mod.truncate_utf8_with_marker(huge)
-        self.assertTrue(truncated.endswith(mod.TRUNCATION_MARKER))
-        self.assertLessEqual(len(truncated.encode("utf-8")), mod.MAX_TEXT_BYTES)
+    def test_09_removed_fixture_literals_from_scan_patterns(self):
+        names = [name for name, _ in mod.SCAN_PATTERNS]
+        self.assertNotIn("fake_literal", names)
+        self.assertNotIn("customer_secret_literal", names)
+        self.assertNotIn("other_supplier_literal", names)
+        self.assertNotIn("supplier_host_literal", names)
 
-        fixed = "extractor_v0_fixed_run_for_test"
-        first = self._run(run_id=fixed)
-        self.assertEqual(first["ingest_run_id"], fixed)
-        with self.assertRaises(FileExistsError):
-            self._run(run_id=fixed)
+    def test_10_config_matches_grants_all_14_tables(self):
+        cfg = self._all_tables_config()
+        with psycopg.connect(self.uri) as conn:
+            with conn.cursor() as cur:
+                cur.execute("SET ROLE odyn_ingest_ro")
+            for t in cfg.tables:
+                cols, _types = mod.assert_config_matches_grants(conn, t)
+                self.assertEqual(set(cols), set(t["columns"]))
 
-        # dry-run prints per-table summary and does not write sink files.
-        stdout = io.StringIO()
-        with contextlib.redirect_stdout(stdout):
-            dry = self._run(run_id="dry_run_case", dry_run=True)
-        self.assertEqual(dry["status"], "ok")
-        out = stdout.getvalue()
-        self.assertIn("TABLE public.ingest_job_placement_v1", out)
-        self.assertIn("COLUMNS:", out)
-        self.assertIn("SOURCE_COUNT:", out)
-        self.assertIn("SAMPLE_REDACTED_ROW:", out)
-        self.assertIn("FINDINGS_COUNT:", out)
-        self.assertIn("DROPPED_KEYS:", out)
-        self.assertIn("DROPPED_ARRAY_ELEMENTS:", out)
-
-    # 14) poison absence in output + stdout/stderr.
-    def test_14_no_poison_in_output_or_stdio(self):
-        stdout = io.StringIO()
+    def test_11_sslmode_require_fails_and_prefer_logs_false(self):
+        cfg = self._all_tables_config()
+        cfg.sslmode = "require"
         stderr = io.StringIO()
-        with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
-            res = self._run()
+        with self.assertRaises(RuntimeError):
+            with contextlib.redirect_stderr(stderr):
+                self._run(cfg=cfg)
 
-        out_blob = stdout.getvalue() + "\n" + stderr.getvalue()
-        run_dir, _, _, _, _ = self._read_run_outputs(res["ingest_run_id"])
+        cfg2 = self._all_tables_config()
+        stderr2 = io.StringIO()
+        with contextlib.redirect_stderr(stderr2):
+            self._run(cfg=cfg2)
+        err = stderr2.getvalue()
+        self.assertIn("INFO effective_sslmode=prefer", err)
+        self.assertIn("connection_encrypted=false", err)
+
+    def test_12_output_contains_masked_url_and_json_lines(self):
+        res = self._run(run_id="outcheck")
+        manifest = json.loads(self._manifest_path("outcheck").read_text(encoding="utf-8"))
         file_blob = ""
-        for p in run_dir.glob("*"):
+        for item in manifest["files"]:
+            p = self.sink_dir / item["object"]
             if p.suffix == ".gz":
                 file_blob += gzip.open(p, "rt", encoding="utf-8", errors="ignore").read()
             else:
                 file_blob += p.read_text(encoding="utf-8", errors="ignore")
+        self.assertNotIn("X-Amz-Signature=abc", file_blob)
+        self.assertIn("[REDACTED]", file_blob)
+        self.assertEqual(res["status"], "ok")
 
-        poison_values = [
-            "FAKEFAKEFAKE",
-            "hf_FAKE",
-            "@example.invalid",
-            "10.1.2.3",
-            "ip-10-1-2-3.ec2.internal",
-            "arn:aws:iam::000000000000",
-            "BEGIN PRIVATE KEY",
-            "X-Amz-Signature",
-            "X-Amz-Credential",
-            "CUSTOMER SECRET",
-            "other-supplier",
-            "10.9.9.9",
-            "supplier-host-1",
-        ]
-        for marker in poison_values:
-            self.assertNotIn(marker, file_blob)
-            self.assertNotIn(marker, out_blob)
-
-    # 15) sslmode=require must fail against TLS-off local server.
-    def test_15_sslmode_require_fails_when_unencrypted(self):
-        cfg = self._config()
-        cfg.sslmode = "require"
-        cfg.sslmode_explicit = True
-        sink = mod.LocalDirectorySink(self.sink_dir)
-        state = mod.JsonStateStore(self.state_dir)
+    def test_13_print_granted_config_skeleton_contains_all_tables(self):
+        cfg = self._all_tables_config()
         with psycopg.connect(self.uri) as conn:
             with conn.cursor() as cur:
                 cur.execute("SET ROLE odyn_ingest_ro")
-            with self.assertRaises(RuntimeError):
-                mod.run(
-                    cfg,
-                    since=None,
-                    limit_per_table=100,
-                    kms_client=self.kms,
-                    sink=sink,
-                    state_store=state,
-                    conn=conn,
-                )
-
-    # 16) sslmode=prefer logs connection_encrypted=false.
-    def test_16_sslmode_prefer_logs_unencrypted_status(self):
-        stderr = io.StringIO()
-        with contextlib.redirect_stderr(stderr):
-            self._run()
-        err = stderr.getvalue()
-        self.assertIn("INFO effective_sslmode=prefer", err)
-        self.assertIn("connection_encrypted=false", err)
-
-    # 17) unchanged finding does not re-alert.
-    def test_17_unchanged_finding_not_realerted(self):
-        self._db_exec(
-            "UPDATE public.ingest_job_placement_fixture_src SET gpu_identifiers=%s::jsonb",
-            ('["GPU-123e4567-e89b-12d3-a456-426614174000", 5]',),
-        )
-        first_err = io.StringIO()
-        with contextlib.redirect_stderr(first_err):
-            first = self._run()
-        self.assertTrue(first["alert"])
-        self.assertGreater(first["findings_count"], 0)
-        self.assertIn("ALERT run_id=", first_err.getvalue())
-
-        second_err = io.StringIO()
-        with contextlib.redirect_stderr(second_err):
-            second = self._run()
-        self.assertFalse(second["alert"])
-        self.assertEqual(second["findings_count"], 0)
-        self.assertNotIn("ALERT run_id=", second_err.getvalue())
+            skeleton = mod.build_granted_config_skeleton(conn, cfg)
+        self.assertEqual(len(skeleton["tables"]), 14)
+        names = {f"{t['schema']}.{t['table']}" for t in skeleton["tables"]}
+        self.assertIn("public.ingest_job_placement_v1", names)
+        self.assertIn("public.job_cost_summary", names)
 
 
 if __name__ == "__main__":

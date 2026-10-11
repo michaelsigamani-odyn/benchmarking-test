@@ -6,7 +6,7 @@
   "pg_password_secret_region": "us-west-2",
   "gcs_bucket": "inbound-dahlia-507808-g1-raw-landing",
   "gcs_prefix": "pg",
-  "kms_hmac_key_arn": "arn:aws:kms:eu-west-1:123456789012:key/REPLACE_WITH_REAL_KEY",
+  "kms_hmac_key_arn": "arn:aws:kms:us-west-2:123456789012:key/REPLACE_WITH_REAL_KEY",
   "hmac_key_version": "kms-hmac-v1",
   "tables": [
     {
@@ -14,12 +14,19 @@
       "table": "ray_train_jobs",
       "cadence": "change_only",
       "columns": [
-        "id"
+        "id",
+        "owner_user_id",
+        "dataset_s3_key",
+        "status",
+        "error_message"
       ],
       "pk_columns": [
         "id"
       ],
-      "hmac_fields": [],
+      "hmac_fields": [
+        "owner_user_id",
+        "dataset_s3_key"
+      ],
       "json_allowlists": {}
     },
     {
@@ -27,12 +34,16 @@
       "table": "post_training_workloads",
       "cadence": "change_only",
       "columns": [
-        "id"
+        "id",
+        "owner_user_id",
+        "status"
       ],
       "pk_columns": [
         "id"
       ],
-      "hmac_fields": [],
+      "hmac_fields": [
+        "owner_user_id"
+      ],
       "json_allowlists": {}
     },
     {
@@ -40,12 +51,18 @@
       "table": "scheduler_workload_requests",
       "cadence": "change_only",
       "columns": [
-        "id"
+        "id",
+        "user_id",
+        "accepted_recommendation_json",
+        "response_json",
+        "status"
       ],
       "pk_columns": [
         "id"
       ],
-      "hmac_fields": [],
+      "hmac_fields": [
+        "user_id"
+      ],
       "json_allowlists": {
         "accepted_recommendation_json": true,
         "response_json": true
@@ -56,12 +73,16 @@
       "table": "finetune_billing_intervals",
       "cadence": "change_only",
       "columns": [
-        "id"
+        "id",
+        "owner_user_id",
+        "amount_usd"
       ],
       "pk_columns": [
         "id"
       ],
-      "hmac_fields": [],
+      "hmac_fields": [
+        "owner_user_id"
+      ],
       "json_allowlists": {}
     },
     {
@@ -69,12 +90,16 @@
       "table": "job_cost_summary",
       "cadence": "daily_full",
       "columns": [
-        "id"
+        "job_id",
+        "tenant_id",
+        "total_cost_usd"
       ],
       "pk_columns": [
-        "id"
+        "job_id"
       ],
-      "hmac_fields": [],
+      "hmac_fields": [
+        "tenant_id"
+      ],
       "json_allowlists": {}
     },
     {
@@ -82,7 +107,9 @@
       "table": "finetune_metrics_history",
       "cadence": "change_only",
       "columns": [
-        "id"
+        "id",
+        "metric_name",
+        "metric_value"
       ],
       "pk_columns": [
         "id"
@@ -95,12 +122,16 @@
       "table": "gpu_reservations",
       "cadence": "change_only",
       "columns": [
-        "id"
+        "id",
+        "user_id",
+        "reservation_state"
       ],
       "pk_columns": [
         "id"
       ],
-      "hmac_fields": [],
+      "hmac_fields": [
+        "user_id"
+      ],
       "json_allowlists": {}
     },
     {
@@ -108,10 +139,15 @@
       "table": "gpu_baseline_rates",
       "cadence": "daily_full",
       "columns": [
-        "id"
+        "provider",
+        "sku",
+        "intake_type",
+        "usd_per_hour"
       ],
       "pk_columns": [
-        "id"
+        "provider",
+        "sku",
+        "intake_type"
       ],
       "hmac_fields": [],
       "json_allowlists": {}
@@ -121,7 +157,8 @@
       "table": "nodes",
       "cadence": "daily_full",
       "columns": [
-        "id"
+        "id",
+        "provider"
       ],
       "pk_columns": [
         "id"
@@ -134,10 +171,12 @@
       "table": "gpu_inventory",
       "cadence": "change_only",
       "columns": [
-        "id"
+        "gpu_key",
+        "node_id",
+        "gpu_model_class"
       ],
       "pk_columns": [
-        "id"
+        "gpu_key"
       ],
       "hmac_fields": [],
       "json_allowlists": {}
@@ -147,12 +186,16 @@
       "table": "ray_clusters",
       "cadence": "change_only",
       "columns": [
-        "id"
+        "id",
+        "user_id",
+        "status"
       ],
       "pk_columns": [
         "id"
       ],
-      "hmac_fields": [],
+      "hmac_fields": [
+        "user_id"
+      ],
       "json_allowlists": {}
     },
     {
@@ -160,7 +203,9 @@
       "table": "ray_cluster_workers",
       "cadence": "change_only",
       "columns": [
-        "id"
+        "id",
+        "cluster_id",
+        "node_id"
       ],
       "pk_columns": [
         "id"
@@ -173,10 +218,13 @@
       "table": "container_gpu_assignments",
       "cadence": "change_only",
       "columns": [
-        "id"
+        "container_id",
+        "gpu_key",
+        "assigned_at"
       ],
       "pk_columns": [
-        "id"
+        "container_id",
+        "gpu_key"
       ],
       "hmac_fields": [],
       "json_allowlists": {}

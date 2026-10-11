@@ -9,3 +9,4 @@ runs/
 artifacts/
 data/hf_alpaca_cleaned/
 data/dau_16k_50/
+.pg_state_store/

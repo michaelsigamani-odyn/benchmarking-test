@@ -1,82 +1,82 @@
 {
-  "generated_from": "scripts/db/pg_ingest_role.sql",
+  "generated_from": "scripts/db/prod_grants.sql",
   "tables": [
     {
       "schema": "public",
       "table": "ray_train_jobs",
-      "columns": ["id"],
+      "columns": ["id", "owner_user_id", "dataset_s3_key", "status", "error_message"],
       "reviewed": true
     },
     {
       "schema": "public",
       "table": "post_training_workloads",
-      "columns": ["id"],
+      "columns": ["id", "owner_user_id", "status"],
       "reviewed": true
     },
     {
       "schema": "public",
       "table": "scheduler_workload_requests",
-      "columns": ["id"],
+      "columns": ["id", "user_id", "accepted_recommendation_json", "response_json", "status"],
       "reviewed": true
     },
     {
       "schema": "public",
       "table": "finetune_billing_intervals",
-      "columns": ["id"],
+      "columns": ["id", "owner_user_id", "amount_usd"],
       "reviewed": true
     },
     {
       "schema": "public",
       "table": "job_cost_summary",
-      "columns": ["id"],
+      "columns": ["job_id", "tenant_id", "total_cost_usd"],
       "reviewed": true
     },
     {
       "schema": "public",
       "table": "finetune_metrics_history",
-      "columns": ["id"],
+      "columns": ["id", "metric_name", "metric_value"],
       "reviewed": true
     },
     {
       "schema": "public",
       "table": "gpu_reservations",
-      "columns": ["id"],
+      "columns": ["id", "user_id", "reservation_state"],
       "reviewed": true
     },
     {
       "schema": "public",
       "table": "gpu_baseline_rates",
-      "columns": ["id"],
+      "columns": ["provider", "sku", "intake_type", "usd_per_hour"],
       "reviewed": true
     },
     {
       "schema": "public",
       "table": "nodes",
-      "columns": ["id"],
+      "columns": ["id", "provider"],
       "reviewed": true
     },
     {
       "schema": "public",
       "table": "gpu_inventory",
-      "columns": ["id"],
+      "columns": ["gpu_key", "node_id", "gpu_model_class"],
       "reviewed": true
     },
     {
       "schema": "public",
       "table": "ray_clusters",
-      "columns": ["id"],
+      "columns": ["id", "user_id", "status"],
       "reviewed": true
     },
     {
       "schema": "public",
       "table": "ray_cluster_workers",
-      "columns": ["id"],
+      "columns": ["id", "cluster_id", "node_id"],
       "reviewed": true
     },
     {
       "schema": "public",
       "table": "container_gpu_assignments",
-      "columns": ["id"],
+      "columns": ["container_id", "gpu_key", "assigned_at"],
       "reviewed": true
     },
     {

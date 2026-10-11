@@ -27,10 +27,30 @@ CADENCE_BY_TABLE = {
 }
 
 PK_BY_TABLE = {
+    "ray_train_jobs": ["id"],
+    "post_training_workloads": ["id"],
+    "scheduler_workload_requests": ["id"],
+    "finetune_billing_intervals": ["id"],
+    "job_cost_summary": ["job_id"],
+    "finetune_metrics_history": ["id"],
+    "gpu_reservations": ["id"],
+    "gpu_baseline_rates": ["provider", "sku", "intake_type"],
+    "nodes": ["id"],
+    "gpu_inventory": ["gpu_key"],
+    "ray_clusters": ["id"],
+    "ray_cluster_workers": ["id"],
+    "container_gpu_assignments": ["container_id", "gpu_key"],
     "ingest_job_placement_v1": ["job_id"],
 }
 
 HMAC_BY_TABLE = {
+    "ray_train_jobs": ["owner_user_id", "dataset_s3_key"],
+    "post_training_workloads": ["owner_user_id"],
+    "scheduler_workload_requests": ["user_id"],
+    "finetune_billing_intervals": ["owner_user_id"],
+    "job_cost_summary": ["tenant_id"],
+    "gpu_reservations": ["user_id"],
+    "ray_clusters": ["user_id"],
     "ingest_job_placement_v1": ["job_id", "gpu_reservation_id"],
 }
 
@@ -70,7 +90,7 @@ def main() -> None:
         "pg_password_secret_region": "us-west-2",
         "gcs_bucket": "inbound-dahlia-507808-g1-raw-landing",
         "gcs_prefix": "pg",
-        "kms_hmac_key_arn": "arn:aws:kms:eu-west-1:123456789012:key/REPLACE_WITH_REAL_KEY",
+        "kms_hmac_key_arn": "arn:aws:kms:us-west-2:123456789012:key/REPLACE_WITH_REAL_KEY",
         "hmac_key_version": "kms-hmac-v1",
         "tables": out_tables,
     }

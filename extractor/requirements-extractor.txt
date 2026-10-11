@@ -1,0 +1,4 @@
+psycopg[binary]
+boto3
+google-cloud-storage
+google-auth
