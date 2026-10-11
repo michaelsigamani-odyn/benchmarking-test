@@ -1,0 +1,4 @@
+observed_at,pod,pod_ip,cluster_id,source_finetune_job_id,served_model_name,model_name,status,error
+2026-10-10T15:35:16.780431+00:00,odyn-ray-213b7b6c-4593-4ddb-b2a1-7d51253540ec-head-q5kcz,192.168.112.241,213b7b6c-4593-4ddb-b2a1-7d51253540ec,c2104b10-f154-53cb-9f19-4169369251b5,adapter-c2104b10-f154-53cb-9f19-4169369251b5,Qwen/Qwen2.5-7B-Instruct,provisioning,
+2026-10-10T15:35:16.780431+00:00,odyn-ray-bfaf07b9-587b-499b-a543-be7dda22f3e6-head-ff95r,192.168.129.130,bfaf07b9-587b-499b-a543-be7dda22f3e6,92fa7793-2c1d-5b15-83e4-de59fc529c14,adapter-92fa7793-2c1d-5b15-83e4-de59fc529c14,Qwen/Qwen2.5-0.5B-Instruct,ready,
+2026-10-10T15:35:16.780431+00:00,odyn-ray-e691ec85-e853-4a0e-b104-a13d2b7af085-head-9fwm5,192.168.138.205,e691ec85-e853-4a0e-b104-a13d2b7af085,90cf04b2-be84-5f59-8242-046b2bff9ead,adapter-90cf04b2-be84-5f59-8242-046b2bff9ead,Qwen/Qwen2.5-0.5B-Instruct,ready,

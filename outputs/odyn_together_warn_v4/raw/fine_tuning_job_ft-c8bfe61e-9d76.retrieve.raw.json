@@ -1,0 +1,214 @@
+{
+  "id": "ft-c8bfe61e-9d76",
+  "status": "completed",
+  "user_id": "user_CYWsRAUSk1ykAdVZdgQNV",
+  "adapter_object_id": "ml_Cfp4wfkYjPJZLqMicvdxz",
+  "adapter_object_name": "michaelsigaman-879a/gpt-oss-20b-bench-1k-845de3f2-adapter",
+  "adapter_object_revision_id": "rv_Cfp4wxXrUgovQtBitof1w",
+  "batch_size": 1,
+  "created_at": "2026-10-08T03:27:42.733000Z",
+  "epochs_completed": 1,
+  "eval_steps": 0,
+  "events": [
+    {
+      "created_at": "2026-10-08T03:27:42.831Z",
+      "message": "Fine-tuning request created",
+      "object": "fine-tune-event",
+      "type": "JOB_PENDING",
+      "level": ""
+    },
+    {
+      "created_at": "2026-10-08T03:29:01Z",
+      "message": "Job started",
+      "object": "fine-tune-event",
+      "type": "JOB_START",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-08T03:29:04Z",
+      "message": "Downloading model data for togethercomputer/gpt-oss-20b-bf16",
+      "object": "fine-tune-event",
+      "type": "MODEL_DOWNLOADING",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-08T03:29:08Z",
+      "message": "Model data downloaded for togethercomputer/gpt-oss-20b-bf16",
+      "object": "fine-tune-event",
+      "type": "MODEL_DOWNLOAD_COMPLETE",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-08T03:29:11Z",
+      "message": "Data downloaded for togethercomputer/gpt-oss-20b-bf16 at Thu Oct 08 03:29:11 UTC 2026",
+      "object": "fine-tune-event",
+      "type": "TRAINING_DATA_DOWNLOADING",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-08T03:29:57Z",
+      "message": "Tokenized dataset archive uploaded. Run the following command to download the data: tg ft download-tokenized-dataset ft-c8bfe61e-9d76",
+      "object": "fine-tune-event",
+      "type": "TOKENIZED_DATASET_UPLOAD_COMPLETE",
+      "level": "Info",
+      "tokenized_dataset_path": "s3://together-dev/finetune/user_CYWsRAUSk1ykAdVZdgQNV/michaelsigaman_879a/gpt-oss-20b-bench-1k-845de3f2/ft-c8bfe61e-9d76_tokenized_datasets.tar.zst"
+    },
+    {
+      "created_at": "2026-10-08T03:31:13Z",
+      "message": "Training started for model togethercomputer/gpt-oss-20b-bf16",
+      "object": "fine-tune-event",
+      "type": "TRAINING_START",
+      "level": "Info",
+      "param_count": 20914757184,
+      "token_count": 335328,
+      "total_steps": 21
+    },
+    {
+      "created_at": "2026-10-08T03:33:31Z",
+      "message": "Epoch completed, at step 21",
+      "object": "fine-tune-event",
+      "type": "EPOCH_COMPLETE",
+      "level": "Info",
+      "step": 21
+    },
+    {
+      "created_at": "2026-10-08T03:33:59Z",
+      "message": "Training completed for togethercomputer/gpt-oss-20b-bf16",
+      "object": "fine-tune-event",
+      "type": "TRAINING_COMPLETE",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-08T03:34:57Z",
+      "message": "Compressing adapter model",
+      "object": "fine-tune-event",
+      "type": "COMPRESSING_MODEL",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-08T03:34:57Z",
+      "message": "Adapter model compression complete",
+      "object": "fine-tune-event",
+      "type": "MODEL_COMPRESSION_COMPLETE",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-08T03:34:57Z",
+      "message": "Uploading adapter model",
+      "object": "fine-tune-event",
+      "type": "MODEL_UPLOADING",
+      "level": "Info",
+      "checkpoint_size_bytes": 34020747
+    },
+    {
+      "created_at": "2026-10-08T03:35:02Z",
+      "message": "Adapter upload complete",
+      "object": "fine-tune-event",
+      "type": "MODEL_UPLOAD_COMPLETE",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-08T03:35:07Z",
+      "message": "Compressing output model",
+      "object": "fine-tune-event",
+      "type": "COMPRESSING_MODEL",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-08T03:35:20Z",
+      "message": "Compression complete for output model",
+      "object": "fine-tune-event",
+      "type": "MODEL_COMPRESSION_COMPLETE",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-08T03:35:20Z",
+      "message": "Uploading output model",
+      "object": "fine-tune-event",
+      "type": "MODEL_UPLOADING",
+      "level": "Info",
+      "checkpoint_size_bytes": 12256308464
+    },
+    {
+      "created_at": "2026-10-08T03:35:55Z",
+      "message": "Upload complete for output model",
+      "object": "fine-tune-event",
+      "type": "MODEL_UPLOAD_COMPLETE",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-08T03:36:22Z",
+      "message": "Job finished at 2026-10-08 03:36:22",
+      "object": "fine-tune-event",
+      "type": "JOB_COMPLETE",
+      "level": "Info",
+      "model_path": "s3://together-dev/finetune/user_CYWsRAUSk1ykAdVZdgQNV/michaelsigaman_879a/gpt-oss-20b-bench-1k-845de3f2/ft-c8bfe61e-9d76-2026-10-08-03-34-57",
+      "adapter_path": "s3://together-dev/finetune/user_CYWsRAUSk1ykAdVZdgQNV/michaelsigaman_879a/gpt-oss-20b-bench-1k-845de3f2/ft-c8bfe61e-9d76_adapter-2026-10-08-03-34-57"
+    }
+  ],
+  "learning_rate": 0.0001,
+  "lr_scheduler": {
+    "lr_scheduler_type": "cosine",
+    "lr_scheduler_args": {
+      "num_cycles": 0.5
+    }
+  },
+  "max_grad_norm": 1.0,
+  "model": "openai/gpt-oss-20b",
+  "model_object_id": "ml_Cfp51cpJNfqoqBHE8ZbmK",
+  "model_object_name": "michaelsigaman-879a/gpt-oss-20b-bench-1k-845de3f2",
+  "model_object_revision_id": "rv_Cfp52gJRyf8g2YVUetCjc",
+  "model_output_name": "michaelsigaman_879a/gpt-oss-20b-bench-1k-845de3f2",
+  "model_output_path": "s3://together-dev/finetune/user_CYWsRAUSk1ykAdVZdgQNV/michaelsigaman_879a/gpt-oss-20b-bench-1k-845de3f2/ft-c8bfe61e-9d76-2026-10-08-03-34-57",
+  "multimodal_params": {},
+  "n_checkpoints": 1,
+  "n_epochs": 1,
+  "n_evals": 0,
+  "param_count": 20914757184,
+  "progress": {
+    "estimate_available": false,
+    "seconds_remaining": 0
+  },
+  "started_at": "2026-10-08T03:31:13Z",
+  "token_count": 335328,
+  "tokenized_dataset_path": "s3://together-dev/finetune/user_CYWsRAUSk1ykAdVZdgQNV/michaelsigaman_879a/gpt-oss-20b-bench-1k-845de3f2/ft-c8bfe61e-9d76_tokenized_datasets.tar.zst",
+  "tokenized_dataset_uploaded_at": "2026-10-08T03:29:57Z",
+  "total_price": 4000000000,
+  "train_on_inputs": null,
+  "training_file": "file-a1a6d941-605e-4d8a-bcd0-03fb0e2fd80f",
+  "training_method": {
+    "method": "sft",
+    "train_on_inputs": "auto"
+  },
+  "training_type": {
+    "lora_alpha": 32,
+    "lora_r": 16,
+    "type": "Lora",
+    "lora_trainable_modules": "k_proj,o_proj,q_proj,v_proj"
+  },
+  "updated_at": "2026-10-08T03:36:22.905000Z",
+  "warmup_ratio": 0.0,
+  "weight_decay": 0.0,
+  "adapter_output_path": "s3://together-dev/finetune/user_CYWsRAUSk1ykAdVZdgQNV/michaelsigaman_879a/gpt-oss-20b-bench-1k-845de3f2/ft-c8bfe61e-9d76_adapter-2026-10-08-03-34-57",
+  "checkpoints": [],
+  "eval_price": 0,
+  "eval_token_count": 0,
+  "evals_completed": 0,
+  "evals_paid_for": 0,
+  "gradient_accumulation_steps": 8,
+  "max_seq_length": 4096,
+  "max_steps": -1,
+  "merge_parent_adapter": false,
+  "packing": true,
+  "random_seed": 42,
+  "refund_amount": 0,
+  "steps_completed": 21,
+  "steps_paid_for": 21,
+  "suffix": "bench-1k",
+  "total_steps": 21,
+  "train_price": 4000000000,
+  "training_files": null,
+  "validation_files": null,
+  "validation_split_ratio": 0,
+  "warmup_steps": 0
+}

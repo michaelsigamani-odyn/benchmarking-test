@@ -1,0 +1,137 @@
+[
+  {
+    "created_at": "2026-10-04T05:15:58.486Z",
+    "message": "Fine-tuning request created",
+    "object": "fine-tune-event",
+    "type": "JOB_PENDING",
+    "level": ""
+  },
+  {
+    "created_at": "2026-10-04T05:17:15Z",
+    "message": "Job started",
+    "object": "fine-tune-event",
+    "type": "JOB_START",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-04T05:17:17Z",
+    "message": "Downloading model data for togethercomputer/Qwen3.5-4B",
+    "object": "fine-tune-event",
+    "type": "MODEL_DOWNLOADING",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-04T05:17:22Z",
+    "message": "Model data downloaded for togethercomputer/Qwen3.5-4B",
+    "object": "fine-tune-event",
+    "type": "MODEL_DOWNLOAD_COMPLETE",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-04T05:17:24Z",
+    "message": "Data downloaded for togethercomputer/Qwen3.5-4B at Sun Oct 04 05:17:24 UTC 2026",
+    "object": "fine-tune-event",
+    "type": "TRAINING_DATA_DOWNLOADING",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-04T05:20:38Z",
+    "message": "Tokenized dataset archive uploaded. Run the following command to download the data: tg ft download-tokenized-dataset ft-8d9597ed-cfa0",
+    "object": "fine-tune-event",
+    "type": "TOKENIZED_DATASET_UPLOAD_COMPLETE",
+    "level": "Info",
+    "tokenized_dataset_path": "s3://together-dev/finetune/user_CYWsRAUSk1ykAdVZdgQNV/michaelsigaman_879a/Qwen3.5-4B-0b0f31eb/ft-8d9597ed-cfa0_tokenized_datasets.tar.zst"
+  },
+  {
+    "created_at": "2026-10-04T05:21:05Z",
+    "message": "Training started for model togethercomputer/Qwen3.5-4B",
+    "object": "fine-tune-event",
+    "type": "TRAINING_START",
+    "level": "Info",
+    "param_count": 4539265536,
+    "token_count": 1435064,
+    "total_steps": 44
+  },
+  {
+    "created_at": "2026-10-04T05:23:31Z",
+    "message": "Epoch completed, at step 44",
+    "object": "fine-tune-event",
+    "type": "EPOCH_COMPLETE",
+    "level": "Info",
+    "step": 44
+  },
+  {
+    "created_at": "2026-10-04T05:23:45Z",
+    "message": "Training completed for togethercomputer/Qwen3.5-4B",
+    "object": "fine-tune-event",
+    "type": "TRAINING_COMPLETE",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-04T05:24:49Z",
+    "message": "Compressing adapter model",
+    "object": "fine-tune-event",
+    "type": "COMPRESSING_MODEL",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-04T05:24:49Z",
+    "message": "Adapter model compression complete",
+    "object": "fine-tune-event",
+    "type": "MODEL_COMPRESSION_COMPLETE",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-04T05:24:49Z",
+    "message": "Uploading adapter model",
+    "object": "fine-tune-event",
+    "type": "MODEL_UPLOADING",
+    "level": "Info",
+    "checkpoint_size_bytes": 124108440
+  },
+  {
+    "created_at": "2026-10-04T05:24:59Z",
+    "message": "Adapter upload complete",
+    "object": "fine-tune-event",
+    "type": "MODEL_UPLOAD_COMPLETE",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-04T05:25:05Z",
+    "message": "Compressing output model",
+    "object": "fine-tune-event",
+    "type": "COMPRESSING_MODEL",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-04T05:25:18Z",
+    "message": "Compression complete for output model",
+    "object": "fine-tune-event",
+    "type": "MODEL_COMPRESSION_COMPLETE",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-04T05:25:18Z",
+    "message": "Uploading output model",
+    "object": "fine-tune-event",
+    "type": "MODEL_UPLOADING",
+    "level": "Info",
+    "checkpoint_size_bytes": 7288208768
+  },
+  {
+    "created_at": "2026-10-04T05:25:49Z",
+    "message": "Upload complete for output model",
+    "object": "fine-tune-event",
+    "type": "MODEL_UPLOAD_COMPLETE",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-04T05:26:13Z",
+    "message": "Job finished at 2026-10-04 05:26:13",
+    "object": "fine-tune-event",
+    "type": "JOB_COMPLETE",
+    "level": "Info",
+    "model_path": "s3://together-dev/finetune/user_CYWsRAUSk1ykAdVZdgQNV/michaelsigaman_879a/Qwen3.5-4B-0b0f31eb/ft-8d9597ed-cfa0-2026-10-04-05-24-49",
+    "adapter_path": "s3://together-dev/finetune/user_CYWsRAUSk1ykAdVZdgQNV/michaelsigaman_879a/Qwen3.5-4B-0b0f31eb/ft-8d9597ed-cfa0_adapter-2026-10-04-05-24-49"
+  }
+]

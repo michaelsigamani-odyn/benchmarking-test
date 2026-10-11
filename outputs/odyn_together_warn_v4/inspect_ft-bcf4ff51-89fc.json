@@ -1,0 +1,12 @@
+{
+  "batch_size_cli": 8,
+  "effective_batch_cli": 8,
+  "expected_steps_at_cli_effective_batch": 44,
+  "gradient_accumulation_steps_cli": 1,
+  "job_id": "ft-bcf4ff51-89fc",
+  "max_seq_length": "See raw retrieve JSON",
+  "model": "Qwen/Qwen3.5-9B",
+  "packing": "See raw retrieve JSON",
+  "steps_paid_for": "See raw retrieve JSON",
+  "steps_reported": 21
+}

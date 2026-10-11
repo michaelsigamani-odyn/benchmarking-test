@@ -1,0 +1,209 @@
+{
+  "pg_dsn_env": "ODYN_REPLICA_DSN",
+  "pg_database": "marketplace",
+  "sslmode": "prefer",
+  "pg_password_secret_name": "odyn/ingest-ro-db",
+  "pg_password_secret_region": "us-west-2",
+  "gcs_bucket": "inbound-dahlia-507808-g1-raw-landing",
+  "gcs_prefix": "pg",
+  "kms_hmac_key_arn": "arn:aws:kms:eu-west-1:123456789012:key/REPLACE_WITH_REAL_KEY",
+  "hmac_key_version": "kms-hmac-v1",
+  "tables": [
+    {
+      "schema": "public",
+      "table": "ray_train_jobs",
+      "cadence": "change_only",
+      "columns": [
+        "id"
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "hmac_fields": [],
+      "json_allowlists": {}
+    },
+    {
+      "schema": "public",
+      "table": "post_training_workloads",
+      "cadence": "change_only",
+      "columns": [
+        "id"
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "hmac_fields": [],
+      "json_allowlists": {}
+    },
+    {
+      "schema": "public",
+      "table": "scheduler_workload_requests",
+      "cadence": "change_only",
+      "columns": [
+        "id"
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "hmac_fields": [],
+      "json_allowlists": {
+        "accepted_recommendation_json": true,
+        "response_json": true
+      }
+    },
+    {
+      "schema": "public",
+      "table": "finetune_billing_intervals",
+      "cadence": "change_only",
+      "columns": [
+        "id"
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "hmac_fields": [],
+      "json_allowlists": {}
+    },
+    {
+      "schema": "public",
+      "table": "job_cost_summary",
+      "cadence": "daily_full",
+      "columns": [
+        "id"
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "hmac_fields": [],
+      "json_allowlists": {}
+    },
+    {
+      "schema": "public",
+      "table": "finetune_metrics_history",
+      "cadence": "change_only",
+      "columns": [
+        "id"
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "hmac_fields": [],
+      "json_allowlists": {}
+    },
+    {
+      "schema": "public",
+      "table": "gpu_reservations",
+      "cadence": "change_only",
+      "columns": [
+        "id"
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "hmac_fields": [],
+      "json_allowlists": {}
+    },
+    {
+      "schema": "public",
+      "table": "gpu_baseline_rates",
+      "cadence": "daily_full",
+      "columns": [
+        "id"
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "hmac_fields": [],
+      "json_allowlists": {}
+    },
+    {
+      "schema": "public",
+      "table": "nodes",
+      "cadence": "daily_full",
+      "columns": [
+        "id"
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "hmac_fields": [],
+      "json_allowlists": {}
+    },
+    {
+      "schema": "public",
+      "table": "gpu_inventory",
+      "cadence": "change_only",
+      "columns": [
+        "id"
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "hmac_fields": [],
+      "json_allowlists": {}
+    },
+    {
+      "schema": "public",
+      "table": "ray_clusters",
+      "cadence": "change_only",
+      "columns": [
+        "id"
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "hmac_fields": [],
+      "json_allowlists": {}
+    },
+    {
+      "schema": "public",
+      "table": "ray_cluster_workers",
+      "cadence": "change_only",
+      "columns": [
+        "id"
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "hmac_fields": [],
+      "json_allowlists": {}
+    },
+    {
+      "schema": "public",
+      "table": "container_gpu_assignments",
+      "cadence": "change_only",
+      "columns": [
+        "id"
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "hmac_fields": [],
+      "json_allowlists": {}
+    },
+    {
+      "schema": "public",
+      "table": "ingest_job_placement_v1",
+      "cadence": "change_only",
+      "columns": [
+        "job_id",
+        "gpu_identifiers",
+        "node_ids",
+        "gpu_reservation_id",
+        "gpu_model_class",
+        "min_gpu_vram_gb",
+        "num_workers",
+        "price_book_hourly_rate_usd",
+        "lifecycle_attempt"
+      ],
+      "pk_columns": [
+        "job_id"
+      ],
+      "hmac_fields": [
+        "job_id",
+        "gpu_reservation_id"
+      ],
+      "json_allowlists": {}
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+model,concurrency,a100_tps,h100_tps,together_tps,a100_valid_runs,h100_valid_runs,together_valid_runs,fewer_than_3_runs_flag,subset_mismatch_flag,together_rate_source,together_gpu_count,together_precision,a100_usd_per_m_output,h100_usd_per_m_output,together_usd_per_m_output,column_scope,iso_latency_target_s,iso_latency_cost_status
+4B,16,1506.809,1702.394,1533.4,2,1,3,True,True,ASSUMED_1xH100,1,UNAVAILABLE,0.316,0.313,0.995,output-only,2.0,INSUFFICIENT_DATA
+9B,16,1137.232,1170.604,1104.579,3,3,3,False,False,ASSUMED_1xH100,1,UNAVAILABLE,0.418,0.455,1.381,output-only,2.0,INSUFFICIENT_DATA
+27B,16,378.058,416.549,596.4,3,1,1,True,True,ASSUMED_1xH100,1,UNAVAILABLE,1.258,1.279,2.557,output-only,2.0,INSUFFICIENT_DATA
+27B,32,628.29,725.432,920.806,3,1,1,True,True,ASSUMED_1xH100,1,UNAVAILABLE,0.757,0.734,1.656,output-only,2.0,INSUFFICIENT_DATA
+27B,64,955.492,1131.698,1369.677,3,1,1,True,True,ASSUMED_1xH100,1,UNAVAILABLE,0.498,0.471,1.113,output-only,2.0,INSUFFICIENT_DATA
+gpt-oss-20B,16,1747.186,1716.174,1492.888,1,1,3,True,True,ASSUMED_1xH100,1,UNAVAILABLE,0.272,0.31,1.022,output-only,2.0,INSUFFICIENT_DATA

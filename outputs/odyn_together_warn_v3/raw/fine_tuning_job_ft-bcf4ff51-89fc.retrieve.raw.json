@@ -1,0 +1,214 @@
+{
+  "id": "ft-bcf4ff51-89fc",
+  "status": "completed",
+  "user_id": "user_CYWsRAUSk1ykAdVZdgQNV",
+  "adapter_object_id": "ml_CfgN6TEvwNSrStSjgx98H",
+  "adapter_object_name": "michaelsigaman-879a/Qwen3.5-9B-4400a653-adapter",
+  "adapter_object_revision_id": "rv_CfgN6m1WxfQVeFVSe2PHg",
+  "batch_size": 8,
+  "created_at": "2026-10-04T01:27:00.610000Z",
+  "epochs_completed": 1,
+  "eval_steps": 0,
+  "events": [
+    {
+      "created_at": "2026-10-04T01:27:00.725Z",
+      "message": "Fine-tuning request created",
+      "object": "fine-tune-event",
+      "type": "JOB_PENDING",
+      "level": ""
+    },
+    {
+      "created_at": "2026-10-04T01:28:20Z",
+      "message": "Job started",
+      "object": "fine-tune-event",
+      "type": "JOB_START",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-04T01:28:23Z",
+      "message": "Downloading model data for togethercomputer/Qwen3.5-9B",
+      "object": "fine-tune-event",
+      "type": "MODEL_DOWNLOADING",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-04T01:28:32Z",
+      "message": "Model data downloaded for togethercomputer/Qwen3.5-9B",
+      "object": "fine-tune-event",
+      "type": "MODEL_DOWNLOAD_COMPLETE",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-04T01:28:35Z",
+      "message": "Data downloaded for togethercomputer/Qwen3.5-9B at Sun Oct 04 01:28:35 UTC 2026",
+      "object": "fine-tune-event",
+      "type": "TRAINING_DATA_DOWNLOADING",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-04T01:33:07Z",
+      "message": "Tokenized dataset archive uploaded. Run the following command to download the data: tg ft download-tokenized-dataset ft-bcf4ff51-89fc",
+      "object": "fine-tune-event",
+      "type": "TOKENIZED_DATASET_UPLOAD_COMPLETE",
+      "level": "Info",
+      "tokenized_dataset_path": "s3://together-dev/finetune/user_CYWsRAUSk1ykAdVZdgQNV/michaelsigaman_879a/Qwen3.5-9B-4400a653/ft-bcf4ff51-89fc_tokenized_datasets.tar.zst"
+    },
+    {
+      "created_at": "2026-10-04T01:33:36Z",
+      "message": "Training started for model togethercomputer/Qwen3.5-9B",
+      "object": "fine-tune-event",
+      "type": "TRAINING_START",
+      "level": "Info",
+      "param_count": 9409813744,
+      "token_count": 1435064,
+      "total_steps": 21
+    },
+    {
+      "created_at": "2026-10-04T01:43:21Z",
+      "message": "Epoch completed, at step 21",
+      "object": "fine-tune-event",
+      "type": "EPOCH_COMPLETE",
+      "level": "Info",
+      "step": 21
+    },
+    {
+      "created_at": "2026-10-04T01:43:56Z",
+      "message": "Training completed for togethercomputer/Qwen3.5-9B",
+      "object": "fine-tune-event",
+      "type": "TRAINING_COMPLETE",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-04T01:55:03Z",
+      "message": "Compressing adapter model",
+      "object": "fine-tune-event",
+      "type": "COMPRESSING_MODEL",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-04T01:55:03Z",
+      "message": "Adapter model compression complete",
+      "object": "fine-tune-event",
+      "type": "MODEL_COMPRESSION_COMPLETE",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-04T01:55:03Z",
+      "message": "Uploading adapter model",
+      "object": "fine-tune-event",
+      "type": "MODEL_UPLOADING",
+      "level": "Info",
+      "checkpoint_size_bytes": 163570633
+    },
+    {
+      "created_at": "2026-10-04T01:55:12Z",
+      "message": "Adapter upload complete",
+      "object": "fine-tune-event",
+      "type": "MODEL_UPLOAD_COMPLETE",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-04T01:55:17Z",
+      "message": "Compressing output model",
+      "object": "fine-tune-event",
+      "type": "COMPRESSING_MODEL",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-04T01:55:36Z",
+      "message": "Compression complete for output model",
+      "object": "fine-tune-event",
+      "type": "MODEL_COMPRESSION_COMPLETE",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-04T01:55:36Z",
+      "message": "Uploading output model",
+      "object": "fine-tune-event",
+      "type": "MODEL_UPLOADING",
+      "level": "Info",
+      "checkpoint_size_bytes": 15052323483
+    },
+    {
+      "created_at": "2026-10-04T02:13:54Z",
+      "message": "Upload complete for output model",
+      "object": "fine-tune-event",
+      "type": "MODEL_UPLOAD_COMPLETE",
+      "level": "Info"
+    },
+    {
+      "created_at": "2026-10-04T02:14:27Z",
+      "message": "Job finished at 2026-10-04 02:14:27",
+      "object": "fine-tune-event",
+      "type": "JOB_COMPLETE",
+      "level": "Info",
+      "model_path": "s3://together-dev/finetune/user_CYWsRAUSk1ykAdVZdgQNV/michaelsigaman_879a/Qwen3.5-9B-4400a653/ft-bcf4ff51-89fc-2026-10-04-01-55-03",
+      "adapter_path": "s3://together-dev/finetune/user_CYWsRAUSk1ykAdVZdgQNV/michaelsigaman_879a/Qwen3.5-9B-4400a653/ft-bcf4ff51-89fc_adapter-2026-10-04-01-55-03"
+    }
+  ],
+  "learning_rate": 0.0001,
+  "lr_scheduler": {
+    "lr_scheduler_type": "cosine",
+    "lr_scheduler_args": {
+      "num_cycles": 0.5
+    }
+  },
+  "max_grad_norm": 1.0,
+  "model": "Qwen/Qwen3.5-9B",
+  "model_object_id": "ml_CfgPX9ozemPwU7kVC9PfG",
+  "model_object_name": "michaelsigaman-879a/Qwen3.5-9B-4400a653",
+  "model_object_revision_id": "rv_CfgPZ4mwBE7DsdMKDHkHt",
+  "model_output_name": "michaelsigaman_879a/Qwen3.5-9B-4400a653",
+  "model_output_path": "s3://together-dev/finetune/user_CYWsRAUSk1ykAdVZdgQNV/michaelsigaman_879a/Qwen3.5-9B-4400a653/ft-bcf4ff51-89fc-2026-10-04-01-55-03",
+  "multimodal_params": {},
+  "n_checkpoints": 1,
+  "n_epochs": 1,
+  "n_evals": 0,
+  "param_count": 9409813744,
+  "progress": {
+    "estimate_available": false,
+    "seconds_remaining": 0
+  },
+  "started_at": "2026-10-04T01:33:36Z",
+  "token_count": 1435064,
+  "tokenized_dataset_path": "s3://together-dev/finetune/user_CYWsRAUSk1ykAdVZdgQNV/michaelsigaman_879a/Qwen3.5-9B-4400a653/ft-bcf4ff51-89fc_tokenized_datasets.tar.zst",
+  "tokenized_dataset_uploaded_at": "2026-10-04T01:33:07Z",
+  "total_price": 4000000000,
+  "train_on_inputs": null,
+  "training_file": "file-21837897-1b25-48de-b4bf-73c23906316a",
+  "training_method": {
+    "method": "sft",
+    "train_on_inputs": "auto"
+  },
+  "training_type": {
+    "lora_alpha": 32,
+    "lora_r": 16,
+    "type": "Lora",
+    "lora_trainable_modules": "all-linear"
+  },
+  "updated_at": "2026-10-04T02:14:27.267000Z",
+  "warmup_ratio": 0.0,
+  "weight_decay": 0.0,
+  "adapter_output_path": "s3://together-dev/finetune/user_CYWsRAUSk1ykAdVZdgQNV/michaelsigaman_879a/Qwen3.5-9B-4400a653/ft-bcf4ff51-89fc_adapter-2026-10-04-01-55-03",
+  "checkpoints": [],
+  "eval_price": 0,
+  "eval_token_count": 0,
+  "evals_completed": 0,
+  "evals_paid_for": 0,
+  "gradient_accumulation_steps": 1,
+  "max_seq_length": 65536,
+  "max_steps": -1,
+  "merge_parent_adapter": false,
+  "packing": true,
+  "random_seed": 42,
+  "refund_amount": 0,
+  "steps_completed": 21,
+  "steps_paid_for": 21,
+  "suffix": "",
+  "total_steps": 21,
+  "train_price": 4000000000,
+  "training_files": null,
+  "validation_files": null,
+  "validation_split_ratio": 0,
+  "warmup_steps": 0
+}

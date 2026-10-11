@@ -1,0 +1,210 @@
+{
+  "h100_on_demand_usd_per_gpu_hr": 5.49,
+  "retrieved_at": "2026-10-10T05:03:08Z",
+  "rows": [
+    {
+      "dpo_usd_per_million": 15.0,
+      "lora_sft_usd_per_million": 6.0,
+      "minimum_charge_usd": 12.0,
+      "model": "DeepSeek V4 Flash 0731",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 17.5,
+      "lora_sft_usd_per_million": 7.0,
+      "minimum_charge_usd": 20.0,
+      "model": "DeepSeek-V3.1",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 100.0,
+      "lora_sft_usd_per_million": 40.0,
+      "minimum_charge_usd": 60.0,
+      "model": "GLM-5.1",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 100.0,
+      "lora_sft_usd_per_million": 40.0,
+      "minimum_charge_usd": 60.0,
+      "model": "GLM-5.2",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 2.62,
+      "lora_sft_usd_per_million": 1.05,
+      "minimum_charge_usd": 4.0,
+      "model": "Gemma 4 26B A4B",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 2.62,
+      "lora_sft_usd_per_million": 1.05,
+      "minimum_charge_usd": 4.0,
+      "model": "Gemma 4 31B",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 2.62,
+      "lora_sft_usd_per_million": 1.05,
+      "minimum_charge_usd": 4.0,
+      "model": "Gemma 4 31B VLM",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 37.5,
+      "lora_sft_usd_per_million": 15.0,
+      "minimum_charge_usd": 60.0,
+      "model": "Kimi K2.6",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 37.5,
+      "lora_sft_usd_per_million": 15.0,
+      "minimum_charge_usd": 60.0,
+      "model": "Kimi K2.7 Code",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 0.84,
+      "lora_sft_usd_per_million": 0.34,
+      "minimum_charge_usd": 4.0,
+      "model": "Llama 3.1 8B",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 5.08,
+      "lora_sft_usd_per_million": 2.03,
+      "minimum_charge_usd": 4.0,
+      "model": "Llama 3.3 70B",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 14.0,
+      "lora_sft_usd_per_million": 5.6,
+      "minimum_charge_usd": 16.0,
+      "model": "Llama 4 Maverick",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 14.0,
+      "lora_sft_usd_per_million": 5.6,
+      "minimum_charge_usd": 16.0,
+      "model": "Llama 4 Maverick VLM",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 5.25,
+      "lora_sft_usd_per_million": 2.1,
+      "minimum_charge_usd": 6.0,
+      "model": "Llama 4 Scout",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 5.25,
+      "lora_sft_usd_per_million": 2.1,
+      "minimum_charge_usd": 6.0,
+      "model": "Llama 4 Scout VLM",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 2.62,
+      "lora_sft_usd_per_million": 1.05,
+      "minimum_charge_usd": 4.0,
+      "model": "Mixtral 8x7B Instruct v0.1",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 0.84,
+      "lora_sft_usd_per_million": 0.34,
+      "minimum_charge_usd": 4.0,
+      "model": "Qwen3.5 0.8B",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 10.5,
+      "lora_sft_usd_per_million": 4.2,
+      "minimum_charge_usd": 10.0,
+      "model": "Qwen3.5 122B A10B",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 2.62,
+      "lora_sft_usd_per_million": 1.05,
+      "minimum_charge_usd": 4.0,
+      "model": "Qwen3.5 27B",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 0.84,
+      "lora_sft_usd_per_million": 0.34,
+      "minimum_charge_usd": 4.0,
+      "model": "Qwen3.5 2B",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 2.62,
+      "lora_sft_usd_per_million": 1.05,
+      "minimum_charge_usd": 4.0,
+      "model": "Qwen3.5 35B A3B",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 14.0,
+      "lora_sft_usd_per_million": 5.6,
+      "minimum_charge_usd": 22.0,
+      "model": "Qwen3.5 397B A17B",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 0.84,
+      "lora_sft_usd_per_million": 0.34,
+      "minimum_charge_usd": 4.0,
+      "model": "Qwen3.5 4B",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 0.84,
+      "lora_sft_usd_per_million": 0.34,
+      "minimum_charge_usd": 4.0,
+      "model": "Qwen3.5 9B",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 2.62,
+      "lora_sft_usd_per_million": 1.05,
+      "minimum_charge_usd": 4.0,
+      "model": "Qwen3.6 27B",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 2.62,
+      "lora_sft_usd_per_million": 1.05,
+      "minimum_charge_usd": 4.0,
+      "model": "Qwen3.6 35B A3B",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 2.62,
+      "lora_sft_usd_per_million": 1.05,
+      "minimum_charge_usd": 4.0,
+      "model": "Qwen3.8 27B",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 6.25,
+      "lora_sft_usd_per_million": 2.5,
+      "minimum_charge_usd": 6.0,
+      "model": "gpt-oss-120B",
+      "pricing_table_ambiguous": false
+    },
+    {
+      "dpo_usd_per_million": 1.0,
+      "lora_sft_usd_per_million": 0.4,
+      "minimum_charge_usd": 4.0,
+      "model": "gpt-oss-20B",
+      "pricing_table_ambiguous": false
+    }
+  ],
+  "source_url": "https://www.together.ai/pricing"
+}

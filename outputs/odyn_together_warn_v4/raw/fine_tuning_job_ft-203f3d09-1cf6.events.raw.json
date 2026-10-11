@@ -1,0 +1,137 @@
+[
+  {
+    "created_at": "2026-10-08T02:47:18.36Z",
+    "message": "Fine-tuning request created",
+    "object": "fine-tune-event",
+    "type": "JOB_PENDING",
+    "level": ""
+  },
+  {
+    "created_at": "2026-10-08T02:48:41Z",
+    "message": "Job started",
+    "object": "fine-tune-event",
+    "type": "JOB_START",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-08T02:48:44Z",
+    "message": "Downloading model data for togethercomputer/gpt-oss-20b-bf16",
+    "object": "fine-tune-event",
+    "type": "MODEL_DOWNLOADING",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-08T02:48:47Z",
+    "message": "Model data downloaded for togethercomputer/gpt-oss-20b-bf16",
+    "object": "fine-tune-event",
+    "type": "MODEL_DOWNLOAD_COMPLETE",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-08T02:48:50Z",
+    "message": "Data downloaded for togethercomputer/gpt-oss-20b-bf16 at Thu Oct 08 02:48:50 UTC 2026",
+    "object": "fine-tune-event",
+    "type": "TRAINING_DATA_DOWNLOADING",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-08T02:49:16Z",
+    "message": "Tokenized dataset archive uploaded. Run the following command to download the data: tg ft download-tokenized-dataset ft-203f3d09-1cf6",
+    "object": "fine-tune-event",
+    "type": "TOKENIZED_DATASET_UPLOAD_COMPLETE",
+    "level": "Info",
+    "tokenized_dataset_path": "s3://together-dev/finetune/user_CYWsRAUSk1ykAdVZdgQNV/michaelsigaman_879a/gpt-oss-20b-f505b159/ft-203f3d09-1cf6_tokenized_datasets.tar.zst"
+  },
+  {
+    "created_at": "2026-10-08T02:50:24Z",
+    "message": "Training started for model togethercomputer/gpt-oss-20b-bf16",
+    "object": "fine-tune-event",
+    "type": "TRAINING_START",
+    "level": "Info",
+    "param_count": 20914757184,
+    "token_count": 1672237,
+    "total_steps": 52
+  },
+  {
+    "created_at": "2026-10-08T02:55:37Z",
+    "message": "Epoch completed, at step 52",
+    "object": "fine-tune-event",
+    "type": "EPOCH_COMPLETE",
+    "level": "Info",
+    "step": 52
+  },
+  {
+    "created_at": "2026-10-08T02:56:05Z",
+    "message": "Training completed for togethercomputer/gpt-oss-20b-bf16",
+    "object": "fine-tune-event",
+    "type": "TRAINING_COMPLETE",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-08T02:57:07Z",
+    "message": "Compressing adapter model",
+    "object": "fine-tune-event",
+    "type": "COMPRESSING_MODEL",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-08T02:57:08Z",
+    "message": "Adapter model compression complete",
+    "object": "fine-tune-event",
+    "type": "MODEL_COMPRESSION_COMPLETE",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-08T02:57:08Z",
+    "message": "Uploading adapter model",
+    "object": "fine-tune-event",
+    "type": "MODEL_UPLOADING",
+    "level": "Info",
+    "checkpoint_size_bytes": 34003665
+  },
+  {
+    "created_at": "2026-10-08T02:57:11Z",
+    "message": "Adapter upload complete",
+    "object": "fine-tune-event",
+    "type": "MODEL_UPLOAD_COMPLETE",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-08T02:57:15Z",
+    "message": "Compressing output model",
+    "object": "fine-tune-event",
+    "type": "COMPRESSING_MODEL",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-08T02:57:26Z",
+    "message": "Compression complete for output model",
+    "object": "fine-tune-event",
+    "type": "MODEL_COMPRESSION_COMPLETE",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-08T02:57:26Z",
+    "message": "Uploading output model",
+    "object": "fine-tune-event",
+    "type": "MODEL_UPLOADING",
+    "level": "Info",
+    "checkpoint_size_bytes": 12256352935
+  },
+  {
+    "created_at": "2026-10-08T02:58:09Z",
+    "message": "Upload complete for output model",
+    "object": "fine-tune-event",
+    "type": "MODEL_UPLOAD_COMPLETE",
+    "level": "Info"
+  },
+  {
+    "created_at": "2026-10-08T02:59:06Z",
+    "message": "Job finished at 2026-10-08 02:59:06",
+    "object": "fine-tune-event",
+    "type": "JOB_COMPLETE",
+    "level": "Info",
+    "model_path": "s3://together-dev/finetune/user_CYWsRAUSk1ykAdVZdgQNV/michaelsigaman_879a/gpt-oss-20b-f505b159/ft-203f3d09-1cf6-2026-10-08-02-57-07",
+    "adapter_path": "s3://together-dev/finetune/user_CYWsRAUSk1ykAdVZdgQNV/michaelsigaman_879a/gpt-oss-20b-f505b159/ft-203f3d09-1cf6_adapter-2026-10-08-02-57-07"
+  }
+]

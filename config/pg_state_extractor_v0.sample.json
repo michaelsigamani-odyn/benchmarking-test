@@ -1,0 +1,32 @@
+{
+  "pg_dsn_env": "ODYN_REPLICA_DSN",
+  "gcs_bucket": "replace-me-pg-landing-bucket",
+  "gcs_prefix": "pg_state_snapshot_v1",
+  "kms_hmac_key_arn": "arn:aws:kms:REGION:ACCOUNT:key/REPLACE_ME",
+  "hmac_key_version": "kms-hmac-v1",
+  "tables": [
+    {
+      "schema": "public",
+      "table": "ray_train_jobs",
+      "cadence": "daily_full",
+      "required_columns": ["id", "owner_user_id", "status", "error_message", "error_summary", "dataset_s3_key", "created_at", "updated_at"],
+      "pk_columns": ["id"],
+      "hmac_fields": ["owner_user_id", "dataset_s3_key"],
+      "text_scan_fields": ["error_message", "error_summary"],
+      "json_allowlists": {}
+    },
+    {
+      "schema": "public",
+      "table": "scheduler_workload_requests",
+      "cadence": "daily_full",
+      "required_columns": ["id", "workload_id", "user_id", "resource_id", "status", "accepted_recommendation_json", "response_json", "updated_at"],
+      "pk_columns": ["id"],
+      "hmac_fields": ["user_id"],
+      "text_scan_fields": [],
+      "json_allowlists": {
+        "accepted_recommendation_json": ["hold_specs", "selected_placement", "pricing"],
+        "response_json": ["hold_specs", "selected_placement", "pricing"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+model,concurrency,together_tps,together_rate_source,together_gpu_count,together_precision,together_usd_per_m_output,column_scope
+4B,32,2400.759,ASSUMED_1xH100,1,UNAVAILABLE,0.635,output-only
+4B,64,3620.166,ASSUMED_1xH100,1,UNAVAILABLE,0.421,output-only
+9B,32,1752.317,ASSUMED_1xH100,1,UNAVAILABLE,0.87,output-only
+9B,64,2749.479,ASSUMED_1xH100,1,UNAVAILABLE,0.555,output-only
+27B,32,920.806,ASSUMED_1xH100,1,UNAVAILABLE,1.656,output-only
+27B,64,1369.677,ASSUMED_1xH100,1,UNAVAILABLE,1.113,output-only
+gpt-oss-20B,32,2019.33,ASSUMED_1xH100,1,UNAVAILABLE,0.755,output-only

@@ -1,0 +1,17 @@
+job_id,model,batch_size_cli,gradient_accumulation_steps_cli,effective_batch_cli
+ft-f7900121-8871,openai/gpt-oss-20b,1,8,8
+ft-13dd5f5f-d688,openai/gpt-oss-20b,1,8,8
+ft-15dec247-d184,openai/gpt-oss-20b,1,8,8
+ft-800f78cc-228c,openai/gpt-oss-20b,1,8,8
+ft-db904a53-822c,openai/gpt-oss-20b,1,8,8
+ft-d3580354-5bff,openai/gpt-oss-20b,1,8,8
+ft-2fe19cba-b1d3,openai/gpt-oss-20b,1,8,8
+ft-1fce124e-17b1,openai/gpt-oss-20b,1,8,8
+ft-c605677b-1ee3,openai/gpt-oss-20b,1,8,8
+ft-79f6d24e-ff70,openai/gpt-oss-20b,1,8,8
+ft-c8bfe61e-9d76,openai/gpt-oss-20b,1,8,8
+ft-203f3d09-1cf6,openai/gpt-oss-20b,1,8,8
+ft-48fa226c-5142,Qwen/Qwen3.5-27B,2,4,8
+ft-b61858e9-228c,Qwen/Qwen3.5-9B,8,1,8
+ft-8d9597ed-cfa0,Qwen/Qwen3.5-4B,8,1,8
+ft-bcf4ff51-89fc,Qwen/Qwen3.5-9B,8,1,8

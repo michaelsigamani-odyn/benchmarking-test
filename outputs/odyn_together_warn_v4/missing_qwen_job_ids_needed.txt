@@ -1,0 +1,6 @@
+Qwen3.5-4B 1k (expected tokens=287860)
+Qwen3.5-4B 10k (expected tokens=2854762)
+Qwen3.5-9B 1k (expected tokens=287860)
+Qwen3.5-9B 10k (expected tokens=2854762)
+Qwen3.5-27B 1k (expected tokens=287860)
+Qwen3.5-27B 10k (expected tokens=2854762)

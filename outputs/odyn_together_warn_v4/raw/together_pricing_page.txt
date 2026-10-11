@@ -1,0 +1,293 @@
+Title: Pricing | Together AI
+
+URL Source: http://www.together.ai/pricing
+
+Markdown Content:
+Need help choosing?
+
+Our team can help you find the best fit for your needs.
+
+Pricing
+
+Most teams start with serverless inference and move to dedicated endpoints at scale.
+
+Thank you! Your submission has been received!
+
+Oops! Something went wrong while submitting the form.
+
+Price per 1M tokens
+
+Batch API price
+
+| Model | Input | output |
+| --- | --- | --- |
+| [![Image 1](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69a193e3bb88e5b26c2807f2_minimax.svg) MiniMax M3](http://www.together.ai/models/minimax-m3) | $0.30 $0.06(cached) | $1.20 |
+| [![Image 2](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69a17ed22ed7519e3d3e806e_MoonshotAI.svg) Kimi K3 PROMO Promotion valid until 10/11/2026](http://www.together.ai/models/kimi-k3) | $3.00 $2.70 $0.27(cached) | $15.00 $13.50 |
+| [![Image 3](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6a7c7eea1036d0694adcc155_1.png) Qwen3.8-2.4T-A95B](http://www.together.ai/models/qwen3-8-max) | $2.00 $0.25(cached) | $6.00 |
+| [![Image 4](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69a0be16275a25be8ee4ec65_Meta.svg) Muse Glimmer 30B](http://www.together.ai/models/muse-glimmer) | $0.35 $0.04(cached) | $1.50 |
+| [![Image 5](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69a18317271d489552805214_Deepseek.svg) DeepSeek V4 Pro 0813](http://www.together.ai/models/deepseek-v4-pro-0813) | $1.32 $0.13(cached) | $3.96 |
+| [![Image 6](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69b181584866b47e437165a8_ZAI-stroke.svg) GLM-5.3](http://www.together.ai/models/glm-5-3) | $1.40 $0.26(cached) | $4.40 |
+| [![Image 7](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69b181584866b47e437165a8_ZAI-stroke.svg) GLM-5.3-Flash](http://www.together.ai/models/glm-5-3-flash) | $0.15 $0.03(cached) | $0.50 |
+| [![Image 8](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69a18317271d489552805214_Deepseek.svg) DeepSeek V4.1 Flash](http://www.together.ai/models/deepseek-v4-1-flash) | $0.30 $0.006(cached) | $1.20 |
+| [![Image 9](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69a17f344c05126b9f51857d_TogetherAI.svg) Tev1 4B Experimental](http://www.together.ai/models/tev1-4b-experimental) | $0.04 | Free |
+| [![Image 10](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69a0bdf70f884bedc0db3bad_Google.svg) Gemma 4 31B](http://www.together.ai/models/gemma-4-31b) | $0.39 | $0.97 |
+| [![Image 11](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6a7c7eea1036d0694adcc155_1.png) Qwen3.7-Plus](http://www.together.ai/models/qwen37-plus) | $0.32 | $1.28 |
+| [![Image 12](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69b181584866b47e437165a8_ZAI-stroke.svg) GLM-5.2](http://www.together.ai/models/glm-52) | $1.40 $0.26(cached) | $4.40 |
+| [![Image 13](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6a56e9539f7f442e0b29b213_Untitled.png) Ternary Bonsai 27B](http://www.together.ai/models/prism-ml-ternary-bonsai-27b) | $0.00 | $0.00 |
+| [![Image 14](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6a57bd23f38eb2b7b0b2469e_logo.svg.png) Inkling](http://www.together.ai/models/inkling) | $1.00 $0.17(cached) | $4.05 |
+| [![Image 15](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69a18317271d489552805214_Deepseek.svg) DeepSeek V4 Flash 0731](http://www.together.ai/models/deepseek-v4-flash-0731) | $0.14 $0.03(cached) | $0.28 |
+| [![Image 16](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6a7c7eea1036d0694adcc155_1.png) Qwen3.8 Flash](http://www.together.ai/models/qwen3-8-flash) | $0.15 | $0.47 |
+| [![Image 17](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6a7c7eea1036d0694adcc155_1.png) Qwen3.7-Max](http://www.together.ai/models/qwen37-max) | $1.50 $0.30(cached) | $4.50 |
+| [![Image 18](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69a17eedfffbb7e702999ae0_openAI.svg) gpt-oss-120B](http://www.together.ai/models/gpt-oss-120b) | $0.15 | $0.60 |
+| [![Image 19](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6a7c7eea1036d0694adcc155_1.png) Qwen3.5-397B-A17B](http://www.together.ai/models/qwen3-5-397b-a17b) | $0.60 $0.35(cached) | $3.60 |
+| [![Image 20](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6a7c7eea1036d0694adcc155_1.png) Qwen3.5 9B](http://www.together.ai/models/qwen3-5-9b) | $0.17 | $0.25 |
+| [![Image 21](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69a0b508b1df9180a6ede819_DeepCognito.svg) Cogito v2.1 671B](http://www.together.ai/models/cogito-v2-1-671b) | $1.25 | $1.25 |
+| [![Image 22](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69a0ba5233214db0baa2c4aa_Essential%20AI.svg) Rnj-1 Instruct](http://www.together.ai/models/rnj-1-instruct) | $0.15 | $0.15 |
+| [![Image 23](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69a0be16275a25be8ee4ec65_Meta.svg) Llama 3.3 70B](http://www.together.ai/models/llama-3-3-70b) | $1.04 | $1.04 |
+| [![Image 24](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69a193e3bb88e5b26c2807f2_minimax.svg) MiniMax M2.7](http://www.together.ai/models/minimax-m2-7) | $0.30 $0.06(cached) | $1.20 |
+| [![Image 25](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6a7c7eea1036d0694adcc155_1.png) Qwen3.6-Plus](http://www.together.ai/models/qwen36-plus) | $0.50 | $3.00 |
+| [![Image 26](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6a7c7eea1036d0694adcc155_1.png) Qwen2.5 7B Instruct Turbo](http://www.together.ai/models/qwen2-5-7b-instruct-turbo) | $0.30 | $0.30 |
+| [![Image 27](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69a0be16275a25be8ee4ec65_Meta.svg) Llama 3 8B Instruct Lite](http://www.together.ai/models/llama-3-8b-instruct-lite) | $0.14 | $0.14 |
+| [![Image 28](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6a7c7eea1036d0694adcc155_1.png) Qwen3 235B A22B Instruct 2507 FP8 Throughput](http://www.together.ai/models/qwen3-235b-a22b-instruct-2507-fp8) | $0.20 | $0.60 |
+
+Displayed prices refer to the lowest resolution/duration settings. Actual prices might vary.
+
+Reserve dedicated capacity in throughput units (PTUs). Each PTU represents fixed capacity. The tokens-per-minute it delivers depends on the model and the token type.
+
+Estimate your PTUs & cost
+
+Model
+
+Compare vs.
+
+Peak requests / Sec
+
+Cache hit rate
+
+%
+
+Input tokens / request
+
+output tokens / request
+
+PTUs required
+
+352
+
+Est. monthly cost
+
+$770,880
+
+Est. monthly savings
+
+$1,745,430 69% LOWER
+
+| Compute costs | Input TPM/PTU | Cached TPM/PTU | Output TPM/PTU | Price PTU/MIN |
+| --- | --- | --- | --- | --- |
+| MiniMax M3 | 166,667 | 833,333 | 41,667 | $0.05 |
+| Kimi K3 | 16,667 | 185,185 | 3,333 | $0.05 |
+| GLM-5.2 | 35,714 | 192,308 | 11,364 | $0.05 |
+
+Savings compare Together PTU cost against the selected commercial model's published list price ($/1M tokens) on the same traffic profile. Estimates assume continuous 24/7 provisioning (~43,800 min/mo).
+
+Deploy models on custom hardware with guaranteed performance and full control.
+
+Single-tenant GPU instances with:
+
+| Hardware All prices per gpu per hour | On-demand Pay as you go | Reserved |
+| --- | --- | --- |
+| NVIDIA HGX H100 | $5.49 | [Contact sales](http://www.together.ai/monthly-reserved) |
+| NVIDIA HGX H200 | [Contact us](http://www.together.ai/monthly-reserved) |
+| NVIDIA HGX B200 | $8.99 |
+| NVIDIA HGX B300 | [Contact us](http://www.together.ai/monthly-reserved) |
+| NVIDIA GB200 NVL72 | [Contact us](http://www.together.ai/monthly-reserved) |
+| NVIDIA GB300 NVL72 | [Contact us](http://www.together.ai/monthly-reserved) |
+
+On-demand
+
+Pay as you go GPU capacity on an hourly basis.
+
+| Hardware | Hourly |
+| --- | --- |
+| NVIDIA GB200 NVL72 | — |
+| NVIDIA GB300 NVL72 | — |
+| NVIDIA HGX B200 | $8.19 |
+| NVIDIA HGX B300 | $9.99 |
+| NVIDIA HGX H100 | $3.99 |
+| NVIDIA HGX H200 | $5.99 |
+
+On-demand hourly rates and reserved capacity
+
+All prices are per GPU per hour.
+
+| Hardware | Preemptible Compute | ON-Demand | Reserved |
+| --- | --- | --- | --- |
+| Pay as you go | Pay as you go | 3-30 days | 31-90 days | 91-180 days | 181+ days |
+| NVIDIA HGX H100 | $1.99 | $3.99 | $3.69 | $3.45 | $3.19 | [Contact us](http://www.together.ai/gpu-cluster-request) |
+| NVIDIA HGX H200 | $2.99 | $5.99 | $4.99 | $4.15 | $3.99 | [Contact us](http://www.together.ai/gpu-cluster-request) |
+| NVIDIA HGX B200 | $4.09 | $8.19 | $7.99 | $7.79 | $6.79 | [Contact us](http://www.together.ai/gpu-cluster-request) |
+| NVIDIA GB200 NVL72 | — | — | [Contact us](http://www.together.ai/gpu-cluster-request) |
+| NVIDIA GB300 NVL72 | — | — | [Contact us](http://www.together.ai/gpu-cluster-request) |
+| NVIDIA HGX B300 | $4.99 | $9.99 | [Contact us](http://www.together.ai/gpu-cluster-request) |
+
+Code Sandbox
+
+Customize a deployment of VM sandboxes for large development environments.
+
+| Compute costs | Price/Hour |
+| --- | --- |
+| Per vCPU | $0.0446 |
+| Per GiB RAM | $0.0149 |
+
+Code Interpreter
+
+Execute LLM-generated code securely using our API.
+
+| Duration? | Price/Session |
+| --- | --- |
+| Session (60 minutes) | $0.03 |
+
+High-bandwidth, parallel filesystem colocated with your compute.
+
+| Compute costs | Price | Unit |
+| --- | --- | --- |
+| Shared Filesystem | $0.16 | GiB/month |
+
+Train open-source models for real production use.
+
+*   [LoRA fine-tuning](http://www.together.ai/pricing#)
+*   [Full fine-tuning](http://www.together.ai/pricing#)
+
+Per 1M tokens
+
+| Model | Supervised Fine-Tuning | Direct Preference Optimization | Minimum charge |
+| --- | --- | --- | --- |
+| Qwen3.5 0.8B | $0.34 | $0.84 | $4.00 |
+| Qwen3.5 122B A10B | $4.20 | $10.50 | $10.00 |
+| Qwen3.5 27B | $1.05 | $2.62 | $4.00 |
+| Qwen3.5 2B | $0.34 | $0.84 | $4.00 |
+| Qwen3.5 35B A3B | $1.05 | $2.62 | $4.00 |
+| Qwen3.5 397B A17B | $5.60 | $14.00 | $22.00 |
+| Qwen3.5 4B | $0.34 | $0.84 | $4.00 |
+| Qwen3.5 9B | $0.34 | $0.84 | $4.00 |
+| Qwen3.6 27B | $1.05 | $2.62 | $4.00 |
+| Qwen3.6 35B A3B | $1.05 | $2.62 | $4.00 |
+| Qwen3.8 27B | $1.05 | $2.62 | $4.00 |
+| DeepSeek-V3.1 | $7.00 | $17.50 | $20.00 |
+| DeepSeek V4 Flash 0731 | $6.00 | $15.00 | $12.00 |
+| Gemma 4 26B A4B | $1.05 | $2.62 | $4.00 |
+| Gemma 4 31B | $1.05 | $2.62 | $4.00 |
+| Gemma 4 31B VLM | $1.05 | $2.62 | $4.00 |
+| Llama 3.3 70B | $2.03 | $5.08 | $4.00 |
+| Llama 4 Maverick | $5.60 | $14.00 | $16.00 |
+| Llama 4 Maverick VLM | $5.60 | $14.00 | $16.00 |
+| Llama 4 Scout | $2.10 | $5.25 | $6.00 |
+| Llama 4 Scout VLM | $2.10 | $5.25 | $6.00 |
+| Llama 3.1 8B | $0.34 | $0.84 | $4.00 |
+| Mixtral 8x7B Instruct v0.1 | $1.05 | $2.62 | $4.00 |
+| Kimi K2.6 | $15.00 | $37.50 | $60.00 |
+| Kimi K2.7 Code | $15.00 | $37.50 | $60.00 |
+| gpt-oss-120B | $2.50 | $6.25 | $6.00 |
+| gpt-oss-20B | $0.40 | $1.00 | $4.00 |
+| GLM-5.1 | $40.00 | $100.00 | $60.00 |
+| GLM-5.2 | $40.00 | $100.00 | $60.00 |
+
+Price is based on the sum of tokens processed in the fine-tuning training dataset (training dataset size × number of epochs) plus any tokens in the optional evaluation dataset (validation dataset size × number of evaluations). Each job is subject to the minimum charge shown for its model.
+
+## Trusted by
+
+![Image 29](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121373_zoom_black.svg)
+
+![Image 30](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f1213ae_cognition_black.svg)
+
+![Image 31](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121452_cursor_black.svg)
+
+![Image 32](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121454_decagon_black.svg)
+
+![Image 33](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6ab6aaf8d60c87a58d51249e_higgsfield.svg)
+
+![Image 34](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6ab6ac1f0f6c9b1e79791fe9_greptile.svg)
+
+![Image 35](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6ab6ab39a9e81f86c80fe0c1_wonderful.svg)
+
+![Image 36](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6ab6ab519c801faf1c02936a_adaption_labs.svg)
+
+![Image 37](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121399_elevenlabs_black.svg)
+
+![Image 38](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f1213a8_sk-telekom_black.svg)
+
+![Image 39](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f1213a9_mozilla_black.svg)
+
+![Image 40: Black logo with the word NOUS above a stylized face of a person in a rectangular frame.](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f1213af_nous_black.png)
+
+![Image 41](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f1213b6_salesforce_black.svg)
+
+![Image 42](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121393_deepmind_black.svg)
+
+![Image 43](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121381_quora_black.svg)
+
+![Image 44](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121371_wp_black.svg)
+
+![Image 45](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121373_zoom_black.svg)
+
+![Image 46](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f1213ae_cognition_black.svg)
+
+![Image 47](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121452_cursor_black.svg)
+
+![Image 48](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121454_decagon_black.svg)
+
+![Image 49](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6ab6aaf8d60c87a58d51249e_higgsfield.svg)
+
+![Image 50](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6ab6ac1f0f6c9b1e79791fe9_greptile.svg)
+
+![Image 51](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6ab6ab39a9e81f86c80fe0c1_wonderful.svg)
+
+![Image 52](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6ab6ab519c801faf1c02936a_adaption_labs.svg)
+
+![Image 53](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121399_elevenlabs_black.svg)
+
+![Image 54](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f1213a8_sk-telekom_black.svg)
+
+![Image 55](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f1213a9_mozilla_black.svg)
+
+![Image 56: Black logo with the word NOUS above a stylized face of a person in a rectangular frame.](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f1213af_nous_black.png)
+
+![Image 57](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f1213b6_salesforce_black.svg)
+
+![Image 58](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121393_deepmind_black.svg)
+
+![Image 59](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121381_quora_black.svg)
+
+![Image 60](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121371_wp_black.svg)
+
+![Image 61](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121373_zoom_black.svg)
+
+![Image 62](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f1213ae_cognition_black.svg)
+
+![Image 63](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121452_cursor_black.svg)
+
+![Image 64](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121454_decagon_black.svg)
+
+![Image 65](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6ab6aaf8d60c87a58d51249e_higgsfield.svg)
+
+![Image 66](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6ab6ac1f0f6c9b1e79791fe9_greptile.svg)
+
+![Image 67](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6ab6ab39a9e81f86c80fe0c1_wonderful.svg)
+
+![Image 68](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/6ab6ab519c801faf1c02936a_adaption_labs.svg)
+
+![Image 69](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121399_elevenlabs_black.svg)
+
+![Image 70](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f1213a8_sk-telekom_black.svg)
+
+![Image 71](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f1213a9_mozilla_black.svg)
+
+![Image 72: Black logo with the word NOUS above a stylized face of a person in a rectangular frame.](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f1213af_nous_black.png)
+
+![Image 73](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f1213b6_salesforce_black.svg)
+
+![Image 74](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121393_deepmind_black.svg)
+
+![Image 75](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121381_quora_black.svg)
+
+![Image 76](https://cdn.prod.website-files.com/69654e88dce9154b5f12070c/69654e88dce9154b5f121371_wp_black.svg)
